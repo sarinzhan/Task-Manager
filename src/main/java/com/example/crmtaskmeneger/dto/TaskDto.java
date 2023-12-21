@@ -1,47 +1,28 @@
-package com.example.crmtaskmeneger.entities;
+package com.example.crmtaskmeneger.dto;
 
-import jakarta.persistence.*;
+import com.example.crmtaskmeneger.entities.Employee;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name="task")
-public class Task {
-    @Id
-    @Column(name = "task_id")
-    private Integer id;
-    @Column(name = "description")
+public class TaskDto {
+    private Long id;
     private String description;
-    @Column(name = "creation_date")
     private LocalDateTime creationDate;
-    @Column(name = "assigned_date")
     private LocalDateTime assignedDate;
-    @Column(name = "completion_date")
     private LocalDate completionDate;
-//    @Column(name = "assigned_to")
-//    private Integer assignedTo;
-    @ManyToOne
-    @JoinColumn(name = "assigned_to", referencedColumnName = "employee_id")
     private Employee assignedTo;
-//    @Column(name = "create_by")
-//    private Integer createdBy;
-    @ManyToOne
-    @JoinColumn(name = "create_by", referencedColumnName = "employee_id")
     private Employee createdBy;
-
-    @Column(name = "status")
     private String status;
 
-    public Task() {
+    public TaskDto() {
     }
 
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public Task setId(Integer id) {
+    public TaskDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -50,7 +31,7 @@ public class Task {
         return description;
     }
 
-    public Task setDescription(String description) {
+    public TaskDto setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -59,7 +40,7 @@ public class Task {
         return creationDate;
     }
 
-    public Task setCreationDate(LocalDateTime creationDate) {
+    public TaskDto setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
         return this;
     }
@@ -68,7 +49,7 @@ public class Task {
         return assignedDate;
     }
 
-    public Task setAssignedDate(LocalDateTime assignedDate) {
+    public TaskDto setAssignedDate(LocalDateTime assignedDate) {
         this.assignedDate = assignedDate;
         return this;
     }
@@ -77,7 +58,7 @@ public class Task {
         return completionDate;
     }
 
-    public Task setCompletionDate(LocalDate completionDate) {
+    public TaskDto setCompletionDate(LocalDate completionDate) {
         this.completionDate = completionDate;
         return this;
     }
@@ -86,7 +67,7 @@ public class Task {
         return assignedTo;
     }
 
-    public Task setAssignedTo(Employee assignedTo) {
+    public TaskDto setAssignedTo(Employee assignedTo) {
         this.assignedTo = assignedTo;
         return this;
     }
@@ -95,7 +76,7 @@ public class Task {
         return createdBy;
     }
 
-    public Task setCreatedBy(Employee createdBy) {
+    public TaskDto setCreatedBy(Employee createdBy) {
         this.createdBy = createdBy;
         return this;
     }
@@ -104,7 +85,7 @@ public class Task {
         return status;
     }
 
-    public Task setStatus(String status) {
+    public TaskDto setStatus(String status) {
         this.status = status;
         return this;
     }
