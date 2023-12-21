@@ -8,14 +8,15 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class TaskMapping {
-    public static Task taskDtoToTask(TaskDto taskDto){
-        Task task = new Task();
-        task.setDescription(taskDto.getDescription());
-        task.setCompletionDate(taskDto.getCompletionDate());
-        task.setCreatedBy(taskDto.getCreatedBy());
-        taskDto.getAssignedDate()
-        if(taskDto.getAssignedDate() )
-        task.setAssignedDate(taskDto.getAssignedDate());
-
-    }
+//    public static Task taskDtoRequestToTask(TaskDtoRequest taskDto){
+//        Task task = new Task();
+//        task.setDescription(taskDto.getDescription())
+//                .setCreationDate(taskDto.getCreationDate())
+//                .setAssignedDate(taskDto.getAssignedDate())
+//                .setCompletionDate(taskDto.getCompletionDate())
+//                .setAssignedTo(taskDto.getAssignedTo())
+//                .setCreatedBy(taskDto.getCreatedBy())
+//                .setStatus(taskDto.getStatus());
+//        return task;
+//    }
 }

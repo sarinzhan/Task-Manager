@@ -8,4 +8,5 @@ public interface TaskService {
     List<Task> getAll() throws Exception;
     Task getById(Long id) throws Exception;
     Task getByStatus(String status) throws Exception;
+    void createTask(Task task);
 }

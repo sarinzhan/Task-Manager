@@ -43,4 +43,9 @@ public class TaskServiceEmpl implements TaskService {
         }
         return taskByStatus.get();
     }
+
+    @Override
+    public void createTask(Task task) {
+        taskRepository.save(task);
+    }
 }
