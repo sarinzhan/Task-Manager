@@ -9,7 +9,7 @@ public class EmployeeDtoResponse {
     private String email;
     private LocalDate hireDate;
     private String phoneNum;
-    private String password;
+    private String password; // Зачем тут нужен пароль Мы же эту ДТО отдаем?
     private String role;
     private String login;
 
