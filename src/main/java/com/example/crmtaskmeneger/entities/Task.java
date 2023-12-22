@@ -1,9 +1,8 @@
 package com.example.crmtaskmeneger.entities;
 
-import jakarta.persistence.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.time.*;
 
 @Entity
 @Table(name="task")

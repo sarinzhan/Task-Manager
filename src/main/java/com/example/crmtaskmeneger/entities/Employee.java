@@ -1,8 +1,7 @@
 package com.example.crmtaskmeneger.entities;
 
-import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,23 +30,23 @@ public class Employee {
     private String role;
     @Column(name = "login")
     private String login;
-    @OneToMany(mappedBy = "assignedTo")
-    private List<Task> tasks;
-    @OneToMany(mappedBy = "createBy")
-    private List<Task> tasks2;
+//    @OneToMany(mappedBy = "assignedTo")
+//    private List<Task> tasks;
+//    @OneToMany(mappedBy = "createBy")
+//    private List<Task> tasks2;
 
     public Employee() {
     }
 
 
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public Employee setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-        return this;
-    }
+//    public List<Task> getTasks() {
+//        return tasks;
+//    }
+//
+//    public Employee setTasks(List<Task> tasks) {
+//        this.tasks = tasks;
+//        return this;
+//    }
 
     public Long getTaskId() {
         return TaskId;
