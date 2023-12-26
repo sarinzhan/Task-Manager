@@ -12,7 +12,13 @@ public class AuthController {
     @PostMapping("/login")
     public String login(Model model, @ModelAttribute(name = "employee_dto_request")EmployeeDtoRequest dtoRequest ) {
 
-        return "";
+        return "redirect:/";
+    }
+    @PostMapping("/register")
+    public String register(Model model, @ModelAttribute(name = "employee_dto_request") EmployeeDtoRequest dtoRequest ) {
+        System.out.println("Зашол сюда");
+        System.out.println(dtoRequest);
+        return "main.html";
     }
 
 }

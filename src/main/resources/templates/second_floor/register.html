@@ -9,15 +9,26 @@
     
     <h1>Регистрация в системе нового пользователя</h1>
     
-    <form th:action="@{/register}" th:object="${тут должен быть ваш обьект}" method="POST">
-        <input type="text" th:field="*{login}" placeholder="Логин пользователя" id="login">
+    <form th:action="@{/register}" th:object="${employee_dto_request}" method="POST">
+        <input type="text" th:field="*{firstName}" placeholder="Имя пользователя" id="firstName">
         <br>
-        <input type="password" th:field="*{password}" placeholder="Пароль пользователя" id="password">
+        <input type="text" th:field="*{middleName}" placeholder="Фамилия пользователя" id="middleName">
         <br>
-        <input type="text" th:field="*{userName}" placeholder="Имя пользователя" id="userName">
+        <input type="text" th:field="*{lastName}" placeholder="Отчество пользователя" id="lastName">
         <br>
         <input type="email" th:field="*{email}" placeholder="Почтовый ящик пользователя" id="email">
         <br>
+        <input type="datetime-local" th:field="*{hireDate}" placeholder="Дата рождения" id="hireDate">
+        <br>
+        <input type="tel" th:field="*{phoneNum}" placeholder="Телефон пользователя" id="phoneNum">
+        <br>
+        <input type="password" th:field="*{password}" placeholder="Пароль пользователя" id="password">
+        <br>
+        <input type="text" th:field="*{role}" placeholder="Роль пользователя" id="role">
+        <br>
+        <input type="text" th:field="*{login}" placeholder="Логин пользователя" id="login">
+        <br>
+        
         <input type="submit" name="submit">
     </form>
     
