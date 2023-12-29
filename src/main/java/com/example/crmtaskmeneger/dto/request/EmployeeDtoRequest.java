@@ -7,7 +7,7 @@ public class EmployeeDtoRequest {
     private String middleName;
     private String lastName;
     private String email;
-        private LocalDate hireDate;
+        private String hireDate;
     private String phoneNum;
     private String password;
     private String role;
@@ -23,7 +23,7 @@ public class EmployeeDtoRequest {
         this.role = role;
     }
 
-    public EmployeeDtoRequest(String firstName, String middleName, String lastName, String email, LocalDate hireDate, String phoneNum, String role, String login) {
+    public EmployeeDtoRequest(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, String role, String login) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -34,7 +34,7 @@ public class EmployeeDtoRequest {
         this.login = login;
     }
 
-    public EmployeeDtoRequest(String firstName, String middleName, String lastName, String email, LocalDate hireDate, String phoneNum, String password, String role, String login) {
+    public EmployeeDtoRequest(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, String password, String role, String login) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -78,11 +78,11 @@ public class EmployeeDtoRequest {
         this.email = email;
     }
 
-    public LocalDate getHireDate() {
+    public String getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(LocalDate hireDate) {
+    public void setHireDate(String hireDate) {
         this.hireDate = hireDate;
     }
 

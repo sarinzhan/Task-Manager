@@ -136,4 +136,20 @@ public class Employee {
         this.login = login;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "\n" +
+                "employeeId=" + employeeId + "\n" +
+                ", firstName='" + firstName + '\'' + "\n" +
+                ", middleName='" + middleName + '\'' + "\n" +
+                ", lastName='" + lastName + '\'' + "\n" +
+                ", email='" + email + '\'' + "\n" +
+                ", hireDate=" + hireDate + "\n" +
+                ", phoneNum='" + phoneNum + '\'' + "\n" +
+                ", password='" + password + '\'' + "\n" +
+                ", role='" + role + '\'' + "\n" +
+                ", login='" + login + '\'' + "\n" +
+                '}';
+    }
 }
