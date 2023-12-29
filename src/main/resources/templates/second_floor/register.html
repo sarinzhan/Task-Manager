@@ -9,7 +9,7 @@
     
     <h1>Регистрация в системе нового пользователя</h1>
     
-    <form th:action="@{/register}" th:object="${employee_dto_request}" method="POST">
+    <form th:action="@{/register}" th:object="${user}" method="POST">
         <input type="text" th:field="*{firstName}" placeholder="Имя пользователя" id="firstName">
         <br>
         <input type="text" th:field="*{middleName}" placeholder="Фамилия пользователя" id="middleName">
@@ -28,8 +28,7 @@
         <br>
         <input type="text" th:field="*{login}" placeholder="Логин пользователя" id="login">
         <br>
-        
-        <input type="submit" name="submit">
+        <input type="submit" name="submit" value="Зарегистрироваться">
     </form>
     
 </body>

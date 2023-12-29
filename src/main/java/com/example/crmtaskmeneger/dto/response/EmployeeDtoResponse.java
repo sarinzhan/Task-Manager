@@ -3,6 +3,7 @@ package com.example.crmtaskmeneger.dto.response;
 import java.time.LocalDate;
 
 public class EmployeeDtoResponse {
+    private Long id;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -32,6 +33,14 @@ public class EmployeeDtoResponse {
         this.phoneNum = phoneNum;
         this.role = role;
         this.login = login;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

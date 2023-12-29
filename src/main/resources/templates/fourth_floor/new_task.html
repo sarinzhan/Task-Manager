@@ -1,0 +1,16 @@
+
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новая задача</title>
+</head>
+<body>
+
+    <h1> Страница создания новой задачи </h1>
+    <p th:text="${message}"> Текст не был получен </p>
+    <br>
+    <p th:text="${user.getLogin()}"> Должен быть пользователь</p>
+
+</body>
+</html>
