@@ -1,0 +1,11 @@
+https://stackoverflow.com/questions/68036916/spelevaluationexception-attempted-to-call-method-on-null-context-object
+
+https://www.baeldung.com/thymeleaf-guide
+
+https://www.baeldung.com/thymeleaf-variables
+
+https://www.baeldung.com/spring-thymeleaf-fragments
+
+https://rukovodstvo.net/posts/id_778/?ysclid=lqqqztsuta837257618#creatingformsandinputs
+
+https://www.youtube.com/watch?v=NrTbzfeJcwc&list=PLvItDmb0sZw8XfMcTMXz-s4sBV8Z08KKu
