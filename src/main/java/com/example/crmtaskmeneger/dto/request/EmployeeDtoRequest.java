@@ -1,7 +1,12 @@
 package com.example.crmtaskmeneger.dto.request;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 
+@Component
+@Scope("session")
 public class EmployeeDtoRequest {
     private String firstName;
     private String middleName;

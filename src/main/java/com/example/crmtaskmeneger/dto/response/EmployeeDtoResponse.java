@@ -1,7 +1,12 @@
 package com.example.crmtaskmeneger.dto.response;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 
+@Component
+@Scope("session")
 public class EmployeeDtoResponse {
     private Long id;
     private String firstName;
@@ -122,5 +127,21 @@ public class EmployeeDtoResponse {
     public EmployeeDtoResponse setLogin(String login) {
         this.login = login;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeDtoResponse{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", hireDate=" + hireDate +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", login='" + login + '\'' +
+                '}';
     }
 }

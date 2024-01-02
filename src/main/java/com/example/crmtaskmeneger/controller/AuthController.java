@@ -6,33 +6,42 @@ import com.example.crmtaskmeneger.entities.Employee;
 import com.example.crmtaskmeneger.mapping.EmployeeMapping;
 import com.example.crmtaskmeneger.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.swing.text.html.parser.Entity;
-import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Random;
 
 @Controller
+@Scope("request")
 public class AuthController {
 
     private final EmployeeService employeeService;
+    private EmployeeDtoResponse response;
+    private EmployeeDtoRequest request;
 
     @Autowired
-    public AuthController(EmployeeService employeeService) {
+    public AuthController(
+            EmployeeService employeeService,
+            EmployeeDtoResponse response,
+            EmployeeDtoRequest request
+    ) {
         this.employeeService = employeeService;
+        this.response = response;
+        this.request = request;
     }
 
     @PostMapping("/register")
-    public ModelAndView login(ModelAndView model, @ModelAttribute(name = "user")EmployeeDtoRequest dtoRequest ) {
+    public ModelAndView login(ModelAndView model, @ModelAttribute(name = "user") EmployeeDtoRequest dtoRequest ) {
         Employee entity = EmployeeMapping.mapModelDtoToEntity(dtoRequest);
         entity = employeeService.save(entity);
         EmployeeDtoResponse response = EmployeeMapping.mapEntityToDtoEmployeeResponse(entity);
-        model.addObject("user", response);
+
+
+        model.addObject("user",EmployeeMapping.mapEntityToDtoEmployeeResponse(entity));
 
         if(response.getRole().equalsIgnoreCase("DIRECTOR")){
             model.setViewName("thirt_floor/area_director");
