@@ -10,7 +10,17 @@
     <h1> Страничка личного кабинета <span th:text="${user.login}"> Логин пользователя не получен</span>  Директора</h1>
 
     <br>
-
+    <br>
+    <p th:text = ${user.id}> Нечего не получили</p>
+    <p th:text = ${user.firstName}> Нечего не получили</p>
+    <p th:text = ${user.middleName}> Нечего не получили</p>
+    <p th:text = ${user.lastName}> Нечего не получили</p>
+    <p th:text = ${user.email}> Нечего не получили</p>
+    <p th:text = ${user.hireDate}> Нечего не получили</p>
+    <p th:text = ${user.phoneNum}> Нечего не получили</p>
+    <p th:text = ${user.role}> Нечего не получили</p>
+    <p th:text = ${user.login}> Нечего не получили</p>
+    <br>
     <a th:href="@{/new_task}"> 1) Создать задачу                                   </a> <br>
     <a th:href="@{/all_task}"> 2) посмотреть список всех задач                     </a> <br>
     <a th:href="@{/all_employee}"> 3) Просмотр всех работников                         </a> <br>

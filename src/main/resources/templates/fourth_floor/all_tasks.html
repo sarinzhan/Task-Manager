@@ -9,6 +9,42 @@
 
     <h1>Все задачи в системе</h1>
 
+    <tbody>
+    <tr th:if="${task_list.empty}">
+        <td colspan="2"> No Books Available </td>
+    </tr>
+    <tr th:each="task : ${task_list}">
+        <form th:action="@{/task_selection}" method="GET">
+            <input type="hidden" th:value="${user.id}" name="id">
+            <input type="hidden" th:value="${user.firstName}" name="firstName">
+            <input type="hidden" th:value="${user.middleName}" name="middleName">
+            <input type="hidden" th:value="${user.lastName}" name="lastName">
+            <input type="hidden" th:value="${user.email}" name="email">
+            <input type="hidden" th:value="${user.hireDate}" name="hireDate">
+            <input type="hidden" th:value="${user.phoneNum}" name="phoneNum">
+            <input type="hidden" th:value="${user.role}" name="role">
+            <input type="hidden" th:value="${user.login}" name="login">
+
+            <p th:text="${task.description}"   ></p>
+            <p th:text="${task.creationDate}"  ></p>
+            <p th:text="${task.assignedDate}"  ></p>
+            <p th:text="${task.completionDate}"></p>
+            <p th:text="${task.assignedTo}"    ></p>
+            <p th:text="${task.createdBy}"     ></p>
+            <p th:text="${task.activity}"        ></p>
+
+            <input type="hidden" th:value="${task.description}"    name="description">
+            <input type="hidden" th:value="${task.creationDate}"   name="creationDate">
+            <input type="hidden" th:value="${task.assignedDate}"   name="assignedDate">
+            <input type="hidden" th:value="${task.completionDate}" name="completionDate">
+            <input type="hidden" th:value="${task.assignedTo}"     name="assignedTo">
+            <input type="hidden" th:value="${task.createdBy}"      name="createdBy">
+            <input type="hidden" th:value="${task.activity}"         name="activity">
+            <input type="submit" value="Выбрать задачу">
+        </form>
+    </tr>
+
+
 
 </body>
 </html>

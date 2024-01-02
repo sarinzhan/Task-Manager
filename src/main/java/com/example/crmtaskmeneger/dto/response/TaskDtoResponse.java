@@ -1,37 +1,27 @@
 package com.example.crmtaskmeneger.dto.response;
 
-import com.example.crmtaskmeneger.entities.Employee;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 public class TaskDtoResponse {
+
+    // TODO добавить id задачи
     private String description;
-    private LocalDateTime creationDate;
-    private LocalDateTime assignedDate;
-    private LocalDate completionDate;
-    private Employee assignedTo;
-    private Employee createdBy;
-    private String status;
+    private String creationDate;
+    private String assignedDate;
+    private String completionDate;
+    private Long assignedTo;
+    private Long createdBy;
+    private String activity;
 
     public TaskDtoResponse() {
     }
 
-    public TaskDtoResponse(String description, LocalDateTime creationDate, LocalDateTime assignedDate, LocalDate completionDate, Employee assignedTo, Employee createdBy, String status) {
+    public TaskDtoResponse(String description, String creationDate, String assignedDate, String completionDate, Long assignedTo, Long createdBy, String activity) {
         this.description = description;
         this.creationDate = creationDate;
         this.assignedDate = assignedDate;
         this.completionDate = completionDate;
         this.assignedTo = assignedTo;
         this.createdBy = createdBy;
-        this.status = status;
-    }
-
-    public TaskDtoResponse(String description, LocalDateTime creationDate, LocalDate completionDate, Employee createdBy) {
-        this.description = description;
-        this.creationDate = creationDate;
-        this.completionDate = completionDate;
-        this.createdBy = createdBy;
+        this.activity = activity;
     }
 
     public String getDescription() {
@@ -43,57 +33,65 @@ public class TaskDtoResponse {
         return this;
     }
 
-    public LocalDateTime getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public TaskDtoResponse setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
-        return this;
     }
 
-    public LocalDateTime getAssignedDate() {
+    public String getAssignedDate() {
         return assignedDate;
     }
 
-    public TaskDtoResponse setAssignedDate(LocalDateTime assignedDate) {
+    public void setAssignedDate(String assignedDate) {
         this.assignedDate = assignedDate;
-        return this;
     }
 
-    public LocalDate getCompletionDate() {
+    public String getCompletionDate() {
         return completionDate;
     }
 
-    public TaskDtoResponse setCompletionDate(LocalDate completionDate) {
+    public void setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
-        return this;
     }
 
-    public Employee getAssignedTo() {
+    public Long getAssignedTo() {
         return assignedTo;
     }
 
-    public TaskDtoResponse setAssignedTo(Employee assignedTo) {
+    public void setAssignedTo(Long assignedTo) {
         this.assignedTo = assignedTo;
-        return this;
     }
 
-    public Employee getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public TaskDtoResponse setCreatedBy(Employee createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public TaskDtoResponse setActivity(String activity) {
+        this.activity = activity;
         return this;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public TaskDtoResponse setStatus(String status) {
-        this.status = status;
-        return this;
+    @Override
+    public String toString() {
+        return "TaskDtoResponse{" +
+                "description='" + description + '\'' +
+                ", creationDate='" + creationDate + '\'' +
+                ", assignedDate='" + assignedDate + '\'' +
+                ", completionDate='" + completionDate + '\'' +
+                ", assignedTo=" + assignedTo +
+                ", createdBy=" + createdBy +
+                ", status='" + activity + '\'' +
+                '}';
     }
 }

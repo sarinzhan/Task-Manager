@@ -41,7 +41,7 @@ public class AuthController {
         EmployeeDtoResponse response = EmployeeMapping.mapEntityToDtoEmployeeResponse(entity);
 
 
-        model.addObject("user",EmployeeMapping.mapEntityToDtoEmployeeResponse(entity));
+        model.addObject("user",response);
 
         if(response.getRole().equalsIgnoreCase("DIRECTOR")){
             model.setViewName("thirt_floor/area_director");

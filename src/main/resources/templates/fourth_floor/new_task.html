@@ -8,9 +8,38 @@
 <body>
 
     <h1> Страница создания новой задачи </h1>
-<!--    <p th:text="${message}"> Текст не был получен </p>-->
-<!--    <br>-->
-<!--    <p th:text="${user.getLogin()}"> Должен быть пользователь</p>-->
+<br>
+
+    <br>
+    <p th:text = ${user.id}> Нечего не получили</p>
+    <p th:text = ${user.firstName}> Нечего не получили</p>
+    <p th:text = ${user.middleName}> Нечего не получили</p>
+    <p th:text = ${user.lastName}> Нечего не получили</p>
+    <p th:text = ${user.email}> Нечего не получили</p>
+    <p th:text = ${user.hireDate}> Нечего не получили</p>
+    <p th:text = ${user.phoneNum}> Нечего не получили</p>
+    <p th:text = ${user.role}> Нечего не получили</p>
+    <p th:text = ${user.login}> Нечего не получили</p>
+    <br>
+
+        <form th:action="@{/new_task}" method="POST">
+            <input type="hidden" th:value="${user.id}" name="id">
+            <input type="hidden" th:value="${user.firstName}" name="firstName">
+            <input type="hidden" th:value="${user.middleName}" name="middleName">
+            <input type="hidden" th:value="${user.lastName}" name="lastName">
+            <input type="hidden" th:value="${user.email}" name="email">
+            <input type="hidden" th:value="${user.hireDate}" name="hireDate">
+            <input type="hidden" th:value="${user.phoneNum}" name="phoneNum">
+            <input type="hidden" th:value="${user.role}" name="role">
+            <input type="hidden" th:value="${user.login}" name="login">
+
+            <textarea type="text" th:value="${task.description}" name="description">
+            </textarea>
+            <br>
+            <input type="date" th:value="${task.completionDate}" placeholder="Дедлайн задачи" name="completionDate">
+            <br>
+        <input type="submit" value="Создать задачу">
+        </form>
 
 </body>
 </html>

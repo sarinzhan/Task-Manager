@@ -27,7 +27,7 @@ public class EmployeeMapping {
         return entity;
     }
     //название совпадает с вторым
-    public static List<Employee> mapModelDtoToEntityList2(List<EmployeeDtoRequest> dtoRequest){
+    public static List<Employee> mapEnttytoDtoModelRequestList(List<EmployeeDtoRequest> dtoRequest){
         List<Employee> employeeList = new ArrayList<>();
         for (EmployeeDtoRequest employeeDtoRequest : dtoRequest){
             employeeList.add( mapModelDtoToEntity(employeeDtoRequest));
@@ -65,14 +65,14 @@ public class EmployeeMapping {
         entity.setEmail(res.getEmail());
         entity.setHireDate(LocalDate.parse(res.getHireDate()));
         entity.setPhoneNum(res.getPhoneNum());
-        entity.setPassword(res.getPassword());
+//        entity.setPassword(res.getPassword());
         entity.setRole(res.getRole());
         entity.setLogin(res.getLogin());
 
         return entity;
     }
     public static List<Employee> mapModelDtoToEntityList(List<EmployeeDtoResponse> responseList){
-        return responseList.stream().map(x ->mapModelDtoToEntity(x)).collect(Collectors.toList());
+        return responseList.stream().map(EmployeeMapping::mapModelDtoToEntity).collect(Collectors.toList());
     }
 
     public static EmployeeDtoResponse mapEntityToDtoEmployeeResponse(Employee entity){
@@ -84,13 +84,13 @@ public class EmployeeMapping {
         dtoResponse.setEmail(entity.getEmail());
         dtoResponse.setHireDate(entity.getHireDate().toString());
         dtoResponse.setPhoneNum(entity.getPhoneNum());
-        dtoResponse.setPassword(entity.getPassword());
+//        dtoResponse.setPassword(entity.getPassword());
         dtoResponse.setRole(entity.getRole());
         dtoResponse.setLogin(entity.getLogin());
         return dtoResponse;
     }
     public static List<EmployeeDtoResponse> mapEntityToDtoEmployeeResponseList(List<Employee> employeeList){
-        return employeeList.stream().map(x -> mapEntityToDtoEmployeeResponse(x)).collect(Collectors.toList());
+        return employeeList.stream().map(EmployeeMapping::mapEntityToDtoEmployeeResponse).collect(Collectors.toList());
     }
 
 }

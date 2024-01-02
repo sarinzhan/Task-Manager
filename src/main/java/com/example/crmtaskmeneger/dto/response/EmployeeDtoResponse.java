@@ -15,7 +15,7 @@ public class EmployeeDtoResponse {
     private String email;
     private String hireDate;
     private String phoneNum;
-    private String password; // Зачем тут нужен пароль Мы же эту ДТО отдаем?
+//    private String password; // Зачем тут нужен пароль Мы же эту ДТО отдаем?
     private String role;
     private String login;
 
@@ -102,14 +102,14 @@ public class EmployeeDtoResponse {
         return this;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public EmployeeDtoResponse setPassword(String password) {
-        this.password = password;
-        return this;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public EmployeeDtoResponse setPassword(String password) {
+//        this.password = password;
+//        return this;
+//    }
 
     public String getRole() {
         return role;
@@ -139,7 +139,7 @@ public class EmployeeDtoResponse {
                 ", email='" + email + '\'' +
                 ", hireDate=" + hireDate +
                 ", phoneNum='" + phoneNum + '\'' +
-                ", password='" + password + '\'' +
+//                ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 ", login='" + login + '\'' +
                 '}';
