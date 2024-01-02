@@ -65,10 +65,9 @@ public class EmployeeController {
         /*
         TODO тут должна быть бизнес логика фильтровки выдачи свободных заданий
         для директора все свободные задачи
-        для работника фильтрация по его специальности или доступу
+        для работника фильтрация по его специальности или доступу (По роли и должны быть свободными)
          */
         model.addObject("task_list", taskList);
-        model.addObject("task", new TaskDtoResponse());
         model.addObject("user", employeeDtoResponse);
         model.setViewName("fourth_floor/all_tasks.html");
         return model;

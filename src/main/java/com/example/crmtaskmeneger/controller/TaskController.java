@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class TaskController {
 
@@ -32,8 +35,10 @@ public class TaskController {
 
         model.addObject("task", taskDtoResponse);
         model.addObject("user", employeeDtoResponse);
-        model.addObject("user", employeeDtoResponse);
         if(employeeDtoResponse.getRole().equalsIgnoreCase("director")){
+            // Сюда добавить всех свободных работников
+            List<EmployeeDtoResponse> listFreeEmploy = new ArrayList<>();
+            model.addObject("employee_list", listFreeEmploy);
             model.setViewName("fourth_floor/all_free_employee.html");
         }else {
             model.setViewName("thirt_floor/area_employee.html");
