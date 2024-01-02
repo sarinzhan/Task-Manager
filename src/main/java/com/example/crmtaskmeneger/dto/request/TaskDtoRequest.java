@@ -5,27 +5,23 @@ import com.example.crmtaskmeneger.entities.Employee;
 import java.time.LocalDate;
 
 /**
- * DTO tast request
- * конструктор с назначенным сотрудник и без назначенного сотрдуника
+ * если есть на кого назначен то дата устанавливается через localdate.now
+ * если нету то нету
  */
+
+
 public class TaskDtoRequest {
     private String description;
-    private LocalDate completionDate;
-    private Employee assignedTo;
+    private String completionDate;
+    private String assignedTo;
 
-
-    public TaskDtoRequest() {
-    }
-
-    public TaskDtoRequest(String description, LocalDate completionDate, Employee assignedTo, Employee createdBy, String status) {
+    public TaskDtoRequest(String description, String completionDate, String assignedTo) {
         this.description = description;
         this.completionDate = completionDate;
         this.assignedTo = assignedTo;
     }
 
-    public TaskDtoRequest(String description, LocalDate completionDate) {
-        this.description = description;
-        this.completionDate = completionDate;
+    public TaskDtoRequest() {
     }
 
     public String getDescription() {
@@ -37,20 +33,20 @@ public class TaskDtoRequest {
         return this;
     }
 
-    public LocalDate getCompletionDate() {
+    public String getCompletionDate() {
         return completionDate;
     }
 
-    public TaskDtoRequest setCompletionDate(LocalDate completionDate) {
+    public TaskDtoRequest setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
         return this;
     }
 
-    public Employee getAssignedTo() {
+    public String getAssignedTo() {
         return assignedTo;
     }
 
-    public TaskDtoRequest setAssignedTo(Employee assignedTo) {
+    public TaskDtoRequest setAssignedTo(String assignedTo) {
         this.assignedTo = assignedTo;
         return this;
     }

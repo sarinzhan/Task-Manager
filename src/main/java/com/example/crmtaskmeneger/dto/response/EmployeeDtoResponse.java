@@ -13,7 +13,7 @@ public class EmployeeDtoResponse {
     private String middleName;
     private String lastName;
     private String email;
-    private LocalDate hireDate;
+    private String hireDate;
     private String phoneNum;
     private String password; // Зачем тут нужен пароль Мы же эту ДТО отдаем?
     private String role;
@@ -29,7 +29,7 @@ public class EmployeeDtoResponse {
         this.role = role;
     }
 
-    public EmployeeDtoResponse(String firstName, String middleName, String lastName, String email, LocalDate hireDate, String phoneNum, String role, String login) {
+    public EmployeeDtoResponse(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, String role, String login) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -84,11 +84,11 @@ public class EmployeeDtoResponse {
         return this;
     }
 
-    public LocalDate getHireDate() {
+    public String getHireDate() {
         return hireDate;
     }
 
-    public EmployeeDtoResponse setHireDate(LocalDate hireDate) {
+    public EmployeeDtoResponse setHireDate(String hireDate) {
         this.hireDate = hireDate;
         return this;
     }

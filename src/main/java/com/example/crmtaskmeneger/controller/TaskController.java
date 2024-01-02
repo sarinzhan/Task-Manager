@@ -38,12 +38,6 @@ public class TaskController {
     @PostMapping("/createTask")
     public  void createTask(TaskDtoRequest taskDto){
         Task task = new Task();
-        task.setDescription(taskDto.getDescription())
-                .setAssignedTo(taskDto.getAssignedTo())
-                .setCreatedBy(new Employee())//тот аутентифицирован в системе
-                .setStatus(TaskStatus.NEW.toString())
-                .setCompletionDate(taskDto.getCompletionDate())
-                .setCreationDate(LocalDateTime.now());
         taskService.createTask(task);
     }
 }
