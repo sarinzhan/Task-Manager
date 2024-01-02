@@ -10,7 +10,21 @@
     <h1> Страничка личного кабинета:  <span th:text="${user.login}"> Логин пользователя не получен</span>  сотрудника</h1>
     <br>
 
-    <a  th:href="@{/new_task}" > 1) Создать задачу для себя </a> <br>
+<!--    <a  th:href="@{/new_task}" > 1)  </a> -->
+
+
+    <form th:action="@{/new_task}" method="GET">
+        <input type="hidden" th:value="${user.id}" name = "id">
+        <input type="hidden" th:value="${user.firstName}" name = "firstName">
+        <input type="hidden" th:value="${user.middleName}" name = "middleName">
+        <input type="hidden" th:value="${user.lastName}" name = "lastName">
+        <input type="hidden" th:value="${user.email}" name = "email">
+        <input type="hidden" th:value="${user.id}" name = "id">
+        <input type="hidden" th:value="${user.id}" name = "id">
+
+        <input type="submit" value="Создать задачу для себя">
+    </form>
+    <br>
     <a  th:href="@{/all_free_task}"> 2) Просмотра списка всех свободных (Только по его роли) </a> <br>
     <a  th:href="@{/all_my_task}"> 3) Просмотр всех своих задач </a> <br>
     <a  th:href="@{/search_task_by_parameter}"> 4) Поиск Задачи по (id, date_create, name) </a> <br>
