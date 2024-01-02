@@ -9,7 +9,7 @@ import java.time.*;
 public class Task {
     @Id
     @Column(name = "task_id")
-    private Integer id;
+    private Long id;
     @Column(name = "description")
     private String description;
     @Column(name = "creation_date")
@@ -36,11 +36,11 @@ public class Task {
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public Task setId(Integer id) {
+    public Task setId(Long id) {
         this.id = id;
         return this;
     }

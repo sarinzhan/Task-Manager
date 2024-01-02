@@ -1,0 +1,36 @@
+
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет Директора</title>
+</head>
+<body>
+
+    <h1> Страничка личного кабинета <span th:text="${user.login}"> Логин пользователя не получен</span>  Директора</h1>
+
+    <br>
+
+    <a th:href="@{/new_task}"> 1) Создать задачу                                   </a> <br>
+    <a th:href="@{/all_task}"> 2) посмотреть список всех задач                     </a> <br>
+    <a th:href="@{/all_employee}"> 3) Просмотр всех работников                         </a> <br>
+    <a th:href="@{/all_free_task}"> 4) Просмотр всех свободных задач                    </a> <br>
+    <a th:href="@{/assignment_to_a_worker_task}"> 5) Назначение на задачу работника                   </a> <br>
+    <a th:href="@{/all_free_employee}"> 6) Просмотр всех свободных работников               </a> <br>
+    <a th:href="@{/search_employee_by_parameter}"> 7) Поиск работника по (id, login, name, dateBerth)  </a> <br>
+    <a th:href="@{/search_task_by_parameter}"> 8) Поиск Задачи по (id, date_create, name)          </a> <br>
+
+
+<!--    <div >-->
+<!--        <p  th:text="${user.id}"> по умолчанию номер</p>-->
+<!--        <p  th:text="${user.login}"> по умолчанию логин</p>-->
+<!--        <p  th:text="${user.password}">по умолчанию пароль</p>-->
+<!--    </div>-->
+
+
+
+
+
+
+</body>
+</html>

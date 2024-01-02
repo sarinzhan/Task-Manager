@@ -1,0 +1,24 @@
+create table employee(
+                         employee_id bigserial primary key,
+                         first_name varchar,
+                         middle_name varchar,
+                         last_name varchar,
+                         email varchar,
+                         hire_date date,
+                         phone_num varchar,
+                         password varchar not null,
+                         role varchar not null,
+                         login varchar unique not null
+);
+
+create table task(
+                     task_id bigserial primary key ,
+                     description varchar,
+                     creation_date timestamp not null,
+                     assigned_date timestamp,
+                     completion_date date,
+                     assigned_to bigint references employee(employee_id) on delete set null,
+                     create_by bigint references employee(employee_id)  on delete set null not null,
+                     status varchar
+);
+

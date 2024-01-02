@@ -3,7 +3,6 @@ package com.example.crmtaskmeneger.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Table(name = "employee")
 @Entity
@@ -11,7 +10,7 @@ public class Employee {
     @Id
     @Column(name = "employee_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long TaskId;
+    private Long employeeId;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "middle_name")
@@ -48,12 +47,12 @@ public class Employee {
 //        return this;
 //    }
 
-    public Long getTaskId() {
-        return TaskId;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public Employee setTaskId(Long taskId) {
-        TaskId = taskId;
+    public Employee setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
         return this;
     }
 
@@ -136,5 +135,21 @@ public class Employee {
     public Employee setLogin(String login) {
         this.login = login;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "\n" +
+                "employeeId=" + employeeId + "\n" +
+                ", firstName='" + firstName + '\'' + "\n" +
+                ", middleName='" + middleName + '\'' + "\n" +
+                ", lastName='" + lastName + '\'' + "\n" +
+                ", email='" + email + '\'' + "\n" +
+                ", hireDate=" + hireDate + "\n" +
+                ", phoneNum='" + phoneNum + '\'' + "\n" +
+                ", password='" + password + '\'' + "\n" +
+                ", role='" + role + '\'' + "\n" +
+                ", login='" + login + '\'' + "\n" +
+                '}';
     }
 }
