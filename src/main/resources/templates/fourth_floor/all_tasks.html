@@ -25,13 +25,13 @@
             <input type="hidden" th:value="${user.role}" name="role">
             <input type="hidden" th:value="${user.login}" name="login">
 
-            <p th:text="${task.description}"   ></p>
-            <p th:text="${task.creationDate}"  ></p>
-            <p th:text="${task.assignedDate}"  ></p>
-            <p th:text="${task.completionDate}"></p>
-            <p th:text="${task.assignedTo}"    ></p>
-            <p th:text="${task.createdBy}"     ></p>
-            <p th:text="${task.activity}"        ></p>
+            <p>Описание задачи:  <p th:text="${task.description}"   ></p></p>
+            <span>Дата создание задачи:  <span th:text="${task.creationDate}"  ></span></span><br>
+            <span>Дата начало выполнения задачи:  <span th:text="${task.assignedDate}"  ></span></span><br>
+            <span>Дата завершения задачи:  <span th:text="${task.completionDate}"></span></span><br>
+            <span>Исполнитель:  <span th:text="${task.assignedTo}"    ></span></span><br>
+            <span>Автор задачи:  <span th:text="${task.createdBy}"     ></span></span><br>
+            <span>Статус задачи:  <span th:text="${task.activity}"      ></span></span><br>
 
             <input type="hidden" th:value="${task.description}"    name="description">
             <input type="hidden" th:value="${task.creationDate}"   name="creationDate">

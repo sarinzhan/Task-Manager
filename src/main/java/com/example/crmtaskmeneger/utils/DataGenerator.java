@@ -78,15 +78,22 @@ public class DataGenerator {
     public static TaskDtoResponse getneratorTaskResponse(){
         TaskDtoResponse response = new TaskDtoResponse();
         response.setDescription("Описание задачи " + random.nextInt());
+        response.setCreationDate(LocalDate.of(random.nextInt(2024 - 1970 + 1) + 1970,
+                random.nextInt(12 - 1 + 1)  + 1 ,
+                random.nextInt(28 - 1 + 1)  + 1 ).toString());
+
         response.setCompletionDate(LocalDate.of(random.nextInt(2024 - 1970 + 1) + 1970,
                 random.nextInt(12 - 1 + 1)  + 1 ,
                 random.nextInt(28 - 1 + 1)  + 1 ).toString());
+
         response.setAssignedDate(LocalDate.of(random.nextInt(2024 - 1970 + 1) + 1970,
                 random.nextInt(12 - 1 + 1)  + 1 ,
                 random.nextInt(28 - 1 + 1)  + 1 ).toString());
+
         response.setCompletionDate(LocalDate.of(random.nextInt(2024 - 1970 + 1) + 1970,
                 random.nextInt(12 - 1 + 1)  + 1 ,
                 random.nextInt(28 - 1 + 1)  + 1 ).toString());
+
         response.setAssignedTo(generatorEmployeeDtoResponse().getId());
         response.setCreatedBy(generatorEmployeeDtoResponse().getId());
         response.setActivity("" + random.nextBoolean());

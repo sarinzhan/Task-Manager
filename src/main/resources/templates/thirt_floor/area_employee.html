@@ -29,7 +29,7 @@
         <input type="hidden" th:value="${user.phoneNum}" name="phoneNum">
         <input type="hidden" th:value="${user.role}" name="role">
         <input type="hidden" th:value="${user.login}" name="login">
-        <input type="submit" value="1) Создать задачу для себя ">
+        <input type="submit" value=" Создать задачу для себя ">
     </form>
 <!--    <a  th:href="@{/all_free_task}"> 2) Просмотра списка всех свободных (Только по его роли) </a>-->
     <form th:action =@{/all_free_task} method="GET">
@@ -42,7 +42,7 @@
         <input type="hidden" th:value="${user.phoneNum}" name="phoneNum">
         <input type="hidden" th:value="${user.role}" name="role">
         <input type="hidden" th:value="${user.login}" name="login">
-        <input type="submit" value="2) Просмотра списка всех свободных (Только по его роли) ">
+        <input type="submit" value=" Просмотра списка всех свободных (Только по его роли) ">
     </form>
 <!--    <a  th:href="@{/all_my_task}"> 3) Просмотр всех своих задач </a> <br>-->
     <form th:action =@{/all_my_task} method="GET">

@@ -19,7 +19,7 @@ public class TaskMapping {
                 .setCompletionDate(LocalDate.parse(taskDto.getCompletionDate()))
                 .setAssignedTo(new Employee())
                 .setCreatedBy(new Employee())
-                .setStatus(TaskStatus.IN_PROGRESS.toString());
+                .setStatus(TaskStatus.IN_PROGRESS);
         return task;
     }
 }
