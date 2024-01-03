@@ -18,19 +18,16 @@ public class Task {
     private LocalDateTime assignedDate;
     @Column(name = "completion_date")
     private LocalDate completionDate;
-//    @Column(name = "assigned_to")
-//    private Integer assignedTo;
     @ManyToOne
     @JoinColumn(name = "assigned_to", referencedColumnName = "employee_id")
-    private Employee assignedTo;
-//    @Column(name = "create_by")
-//    private Integer createdBy;
+    private Employee assignedTo; // исполнитель
     @ManyToOne
     @JoinColumn(name = "create_by", referencedColumnName = "employee_id")
-    private Employee createdBy;
+    private Employee createdBy; // Создатель задачи
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private TaskStatus status;
 
     public Task() {
     }
@@ -99,11 +96,11 @@ public class Task {
         return this;
     }
 
-    public String getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public Task setStatus(String status) {
+    public Task setStatus(TaskStatus status) {
         this.status = status;
         return this;
     }

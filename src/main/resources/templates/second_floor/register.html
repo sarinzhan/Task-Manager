@@ -18,7 +18,8 @@
         <br>
         <input type="email" th:field="*{email}" placeholder="Почтовый ящик пользователя" id="email">
         <br>
-        <input type="date" th:field="*{hireDate}" placeholder="Дата рождения" id="hireDate">
+        <input type="date" th:field="*{hireDate}" id="hireDate">
+        <span>Дата рождения</span>
         <br>
         <input type="tel" th:field="*{phoneNum}" placeholder="Телефон пользователя" id="phoneNum">
         <br>
@@ -26,8 +27,8 @@
         <br>
 <!--        <input type="text" th:field="*{role}" placeholder="Роль пользователя" id="role">-->
         <select name="role">
-            <option th:each="colorOpt : ${T(com.example.crmtaskmeneger.entities.Role).values()}"
-                    th:value="${colorOpt}" th:text="${colorOpt}"></option>
+            <option th:each="role_elem : ${T(com.example.crmtaskmeneger.entities.Role).values()}"
+                    th:value="${role_elem}" th:text="${role_elem.getDescription()}"></option>
         </select>
         <br>
         <input type="text" th:field="*{login}" placeholder="Логин пользователя" id="login">

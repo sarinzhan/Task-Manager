@@ -11,18 +11,19 @@
 <br>
 
     <br>
-    <p th:text = ${user.id}> Нечего не получили</p>
-    <p th:text = ${user.firstName}> Нечего не получили</p>
-    <p th:text = ${user.middleName}> Нечего не получили</p>
-    <p th:text = ${user.lastName}> Нечего не получили</p>
-    <p th:text = ${user.email}> Нечего не получили</p>
-    <p th:text = ${user.hireDate}> Нечего не получили</p>
-    <p th:text = ${user.phoneNum}> Нечего не получили</p>
-    <p th:text = ${user.role}> Нечего не получили</p>
-    <p th:text = ${user.login}> Нечего не получили</p>
+    <p> ID:      <span th:text = ${user.id}> Нечего не получили</span>  </p>
+    <p> Имя:      <span th:text = ${user.firstName}> Нечего не получили</span>  </p>
+    <p> Отчество:      <span th:text = ${user.middleName}> Нечего не получили</span>  </p>
+    <p> Фамилия:      <span th:text = ${user.lastName}> Нечего не получили</span>  </p>
+    <p> Почта:       <span th:text = ${user.email}> Нечего не получили</span>  </p>
+    <p> Дата рождения:       <span th:text = ${user.hireDate}> Нечего не получили</span>  </p>
+    <p> Номер телефона:       <span th:text = ${user.phoneNum}> Нечего не получили</span>  </p>
+    <p> Роль:      <span th:text = ${user.role}> Нечего не получили</span>  </p>
+    <p> Логин:      <span th:text = ${user.login}> Нечего не получили</span>  </p>
     <br>
 
         <form th:action="@{/new_task}" method="POST">
+            <h3> Новая Задача </h3>
             <input type="hidden" th:value="${user.id}" name="id">
             <input type="hidden" th:value="${user.firstName}" name="firstName">
             <input type="hidden" th:value="${user.middleName}" name="middleName">
@@ -36,8 +37,16 @@
             <textarea type="text" th:value="${task.description}" name="description">
             </textarea>
             <br>
-            <input type="date" th:value="${task.completionDate}" placeholder="Дедлайн задачи" name="completionDate">
+            <input type="datetime-local" th:value="${task.completionDate}"  name="completionDate">
+            <span>Дата завершения задачи</span>
             <br>
+
+            <div th:if="${user.role == T(com.example.crmtaskmeneger.entities.Role).DIRECTOR}">
+            <select name="action">
+                <option th:each="action_select_employee : ${T(com.example.crmtaskmeneger.model.SelectingAnActionWhenCreatingATask).values()}"
+                        th:value="${action_select_employee}" th:text="${action_select_employee.getDescription()}"></option>
+            </select>
+            </div>
         <input type="submit" value="Создать задачу">
         </form>
 

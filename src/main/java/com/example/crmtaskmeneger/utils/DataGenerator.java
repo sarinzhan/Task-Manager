@@ -110,4 +110,12 @@ public class DataGenerator {
         response.setLogin("login_" + random.nextInt());
         return response;
     }
+
+    public static List<EmployeeDtoResponse> generatorListEmployees(){
+        List<EmployeeDtoResponse> result = new ArrayList<>();
+        for (int i = 0; i < random.nextInt(11)+3; i++) {
+            result.add(generatorEmployeeDtoResponse());
+        }
+        return result;
+    }
 }
