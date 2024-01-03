@@ -2,6 +2,7 @@ package com.example.crmtaskmeneger.utils;
 
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
+import com.example.crmtaskmeneger.entities.Role;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class DataGenerator {
                                             random.nextInt(12 - 1 + 1)  + 1 ,
                                             random.nextInt(28 - 1 + 1)  + 1 ).toString());
         response.setPhoneNum("+" + random.nextLong(996999999999l - 996200000000l + 1) + 996200000000l);
-        response.setRole(roles[random.nextInt(roles.length)]);
+        response.setRole(Role.values()[random.nextInt(Role.values().length)]);
         response.setLogin("login_" + random.nextInt());
         return response;
     }

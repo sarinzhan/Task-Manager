@@ -1,5 +1,6 @@
 package com.example.crmtaskmeneger.dto.response;
 
+import com.example.crmtaskmeneger.entities.Role;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -16,20 +17,20 @@ public class EmployeeDtoResponse {
     private String hireDate;
     private String phoneNum;
 //    private String password; // Зачем тут нужен пароль Мы же эту ДТО отдаем?
-    private String role;
+    private Role role;
     private String login;
 
     public EmployeeDtoResponse() {
     }
 
-    public EmployeeDtoResponse(String firstName, String middleName, String lastName, String role) {
+    public EmployeeDtoResponse(String firstName, String middleName, String lastName, Role role) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.role = role;
     }
 
-    public EmployeeDtoResponse(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, String role, String login) {
+    public EmployeeDtoResponse(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, Role role, String login) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -102,22 +103,12 @@ public class EmployeeDtoResponse {
         return this;
     }
 
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public EmployeeDtoResponse setPassword(String password) {
-//        this.password = password;
-//        return this;
-//    }
-
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public EmployeeDtoResponse setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
-        return this;
     }
 
     public String getLogin() {

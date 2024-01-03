@@ -3,6 +3,7 @@ package com.example.crmtaskmeneger.controller;
 import com.example.crmtaskmeneger.dto.request.EmployeeDtoRequest;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
+import com.example.crmtaskmeneger.entities.Role;
 import com.example.crmtaskmeneger.utils.DataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.proxy.Mixin;
@@ -48,7 +49,7 @@ public class EmployeeController {
          Подумать над тем что делать с пользователем
          */
         model.addObject("user", employeeDtoResponse);
-        if(employeeDtoResponse.getRole().equalsIgnoreCase("director")){
+        if(employeeDtoResponse.getRole().equals(Role.DIRECTOR)){
             model.setViewName("thirt_floor/area_director.html");
         }else {
             model.setViewName("thirt_floor/area_employee.html");
@@ -58,7 +59,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/all_free_task")
-    public ModelAndView getAllFreeTask(ModelAndView model, @ModelAttribute(name = "user") EmployeeDtoResponse employeeDtoResponse){
+    public ModelAndView getAllFreeTask(
+            ModelAndView model,
+            @ModelAttribute(name = "user") EmployeeDtoResponse employeeDtoResponse
+    ){
 
         List<TaskDtoResponse> taskList = DataGenerator.generatorListToTaskResponse();
 
@@ -69,6 +73,7 @@ public class EmployeeController {
          */
         model.addObject("task_list", taskList);
         model.addObject("user", employeeDtoResponse);
+
         model.setViewName("fourth_floor/all_tasks.html");
         return model;
     }

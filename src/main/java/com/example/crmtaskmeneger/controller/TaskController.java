@@ -2,10 +2,12 @@ package com.example.crmtaskmeneger.controller;
 
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
+import com.example.crmtaskmeneger.entities.Role;
+import com.example.crmtaskmeneger.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -13,6 +15,13 @@ import java.util.List;
 
 @Controller
 public class TaskController {
+    private final EmployeeService employeeService;
+
+    @Autowired
+    public TaskController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
 
     @GetMapping("/task_selection")
     public ModelAndView setEmployeeTask(
@@ -35,7 +44,7 @@ public class TaskController {
 
         model.addObject("task", taskDtoResponse);
         model.addObject("user", employeeDtoResponse);
-        if(employeeDtoResponse.getRole().equalsIgnoreCase("director")){
+        if(employeeDtoResponse.getRole().equals(Role.DIRECTOR)){
             // Сюда добавить всех свободных работников
             List<EmployeeDtoResponse> listFreeEmploy = new ArrayList<>();
             model.addObject("employee_list", listFreeEmploy);

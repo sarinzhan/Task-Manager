@@ -25,8 +25,10 @@ public class Employee {
     private String phoneNum;
     @Column(name = "password")
     private String password;
+
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
     @Column(name = "login")
     private String login;
 //    @OneToMany(mappedBy = "assignedTo")
@@ -119,13 +121,12 @@ public class Employee {
         return this;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public Employee setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
-        return this;
     }
 
     public String getLogin() {
