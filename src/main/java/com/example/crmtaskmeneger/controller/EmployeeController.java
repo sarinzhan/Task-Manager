@@ -3,6 +3,9 @@ package com.example.crmtaskmeneger.controller;
 import com.example.crmtaskmeneger.dto.request.EmployeeDtoRequest;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
+import com.example.crmtaskmeneger.entities.Task;
+import com.example.crmtaskmeneger.mapping.TaskMapping;
+import com.example.crmtaskmeneger.service.TaskService;
 import com.example.crmtaskmeneger.utils.DataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.proxy.Mixin;
@@ -20,6 +23,11 @@ import java.util.Map;
 @Controller
 @Scope("request")
 public class EmployeeController {
+    TaskService taskService;
+    @Autowired
+    public EmployeeController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @GetMapping(value = "/new_task")
     public ModelAndView newTask(ModelAndView model, @ModelAttribute("user") EmployeeDtoResponse request){
@@ -47,6 +55,8 @@ public class EmployeeController {
 
          Подумать над тем что делать с пользователем
          */
+
+
         model.addObject("user", employeeDtoResponse);
         if(employeeDtoResponse.getRole().equalsIgnoreCase("director")){
             model.setViewName("thirt_floor/area_director.html");
@@ -60,14 +70,18 @@ public class EmployeeController {
     @GetMapping("/all_free_task")
     public ModelAndView getAllFreeTask(ModelAndView model, @ModelAttribute(name = "user") EmployeeDtoResponse employeeDtoResponse){
 
-        List<TaskDtoResponse> taskList = DataGenerator.generatorListToTaskResponse();
+        //List<TaskDtoResponse> taskList = DataGenerator.generatorListToTaskResponse();
 
         /*
         TODO тут должна быть бизнес логика фильтровки выдачи свободных заданий
         для директора все свободные задачи
         для работника фильтрация по его специальности или доступу (По роли и должны быть свободными)
+        todo выполнено ----
          */
-        model.addObject("task_list", taskList);
+        List<Task> availTaskList = taskService.getAvailTask();
+        List<TaskDtoResponse> taskDtoResponses = TaskMapping.mapListModelEntityToDtoResponse(availTaskList);
+
+        model.addObject("task_list", taskDtoResponses);
         model.addObject("user", employeeDtoResponse);
         model.setViewName("fourth_floor/all_tasks.html");
         return model;

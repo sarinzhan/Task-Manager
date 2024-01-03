@@ -3,6 +3,8 @@ package com.example.crmtaskmeneger.dto.response;
 public class TaskDtoResponse {
 
     // TODO добавить id задачи
+    // добавил
+    private Long id;
     private String description;
     private String creationDate;
     private String assignedDate;
@@ -10,11 +12,12 @@ public class TaskDtoResponse {
     private Long assignedTo;
     private Long createdBy;
     private String activity;
+    private String status;
 
     public TaskDtoResponse() {
     }
 
-    public TaskDtoResponse(String description, String creationDate, String assignedDate, String completionDate, Long assignedTo, Long createdBy, String activity) {
+    public TaskDtoResponse(Long id,String description, String creationDate, String assignedDate, String completionDate, Long assignedTo, Long createdBy, String activity) {
         this.description = description;
         this.creationDate = creationDate;
         this.assignedDate = assignedDate;
@@ -22,6 +25,25 @@ public class TaskDtoResponse {
         this.assignedTo = assignedTo;
         this.createdBy = createdBy;
         this.activity = activity;
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public TaskDtoResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public TaskDtoResponse setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getDescription() {
