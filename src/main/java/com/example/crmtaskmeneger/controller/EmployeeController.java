@@ -6,9 +6,14 @@ import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.request.EmployeeDtoRequest;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
+import com.example.crmtaskmeneger.entities.Employee;
 import com.example.crmtaskmeneger.entities.Role;
+import com.example.crmtaskmeneger.entities.Task;
 import com.example.crmtaskmeneger.mapping.MappingUser;
+import com.example.crmtaskmeneger.mapping.TaskMapping;
 import com.example.crmtaskmeneger.model.SelectingAnActionWhenCreatingATask;
+import com.example.crmtaskmeneger.service.EmployeeService;
+import com.example.crmtaskmeneger.service.TaskService;
 import com.example.crmtaskmeneger.utils.DataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.proxy.Mixin;
@@ -26,6 +31,15 @@ import java.util.Objects;
 @Controller
 @Scope("request")
 public class EmployeeController {
+    private final EmployeeService employeeService;
+    private final TaskService taskService;
+
+
+    @Autowired
+    public EmployeeController(EmployeeService employeeService, TaskService taskService) {
+        this.employeeService = employeeService;
+        this.taskService = taskService;
+    }
 
     @GetMapping(value = "/new_task")
     public ModelAndView newTask(ModelAndView model, @ModelAttribute("user") UserDto userDto){
@@ -60,10 +74,10 @@ public class EmployeeController {
         System.out.println("Пришел задача : " + taskDtoResponse );
 
 
-         /*
-         TODO Добавить сервис для сохранения и обработки в сервис и базу данных
-         Подумать над тем что делать с пользователем
-         */
+        Employee executor = employeeService.getById(taskExecutorDto.getExecutorId());
+        Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
+        Task task = TaskMapping.mapModelTaskDtoResponseWithAuthExecToEntity(taskDtoResponse,executor,author);
+        taskService.createTask(task);
 
 
         if(userDto.getUserRole().equals(Role.DIRECTOR)){

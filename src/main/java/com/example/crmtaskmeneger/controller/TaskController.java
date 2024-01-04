@@ -1,14 +1,18 @@
 package com.example.crmtaskmeneger.controller;
 
 import com.example.crmtaskmeneger.dto.TaskAuthorDto;
+import com.example.crmtaskmeneger.dto.TaskDto;
 import com.example.crmtaskmeneger.dto.TaskExecutorDto;
 import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
-import com.example.crmtaskmeneger.entities.Role;
-import com.example.crmtaskmeneger.model.SelectingAnActionWhenCreatingATask;
+import com.example.crmtaskmeneger.entities.Employee;
+import com.example.crmtaskmeneger.entities.Task;
+import com.example.crmtaskmeneger.mapping.TaskMapping;
 import com.example.crmtaskmeneger.service.EmployeeService;
+import com.example.crmtaskmeneger.service.TaskService;
 import com.example.crmtaskmeneger.utils.DataGenerator;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +27,13 @@ import java.util.List;
 @Controller
 public class TaskController {
     private final EmployeeService employeeService;
+    private final TaskService taskService;
+
 
     @Autowired
-    public TaskController(EmployeeService employeeService) {
+    public TaskController(EmployeeService employeeService, TaskService taskService) {
         this.employeeService = employeeService;
+        this.taskService = taskService;
     }
 
 
@@ -65,17 +72,21 @@ public class TaskController {
 
 
     @GetMapping("/all_tasks")
-    public ModelAndView getAllTasks(ModelAndView model, @ModelAttribute(name = "user")UserDto userDto){
+    public ModelAndView getAllTasks(ModelAndView model, @ModelAttribute(name = "user")UserDto userDto,
+                                    @ModelAttribute(name="author") TaskAuthorDto taskAuthorDto,
+                                    @ModelAttribute (name="executor") TaskExecutorDto taskExecutorDto
+    ){
         System.out.println("=======================================================================================");
         System.out.println("Зашли в контролер созданной задачи POST:  com.example.crmtaskmeneger.controller.TaskController.getAllTask()");
         System.out.println("Пришел пользователь Активный: " + userDto );
-        /*
-        TODO Реалезовать логику воврощения всех задач системы
-         */
 
-        // заглушка
-        List<TaskDtoResponse> tasksList = DataGenerator.generatorListToTaskResponse();
-        model.addObject("task_list", tasksList);
+
+        //List<TaskDtoResponse> tasksList = DataGenerator.generatorListToTaskResponse();
+        List<TaskDto> ListTaskDto = TaskMapping.mapModelListEntityToDto( taskService.getAvailTask());
+        // вывод все доступных задач выполнена
+        //TODO передалать объект taskDtoResponse в TaskDto в thymeleaf
+
+        model.addObject("task_list", ListTaskDto);
 
         System.out.println("=======================================================================================");
 

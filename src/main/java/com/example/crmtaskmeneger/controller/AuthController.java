@@ -34,10 +34,11 @@ public class AuthController {
     public ModelAndView login(ModelAndView model, @ModelAttribute(name = "user") EmployeeDtoRequest dtoRequest ) {
         Employee entity = MappingUser.mapModelDtoToEntity(dtoRequest);
         entity = employeeService.save(entity);
-        EmployeeDtoResponse response = MappingUser.mapEntityToDtoEmployeeResponse(entity);
-
-        model.addObject("user",response);
-        if(response.getRole().equals(Role.DIRECTOR)){
+        //EmployeeDtoResponse response = MappingUser.mapEntityToDtoEmployeeResponse(entity);
+        UserDto userDto = MappingUser.mapEntityToUserDTO(entity);
+        System.out.println(entity);
+        model.addObject("user",userDto);
+        if(entity.getRole().equals(Role.DIRECTOR)){
             model.setViewName("thirt_floor/area_director");
         }else {
             model.setViewName("thirt_floor/area_employee");
