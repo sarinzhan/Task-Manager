@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -53,10 +55,13 @@ public class TaskServiceEmpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAvailTask() {
-        return taskRepository.getAllByStatus(TaskStatus.NEW.toString())
-                .stream().filter(x -> x.getCompletionDate().isAfter(LocalDate.now()))
+    public List<Task> getAllAvailTask() {
+        return taskRepository.getAll()
+                .stream()
+                .filter(x -> x.getCompletionDate().isAfter(LocalDate.now()))
                 .filter(x -> !x.getDescription().isEmpty())
+                .filter(x -> Objects.isNull(x.getAssignedTo()))
+                .filter(x -> x.getStatus().equals(TaskStatus.NEW))
                 .collect(Collectors.toList());
     }
 }

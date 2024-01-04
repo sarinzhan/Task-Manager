@@ -87,7 +87,9 @@ public class EmployeeController {
                 Если директор решит выбрать сотрудника при создании задачи то для
                 отображения на странице свободных сотрудников ему нужно их отобразить
              */
-                List<EmployeeDtoResponse> freeEmployees = DataGenerator.generatorListEmployees();// Имитация списака сотрудников Заменить на Бизнес логику
+
+//                List<EmployeeDtoResponse> freeEmployees = DataGenerator.generatorListEmployees();// Имитация списака сотрудников Заменить на Бизнес логику
+                List<Employee> freeEmployees = employeeService.getFreeEmployee();
                 model.addObject("employee_list", freeEmployees);
                 model.setViewName("fourth_floor/all_free_employee.html");
 //                System.out.println("=======================================================================================");

@@ -13,6 +13,7 @@ public interface EmployeeService {
     Employee getByLogin(String login);
 
     Employee save(Employee entity);
+    List<Employee> getFreeEmployee();
     void deleteEmployeeEntity(Employee entity);
     void deleteEmployeeEntity(long id);
     void deleteEmployeeEntity(String login);

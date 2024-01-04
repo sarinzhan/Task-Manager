@@ -2,53 +2,72 @@ package com.example.crmtaskmeneger.service.impl;
 
 import com.example.crmtaskmeneger.entities.Employee;
 import com.example.crmtaskmeneger.repository.EmployeeRepository;
+import com.example.crmtaskmeneger.repository.TaskRepository;
 import com.example.crmtaskmeneger.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeRepository repository;
+    private final EmployeeRepository employeeRepository;
+    private final TaskRepository taskRepository;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository repository) {
-        this.repository = repository;
+    public EmployeeServiceImpl(EmployeeRepository repository, TaskRepository taskRepository) {
+        this.employeeRepository = repository;
+        this.taskRepository = taskRepository;
     }
 
     @Override
     public List<Employee> getAll() {
-        return repository.findAll();
+        return employeeRepository.findAll();
     }
 
     @Override
     public Employee getById(Long id){
-        return repository.getById(id);
+        return employeeRepository.getById(id);
     }
 
     @Override
     public Employee getByLogin(String login){
-        return repository.getByLogin(login).orElse(null);
+        return employeeRepository.getByLogin(login).orElse(null);
     }
 
     @Override
     public Employee save(Employee entity) {
-        return repository.save(entity);
+        return employeeRepository.save(entity);
     }
 
     @Override
     public void deleteEmployeeEntity(Employee entity) {
-        repository.delete(entity);
+        employeeRepository.delete(entity);
     }
 
     @Override
     public void deleteEmployeeEntity(long id) {
-        repository.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 
     @Override
     public void deleteEmployeeEntity(String login) {
-        repository.deleteByLogin(login);
+        employeeRepository.deleteByLogin(login);
+    }
+
+    @Override
+    public List<Employee> getFreeEmployee() {
+        List<Employee> collect = employeeRepository.getAll().stream()
+                .filter(em -> em.getAssignedTasks().isEmpty())
+                .toList();
+        if(collect.isEmpty()){
+            throw  new NoSuchElementException("No free employee");
+        }else {
+            return collect;
+        }
     }
 }
