@@ -56,7 +56,7 @@ public class TaskServiceEmpl implements TaskService {
 
     @Override
     public List<Task> getAllAvailTask() {
-        return taskRepository.getAll()
+        return taskRepository.findAll()
                 .stream()
                 .filter(x -> x.getCompletionDate().isAfter(LocalDate.now()))
                 .filter(x -> !x.getDescription().isEmpty())

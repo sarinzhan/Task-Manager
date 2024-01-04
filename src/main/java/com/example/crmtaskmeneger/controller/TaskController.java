@@ -22,13 +22,9 @@ import java.util.List;
 
 @Controller
 public class TaskController {
-    private final EmployeeService employeeService;
     private final TaskService taskService;
-
-
     @Autowired
-    public TaskController(EmployeeService employeeService, TaskService taskService) {
-        this.employeeService = employeeService;
+    public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 

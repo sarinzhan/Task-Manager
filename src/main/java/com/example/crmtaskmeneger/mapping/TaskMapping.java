@@ -11,7 +11,9 @@ import com.example.crmtaskmeneger.entities.TaskStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -50,6 +52,24 @@ public class TaskMapping {
                 .setAssignedTo(taskExecutorDto)
                 .setCreatedBy(taskAuthorDto)
                 .setStatus(TaskStatus.IN_PROGRESS);
+        return task;
+    }
+    public static Task mapModelTaskDtoResponseWithAuthToEntity(TaskDtoResponse taskDtoResponse,Employee taskAuthorDto) throws Exception {
+        Task task = new Task();
+        System.out.println(taskDtoResponse.getCompletionDate().substring(0,10));
+        if(taskDtoResponse.getCompletionDate().isEmpty()){
+            throw new Exception("No date");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate parse = LocalDate.parse(taskDtoResponse.getCompletionDate().substring(0,10),formatter);
+
+        task.setDescription(taskDtoResponse.getDescription());
+         task.setCreationDate(LocalDateTime.now());
+            task    .setAssignedDate(LocalDateTime.now());
+        task   .setCompletionDate(parse);
+        task  .setCreatedBy(taskAuthorDto);
+        task   .setStatus(TaskStatus.IN_PROGRESS);
         return task;
     }
 

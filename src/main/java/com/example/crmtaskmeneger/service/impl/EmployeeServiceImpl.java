@@ -1,6 +1,7 @@
 package com.example.crmtaskmeneger.service.impl;
 
 import com.example.crmtaskmeneger.entities.Employee;
+import com.example.crmtaskmeneger.entities.Role;
 import com.example.crmtaskmeneger.repository.EmployeeRepository;
 import com.example.crmtaskmeneger.repository.TaskRepository;
 import com.example.crmtaskmeneger.service.EmployeeService;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -61,8 +61,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getFreeEmployee() {
-        List<Employee> collect = employeeRepository.getAll().stream()
-                .filter(em -> em.getAssignedTasks().isEmpty())
+        List<Employee> collect = employeeRepository.findAll().stream()
+                .filter(em -> em.getRole() == Role.EMPLOYEE)
+                .filter(em -> Objects.isNull(em.getAssignedTask()))
                 .toList();
         if(collect.isEmpty()){
             throw  new NoSuchElementException("No free employee");

@@ -9,6 +9,7 @@ import java.time.*;
 public class Task {
     @Id
     @Column(name = "task_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "description")
     private String description;
@@ -18,10 +19,10 @@ public class Task {
     private LocalDateTime assignedDate;
     @Column(name = "completion_date")
     private LocalDate completionDate;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "assigned_to", referencedColumnName = "employee_id")
     private Employee assignedTo; // исполнитель
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "create_by", referencedColumnName = "employee_id")
     private Employee createdBy; // Создатель задачи
 

@@ -61,7 +61,7 @@ public class EmployeeController {
             @ModelAttribute(name = "taskAuthorDto") TaskAuthorDto taskAuthorDto,
             @ModelAttribute(name = "taskExecutorDto") TaskExecutorDto taskExecutorDto,
             @ModelAttribute("task") TaskDtoResponse taskDtoResponse
-            ){
+            ) throws Exception {
         // ============================    присвоение данных из фронта ===============================================
         taskDtoResponse.setCreatedBy(taskAuthorDto); // Ничего умнее не придумал как отправлять автора отдельно и присваивать тут
         taskDtoResponse.setAssignedTo(taskExecutorDto);
@@ -73,22 +73,28 @@ public class EmployeeController {
         System.out.println("Пришел Автор задания : " + taskAuthorDto );
         System.out.println("Пришел задача : " + taskDtoResponse );
 
-
-        Employee executor = employeeService.getById(taskExecutorDto.getExecutorId());
+        System.out.println("Начинается процесс внесения");
+        System.out.println("Executor: " + taskExecutorDto);
+        System.out.println("Author: " + taskAuthorDto);
+        Employee executor = null;
+        if(taskExecutorDto.getExecutorName() != null){
+            executor = employeeService.getById(taskExecutorDto.getExecutorId());
+        }
         Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
-        Task task = TaskMapping.mapModelTaskDtoResponseWithAuthExecToEntity(taskDtoResponse,executor,author);
+        System.out.println(author);
+        Task task = TaskMapping.mapModelTaskDtoResponseWithAuthToEntity(taskDtoResponse,author);
         taskService.createTask(task);
-
+        System.out.println("\n\n" + task);
 
         if(userDto.getUserRole().equals(Role.DIRECTOR)){
             if( Objects.nonNull(selectEmployee) && selectEmployee.equals(SelectingAnActionWhenCreatingATask.SELECT_EMPLOYEE)) {
             /*
-            TODO Сюда добавить бизнес логику котора будет отдавать список свободных сотрудников
+            Сюда добавить бизнес логику котора будет отдавать список свободных сотрудников
                 Если директор решит выбрать сотрудника при создании задачи то для
                 отображения на странице свободных сотрудников ему нужно их отобразить
+                TODO выполнено
              */
 
-//                List<EmployeeDtoResponse> freeEmployees = DataGenerator.generatorListEmployees();// Имитация списака сотрудников Заменить на Бизнес логику
                 List<Employee> freeEmployees = employeeService.getFreeEmployee();
                 model.addObject("employee_list", freeEmployees);
                 model.setViewName("fourth_floor/all_free_employee.html");

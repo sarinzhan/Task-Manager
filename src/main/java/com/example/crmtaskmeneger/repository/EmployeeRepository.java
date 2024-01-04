@@ -13,5 +13,4 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     Employee getById(Long id);
     Optional<Employee> getByLogin(String login);
     void deleteByLogin(String login);
-    List<Employee> getAll();
 }
