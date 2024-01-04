@@ -1,0 +1,125 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробная информация о задаче</title>
+</head>
+<body>
+
+<h1> Подробная информация о задаче </h1>
+
+<span> ID:                   <span th:text=${task.id}> Нечего не получили</span>  </span><br>
+<span> Описание :                  <span th:text=${task.description}> Нечего не получили</span>  </span><br>
+<span> Дата создания :             <span th:text=${task.creationDate}> Нечего не получили</span>  </span><br>
+<span> Дата принятия:              <span th:text=${task.assignedDate}> Нечего не получили</span>  </span><br>
+<span> Дата завершения:                <span th:text=${task.completionDate}> Нечего не получили</span>  </span><br>
+<br>
+<br>
+<span> Автор задания:       <!--<span th:text = ${task.createdBy}> Нечего не получили</span>--><br>
+         ID автора:  <span th:text=${task.createdBy.authorId}> Нечего не получили</span><br>
+         Имя автора:  <span th:text=${task.createdBy.authorName}> Нечего не получили</span><br>
+         Отчество автора:  <span th:text=${task.createdBy.authorPatrol}> Нечего не получили</span><br>
+         Фамилия автора:  <span th:text=${task.createdBy.authorSerName}> Нечего не получили</span><br>
+         Почта автора:  <span th:text=${task.createdBy.authorEmail}> Нечего не получили</span><br>
+         Дата найма автора:  <span th:text=${task.createdBy.authorHireDate}> Нечего не получили</span><br>
+         Телефон автора:  <span th:text=${task.createdBy.authorPhone}> Нечего не получили</span><br>
+         Роль автора:  <span th:text=${task.createdBy.authorRole}> Нечего не получили</span><br>
+         Логин автора:  <span th:text=${task.createdBy.authorLogin}> Нечего не получили</span><br>
+    </span><br>
+<span> Активность :                 <span th:text=${task.activity}> Нечего не получили</span>  </span><br>
+<span> Статус:                <span th:text=${task.status}> Нечего не получили</span>  </span>
+<br>
+<br>
+
+<span> Исполнитель задания:<br>
+         ID автора:  <span th:text=${task.assignedTo.executorId}> Нечего не получили</span><br>
+         Имя автора:  <span th:text=${task.assignedTo.executorName}> Нечего не получили</span><br>
+         Отчество автора:  <span th:text=${task.assignedTo.executorPatrol}> Нечего не получили</span><br>
+         Фамилия автора:  <span th:text=${task.assignedTo.executorSerName}> Нечего не получили</span><br>
+         Почта автора:  <span th:text=${task.assignedTo.executorEmail}> Нечего не получили</span><br>
+         Дата найма автора:  <span th:text=${task.assignedTo.executorHireDate}> Нечего не получили</span><br>
+         Телефон автора:  <span th:text=${task.assignedTo.executorPhone}> Нечего не получили</span><br>
+         Роль автора:  <span th:text=${task.assignedTo.executorRole}> Нечего не получили</span><br>
+         Логин автора:  <span th:text=${task.assignedTo.executorLogin}> Нечего не получили</span><br>
+    <br>
+    <br>
+
+    <form th:action=@{/task_update} method="GET">
+        <input type="hidden" th:value="${user.userId}" name="userId">
+        <input type="hidden" th:value="${user.userName}" name="userName">
+        <input type="hidden" th:value="${user.userPatrol}" name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}" name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}" name="userPhone">
+        <input type="hidden" th:value="${user.userRole}" name="userRole">
+        <input type="hidden" th:value="${user.userLogin}" name="userLogin">
+        <input type="submit" value="Изменить задачу">
+    </form>
+     <form th:action=@{/go_back_my_area} method="GET">
+        <input type="hidden" th:value="${user.userId}" name="userId">
+        <input type="hidden" th:value="${user.userName}" name="userName">
+        <input type="hidden" th:value="${user.userPatrol}" name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}" name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}" name="userPhone">
+        <input type="hidden" th:value="${user.userRole}" name="userRole">
+        <input type="hidden" th:value="${user.userLogin}" name="userLogin">
+        <input type="submit" value="Вернуться в личный кабинет">
+    </form>
+
+       <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Поменять исполнителя">
+       </form>
+
+    <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Удалить задачу">
+       </form>
+
+    <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Пере идти на управление сотрудником">
+       </form>
+        <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Посмотреть информацию об авторе задания">
+       </form>
+
+
+</body>
+</html>

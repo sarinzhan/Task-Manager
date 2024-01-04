@@ -1,4 +1,3 @@
-
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,43 +6,65 @@
 </head>
 <body>
 
-    <h1>Все задачи в системе</h1>
+<h1>Все задачи в системе</h1>
 
-    <tbody>
-    <tr th:if="${task_list.empty}">
-        <td colspan="2"> No Books Available </td>
-    </tr>
-    <tr th:each="task : ${task_list}">
-        <form th:action="@{/task_selection}" method="GET">
-            <input type="hidden" th:value="${user.id}" name="id">
-            <input type="hidden" th:value="${user.firstName}" name="firstName">
-            <input type="hidden" th:value="${user.middleName}" name="middleName">
-            <input type="hidden" th:value="${user.lastName}" name="lastName">
-            <input type="hidden" th:value="${user.email}" name="email">
-            <input type="hidden" th:value="${user.hireDate}" name="hireDate">
-            <input type="hidden" th:value="${user.phoneNum}" name="phoneNum">
-            <input type="hidden" th:value="${user.role}" name="role">
-            <input type="hidden" th:value="${user.login}" name="login">
+<tbody>
+<tr th:if="${task_list.empty}">
+    <td colspan="2"> В системе нет задач</td>
+</tr>
+<tr th:each="task : ${task_list}">
+    <form th:action="@{/show_task_details}" method="GET">
+        <input type="hidden" th:value="${user.userId}" name="userId">
+        <input type="hidden" th:value="${user.userName}" name="userName">
+        <input type="hidden" th:value="${user.userPatrol}" name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}" name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}" name="userPhone">
+        <input type="hidden" th:value="${user.userRole}" name="userRole">
+        <input type="hidden" th:value="${user.userLogin}" name="userLogin">
 
-            <p>Описание задачи:  <p th:text="${task.description}"   ></p></p>
-            <span>Дата создание задачи:  <span th:text="${task.creationDate}"  ></span></span><br>
-            <span>Дата начало выполнения задачи:  <span th:text="${task.assignedDate}"  ></span></span><br>
-            <span>Дата завершения задачи:  <span th:text="${task.completionDate}"></span></span><br>
-            <span>Исполнитель:  <span th:text="${task.assignedTo}"    ></span></span><br>
-            <span>Автор задачи:  <span th:text="${task.createdBy}"     ></span></span><br>
-            <span>Статус задачи:  <span th:text="${task.activity}"      ></span></span><br>
+        <input type="hidden" th:value="${task.id}" name="id">
+        <input type="hidden" th:value="${task.description}" name="description">
+        <input type="hidden" th:value="${task.creationDate}" name="creationDate">
+        <input type="hidden" th:value="${task.assignedDate}" name="assignedDate">
+        <input type="hidden" th:value="${task.completionDate}" name="completionDate">
+        <input type="hidden" th:value="${task.activity}" name="activity">
+        <input type="hidden" th:value="${task.status}" name="status">
 
-            <input type="hidden" th:value="${task.description}"    name="description">
-            <input type="hidden" th:value="${task.creationDate}"   name="creationDate">
-            <input type="hidden" th:value="${task.assignedDate}"   name="assignedDate">
-            <input type="hidden" th:value="${task.completionDate}" name="completionDate">
-            <input type="hidden" th:value="${task.assignedTo}"     name="assignedTo">
-            <input type="hidden" th:value="${task.createdBy}"      name="createdBy">
-            <input type="hidden" th:value="${task.activity}"         name="activity">
-            <input type="submit" value="Выбрать задачу">
-        </form>
-    </tr>
+        <input type="hidden" th:value="${task.createdBy.authorId}" name="authorId">
+        <input type="hidden" th:value="${task.createdBy.authorName}" name="authorName">
+        <input type="hidden" th:value="${task.createdBy.authorPatrol}" name="authorPatrol">
+        <input type="hidden" th:value="${task.createdBy.authorSerName}" name="authorSerName">
+        <input type="hidden" th:value="${task.createdBy.authorEmail}" name="authorEmail">
+        <input type="hidden" th:value="${task.createdBy.authorHireDate}" name="authorHireDate">
+        <input type="hidden" th:value="${task.createdBy.authorPhone}" name="authorPhone">
+        <input type="hidden" th:value="${task.createdBy.authorRole}" name="authorRole">
+        <input type="hidden" th:value="${task.createdBy.authorLogin}" name="authorLogin">
 
+        <input type="hidden" th:value="${task.assignedTo.executorId}" name="executorId">
+        <input type="hidden" th:value="${task.assignedTo.executorName}" name="executorName">
+        <input type="hidden" th:value="${task.assignedTo.executorPatrol}" name="executorPatrol">
+        <input type="hidden" th:value="${task.assignedTo.executorSerName}" name="executorSerName">
+        <input type="hidden" th:value="${task.assignedTo.executorEmail}" name="executorEmail">
+        <input type="hidden" th:value="${task.assignedTo.executorHireDate}" name="executorHireDate">
+        <input type="hidden" th:value="${task.assignedTo.executorPhone}" name="executorPhone">
+        <input type="hidden" th:value="${task.assignedTo.executorRole}" name="executorRole">
+        <input type="hidden" th:value="${task.assignedTo.executorLogin}" name="executorLogin">
+
+        <span> Описание :<span th:text=${task.description}> Нечего не получили</span>  </span><br>
+        <span> Дата создания :<span th:text=${task.creationDate}> Нечего не получили</span>  </span><br>
+        <span> Дата завершения:<span th:text=${task.completionDate}> Нечего не получили</span>  </span><br>
+        <span> Автор задания: <br>
+         Имя автора:  <span th:text=${task.createdBy.authorName}> Нечего не получили</span><br>
+        </span>
+        <span> Активность :  <span th:text=${task.activity}> Нечего не получили</span>  </span><br>
+        <span> Статус: <span th:text=${task.status}> Нечего не получили</span>  </span><br>
+        <span> Исполнитель : <span th:text=${task.assignedTo.executorName}> Нечего не получили</span>  </span><br>
+
+        <input type="submit" value="Показать подробную информацию о задаче">
+    </form>
+</tr>
 
 
 </body>

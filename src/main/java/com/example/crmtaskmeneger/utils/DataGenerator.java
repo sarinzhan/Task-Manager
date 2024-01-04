@@ -1,9 +1,15 @@
 package com.example.crmtaskmeneger.utils;
 
+import com.example.crmtaskmeneger.dto.TaskAuthorDto;
+import com.example.crmtaskmeneger.dto.TaskExecutorDto;
+import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
+import com.example.crmtaskmeneger.entities.Employee;
 import com.example.crmtaskmeneger.entities.Role;
+import com.example.crmtaskmeneger.mapping.MappingUser;
 
+import javax.swing.text.html.parser.Entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,10 +99,20 @@ public class DataGenerator {
         response.setCompletionDate(LocalDate.of(random.nextInt(2024 - 1970 + 1) + 1970,
                 random.nextInt(12 - 1 + 1)  + 1 ,
                 random.nextInt(28 - 1 + 1)  + 1 ).toString());
-
-        response.setAssignedTo(generatorEmployeeDtoResponse().getId());
-        response.setCreatedBy(generatorEmployeeDtoResponse().getId());
         response.setActivity("" + random.nextBoolean());
+
+//      Генерация Автора задания
+       EmployeeDtoResponse authorResponse = generatorEmployeeDtoResponse();
+        Employee author = MappingUser.mapModelDtoToEntity(authorResponse);
+        TaskAuthorDto authorDto = MappingUser.mapEntityToTaskAuthorDTO(author);
+        response.setCreatedBy(authorDto);
+
+        // генерация исполнителя
+        EmployeeDtoResponse employeeDtoResponse = generatorEmployeeDtoResponse();
+        Employee executor = MappingUser.mapModelDtoToEntity(employeeDtoResponse);
+        UserDto userDto = MappingUser.mapEntityToUserDTO(executor);
+        TaskExecutorDto taskExecutorDto = MappingUser.mapUserDtoToTaskExecutorDto(userDto);
+        response.setAssignedTo(taskExecutorDto);
 
 
         return response;
@@ -104,7 +120,7 @@ public class DataGenerator {
 
     public static EmployeeDtoResponse generatorEmployeeDtoResponse(){
         EmployeeDtoResponse response = new EmployeeDtoResponse();
-        response.setId((long)random.nextInt(1000000) + 1);
+        response.setEmployeeId((long)random.nextInt(1000000) + 1);
         response.setFirstName(names[random.nextInt(names.length)]);
         response.setMiddleName(patrols[random.nextInt(patrols.length)]);
         response.setLastName(serNames[random.nextInt(serNames.length)]);

@@ -1,5 +1,8 @@
 package com.example.crmtaskmeneger.dto.response;
 
+import com.example.crmtaskmeneger.dto.TaskAuthorDto;
+import com.example.crmtaskmeneger.dto.TaskExecutorDto;
+
 public class TaskDtoResponse {
 
     // TODO добавить id задачи
@@ -9,15 +12,15 @@ public class TaskDtoResponse {
     private String creationDate;
     private String assignedDate;
     private String completionDate;
-    private Long assignedTo;
-    private Long createdBy;
+    private TaskExecutorDto assignedTo;
+    private TaskAuthorDto createdBy;
     private String activity;
     private String status;
 
     public TaskDtoResponse() {
     }
 
-    public TaskDtoResponse(Long id,String description, String creationDate, String assignedDate, String completionDate, Long assignedTo, Long createdBy, String activity) {
+    public TaskDtoResponse(Long id,String description, String creationDate, String assignedDate, String completionDate, TaskExecutorDto assignedTo, TaskAuthorDto createdBy, String activity) {
         this.description = description;
         this.creationDate = creationDate;
         this.assignedDate = assignedDate;
@@ -79,19 +82,19 @@ public class TaskDtoResponse {
         this.completionDate = completionDate;
     }
 
-    public Long getAssignedTo() {
+    public TaskExecutorDto getAssignedTo() {
         return assignedTo;
     }
 
-    public void setAssignedTo(Long assignedTo) {
+    public void setAssignedTo(TaskExecutorDto assignedTo) {
         this.assignedTo = assignedTo;
     }
 
-    public Long getCreatedBy() {
+    public TaskAuthorDto getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Long createdBy) {
+    public void setCreatedBy(TaskAuthorDto createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -110,9 +113,9 @@ public class TaskDtoResponse {
                 "description='" + description + '\'' +
                 ", creationDate='" + creationDate + '\'' +
                 ", assignedDate='" + assignedDate + '\'' +
-                ", completionDate='" + completionDate + '\'' +
-                ", assignedTo=" + assignedTo +
-                ", createdBy=" + createdBy +
+                ", completionDate='" + completionDate + '\'' + "\n"+
+                ", assignedTo=" + assignedTo + "\n"+
+                ", createdBy=" + createdBy + "\n"+
                 ", status='" + activity + '\'' +
                 '}';
     }

@@ -1,5 +1,6 @@
 package com.example.crmtaskmeneger.controller;
 
+import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.request.EmployeeDtoRequest;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class AreaController {
 
     @GetMapping(name = "/area_employee")
-    public ModelAndView areaEmployee(ModelAndView model, @ModelAttribute("user")EmployeeDtoResponse response){
+    public ModelAndView areaEmployee(ModelAndView model, @ModelAttribute("user") UserDto userDto){
         System.out.println("Зашли в личный кабинет: com.example.crmtaskmeneger.controller.AreaController");
-        System.out.println(response);
+        System.out.println(userDto);
         return model;
 
     }

@@ -1,4 +1,3 @@
-
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +6,115 @@
 </head>
 <body>
 
-    <h1> Просмотр всех свободных работников  </h1>
+<h1> Просмотр всех свободных работников </h1>
+
+<br>
+<h5>========================= Пользователь системы ===========================================================</h5>
+<span> ID:                   <span th:text=${user.userId}> Нечего не получили</span>  </span><br>
+<span> Имя:                  <span th:text=${user.userName}> Нечего не получили</span>  </span><br>
+<span> Отчество:             <span th:text=${user.userPatrol}> Нечего не получили</span>  </span><br>
+<span> Фамилия:              <span th:text=${user.userSerName}> Нечего не получили</span>  </span><br>
+<span> Почта:                <span th:text=${user.userEmail}> Нечего не получили</span>  </span><br>
+<span> Дата рождения:        <span th:text=${user.userHireDate}> Нечего не получили</span>  </span><br>
+<span> Номер телефона:       <span th:text=${user.userPhone}> Нечего не получили</span>  </span><br>
+<span> Роль:                 <span th:text=${user.userRole}> Нечего не получили</span>  </span><br>
+<span> Логин:                <span th:text=${user.userLogin}> Нечего не получили</span>  </span><br>
+<h5>======================================================================================================== </h5>
+<br>
+<br>
+
+<br>
+<h5>========================= Новая задача системы ===========================================================</h5>
+<span> ID:                   <span th:text=${task.id}> Нечего не получили</span>  </span><br>
+<span> Описание :                  <span th:text=${task.description}> Нечего не получили</span>  </span><br>
+<span> Дата создания :             <span th:text=${task.creationDate}> Нечего не получили</span>  </span><br>
+<span> Дата принятия:              <span th:text=${task.assignedDate}> Нечего не получили</span>  </span><br>
+<span> Дата завершения:                <span th:text=${task.completionDate}> Нечего не получили</span>  </span><br>
+<span> Исполнитель:        <span th:text=${task.assignedTo}> Нечего не получили</span>  </span><br>
+<span> Автор задания:       <!--<span th:text = ${task.createdBy}> Нечего не получили</span>--><br>
+         ID автора:  <span th:text=${task.createdBy.authorId}> Нечего не получили</span><br>
+         Имя автора:  <span th:text=${task.createdBy.authorName}> Нечего не получили</span><br>
+         Отчество автора:  <span th:text=${task.createdBy.authorPatrol}> Нечего не получили</span><br>
+         Фамилия автора:  <span th:text=${task.createdBy.authorSerName}> Нечего не получили</span><br>
+         Почта автора:  <span th:text=${task.createdBy.authorEmail}> Нечего не получили</span><br>
+         Дата найма автора:  <span th:text=${task.createdBy.authorHireDate}> Нечего не получили</span><br>
+         Телефон автора:  <span th:text=${task.createdBy.authorPhone}> Нечего не получили</span><br>
+         Роль автора:  <span th:text=${task.createdBy.authorRole}> Нечего не получили</span><br>
+         Логин автора:  <span th:text=${task.createdBy.authorLogin}> Нечего не получили</span><br>
+    </span><br>
+<span> Активность :                 <span th:text=${task.activity}> Нечего не получили</span>  </span><br>
+<span> Статус:                <span th:text=${task.status}> Нечего не получили</span>  </span><br>
+<h5>======================================================================================================== </h5>
+<br>
+<br>
+
+<div th:each="employee : ${employee_list}">
+
+    <form th:action="@{/new_task}" method="POST">
+        <input type="hidden" th:value="${user.userId}" name="userId">
+        <input type="hidden" th:value="${user.userName}" name="userName">
+        <input type="hidden" th:value="${user.userPatrol}" name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}" name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}" name="userPhone">
+        <input type="hidden" th:value="${user.userRole}" name="userRole">
+        <input type="hidden" th:value="${user.userLogin}" name="userLogin">
+
+        <input type="hidden" th:value="${task.id}" name="id">
+        <input type="hidden" th:value="${task.description}" name="description">
+        <input type="hidden" th:value="${task.creationDate}" name="creationDate">
+        <input type="hidden" th:value="${task.assignedDate}" name="assignedDate">
+        <input type="hidden" th:value="${task.completionDate}" name="completionDate">
+        <input type="hidden" th:value="${task.activity}" name="activity">
+        <input type="hidden" th:value="${task.status}" name="status">
+
+        <input type="hidden" th:value="${user.userId}" name="authorId">
+        <input type="hidden" th:value="${user.userName}" name="authorName">
+        <input type="hidden" th:value="${user.userPatrol}" name="authorPatrol">
+        <input type="hidden" th:value="${user.userSerName}" name="authorSerName">
+        <input type="hidden" th:value="${user.userEmail}" name="authorEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="authorHireDate">
+        <input type="hidden" th:value="${user.userPhone}" name="authorPhone">
+        <input type="hidden" th:value="${user.userRole}" name="authorRole">
+        <input type="hidden" th:value="${user.userLogin}" name="authorLogin">
+
+        <br>
+        <span> ID:             <span th:text=${employee.employeeId}> Нечего не получили</span>  </span><br>
+        <span> Имя:            <span th:text=${employee.firstName}> Нечего не получили</span>  </span><br>
+        <span> Отчество:       <span th:text=${employee.middleName}> Нечего не получили</span>  </span><br>
+        <span> Фамилия:        <span th:text=${employee.lastName}> Нечего не получили</span>  </span><br>
+        <span> Почта:          <span th:text=${employee.email}> Нечего не получили</span>  </span><br>
+        <span> Дата рождения:  <span th:text=${employee.hireDate}> Нечего не получили</span>  </span><br>
+        <span> Номер телефона: <span th:text=${employee.phoneNum}> Нечего не получили</span>  </span><br>
+        <span> Роль:           <span th:text=${employee.role}> Нечего не получили</span>  </span><br>
+        <span> Логин:          <span th:text=${employee.login}> Нечего не получили</span>  </span><br>
+        <br>
+
+        <input type="hidden" th:value="${employee.employeeId}" name="employeeId">
+        <input type="hidden" th:value="${employee.firstName}" name="firstName">
+        <input type="hidden" th:value="${employee.middleName}" name="middleName">
+        <input type="hidden" th:value="${employee.lastName}" name="lastName">
+        <input type="hidden" th:value="${employee.email}" name="email">
+        <input type="hidden" th:value="${employee.hireDate}" name="hireDate">
+        <input type="hidden" th:value="${employee.phoneNum}" name="phoneNum">
+        <input type="hidden" th:value="${employee.role}" name="role">
+        <input type="hidden" th:value="${employee.login}" name="login">
+
+        <input type="hidden" th:value="${employee.employeeId}" name="executorId">
+        <input type="hidden" th:value="${employee.firstName}" name="executorName">
+        <input type="hidden" th:value="${employee.middleName}" name="executorPatrol">
+        <input type="hidden" th:value="${employee.lastName}" name="executorSerName">
+        <input type="hidden" th:value="${employee.email}" name="executorEmail">
+        <input type="hidden" th:value="${employee.hireDate}" name="executorHireDate">
+        <input type="hidden" th:value="${employee.phoneNum}" name="executorPhone">
+        <input type="hidden" th:value="${employee.role}" name="executorRole">
+        <input type="hidden" th:value="${employee.login}" name="executorLogin">
+
+        <input type="submit" value="Выбрать сотрудника для задачи">
+
+    </form>
+</div>
 
 
 </body>

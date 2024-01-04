@@ -1,13 +1,20 @@
 package com.example.crmtaskmeneger.controller;
 
+import com.example.crmtaskmeneger.dto.TaskAuthorDto;
+import com.example.crmtaskmeneger.dto.TaskExecutorDto;
+import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
 import com.example.crmtaskmeneger.entities.Role;
+import com.example.crmtaskmeneger.model.SelectingAnActionWhenCreatingATask;
 import com.example.crmtaskmeneger.service.EmployeeService;
+import com.example.crmtaskmeneger.utils.DataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -23,16 +30,22 @@ public class TaskController {
     }
 
 
-    @GetMapping("/task_selection")
+    @GetMapping("/show_task_details")
     public ModelAndView setEmployeeTask(
             ModelAndView model,
-            @ModelAttribute(name = "user")EmployeeDtoResponse employeeDtoResponse,
-            @ModelAttribute(name = "task")TaskDtoResponse taskDtoResponse
+            @ModelAttribute("user") UserDto userDto,
+            @ModelAttribute(name = "taskAuthorDto") TaskAuthorDto taskAuthorDto,
+            @ModelAttribute(name = "taskExecutorDto") TaskExecutorDto taskExecutorDto,
+            @ModelAttribute("task") TaskDtoResponse taskDtoResponse
             ){
+        // =========================  Востанновление данных =======================================
+         taskDtoResponse.setAssignedTo(taskExecutorDto);
+         taskDtoResponse.setCreatedBy(taskAuthorDto);
+        // ========================================================================================
 
         System.out.println("========== Зашли в контроллер просмотра выбранной задачи ========================");
         System.out.println("Адрес: com.example.crmtaskmeneger.controller.TaskController.setEmployeeTask()==POST ");
-        System.out.println("Пришла модель пользователя: " + employeeDtoResponse);
+        System.out.println("Пришла модель пользователя: " + userDto);
         System.out.println("Пришла модель задачи: " + taskDtoResponse);
 
         /*
@@ -43,16 +56,83 @@ public class TaskController {
 
 
         model.addObject("task", taskDtoResponse);
-        model.addObject("user", employeeDtoResponse);
-        if(employeeDtoResponse.getRole().equals(Role.DIRECTOR)){
-            // Сюда добавить всех свободных работников
-            List<EmployeeDtoResponse> listFreeEmploy = new ArrayList<>();
-            model.addObject("employee_list", listFreeEmploy);
-            model.setViewName("fourth_floor/all_free_employee.html");
-        }else {
-            model.setViewName("thirt_floor/area_employee.html");
-        }
+        model.addObject("user", userDto);
+        model.setViewName("fourth_floor/show_task_details.html");
+
         System.out.println("=================================================================");
+        return model;
+    }
+
+
+    @GetMapping("/all_tasks")
+    public ModelAndView getAllTasks(ModelAndView model, @ModelAttribute(name = "user")UserDto userDto){
+        System.out.println("=======================================================================================");
+        System.out.println("Зашли в контролер созданной задачи POST:  com.example.crmtaskmeneger.controller.TaskController.getAllTask()");
+        System.out.println("Пришел пользователь Активный: " + userDto );
+        /*
+        TODO Реалезовать логику воврощения всех задач системы
+         */
+
+        // заглушка
+        List<TaskDtoResponse> tasksList = DataGenerator.generatorListToTaskResponse();
+        model.addObject("task_list", tasksList);
+
+        System.out.println("=======================================================================================");
+
+        model.addObject("user", userDto);
+        model.setViewName("fourth_floor/all_tasks.html");
+        return model;
+    }
+
+    @GetMapping(value = "/search_task_by_parameter")
+    public ModelAndView searchTaskGet(ModelAndView model, @ModelAttribute("user") UserDto userDto){
+        System.out.println("=======================================================================================");
+        System.out.println("Зашли в контролер созданной задачи POST:  com.example.crmtaskmeneger.controller.EmployeeController.searchEmployee() : GET");
+        System.out.println("Пришел пользователь Активный: " + userDto );
+        model.addObject("user", userDto);
+        model.setViewName("fourth_floor/search_task_by_parameter.html");
+        System.out.println("=======================================================================================");
+        return model;
+    }
+
+    @PostMapping(value = "/search_task_by_parameter")
+    public ModelAndView searchTaskPost(
+            ModelAndView model,
+            @ModelAttribute("user") UserDto userDto,
+            @RequestParam(name = "name",required = false)      String name,
+            @RequestParam(name = "patrol" ,required = false)   String patrol,
+            @RequestParam(name = "serName" ,required = false)  String serName,
+            @RequestParam(name = "login" ,required = false)    String login,
+            @RequestParam(name = "email" ,required = false)    String email,
+            @RequestParam(name = "phone" ,required = false)    String phone,
+            @RequestParam(name = "hireDate" ,required = false) String hireDate
+    ){
+
+        /*
+        Параметры могут быть пустыми так что сделай проверку на всякий случай
+         */
+        System.out.println("=======================================================================================");
+        System.out.println("Зашли в контролер созданной задачи POST:  com.example.crmtaskmeneger.controller.EmployeeController.searchEmployee() : POST");
+        System.out.println("Пришел пользователь Активный: " + userDto );
+        System.out.println("Параметр имя " +         name);
+        System.out.println("Параметр отчество " +    patrol);
+        System.out.println("Параметр фамилия " +     serName);
+        System.out.println("Параметр логин " +       login);
+        System.out.println("Параметр почта " +       email);
+        System.out.println("Параметр телефон " +     phone);
+        System.out.println("Параметр дата найма " +  hireDate);
+
+        /*
+        TODO Контроллер который должен найти задачи по пришедшим параметра и вернуть список задач которые будут найдены
+            Если задачи не будут найдены вернуть пустой список СПИСОК ДОЛЖЕН БЫТЬ != NULL
+            (Я на страничке сделаю логику ото брожения сообщения)
+         */
+
+        List<EmployeeDtoResponse> employeeDtoResponseList = new ArrayList<>(); // Найденные сотрудники по параметрам
+        model.addObject("employees_list", employeeDtoResponseList);
+        model.addObject("user", userDto);
+        model.setViewName("fourth_floor/all_tasks.html"); // Будем возвращать их на страничку всех заданий
+        System.out.println("=======================================================================================");
         return model;
     }
 }

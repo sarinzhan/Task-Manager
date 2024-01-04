@@ -4,19 +4,16 @@ import com.example.crmtaskmeneger.entities.Role;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
 @Scope("session")
 public class EmployeeDtoResponse {
-    private Long id;
+    private Long employeeId;
     private String firstName;
     private String middleName;
     private String lastName;
     private String email;
     private String hireDate;
     private String phoneNum;
-//    private String password; // Зачем тут нужен пароль Мы же эту ДТО отдаем?
     private Role role;
     private String login;
 
@@ -41,12 +38,12 @@ public class EmployeeDtoResponse {
         this.login = login;
     }
 
-    public Long getId() {
-        return id;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getFirstName() {
@@ -123,7 +120,7 @@ public class EmployeeDtoResponse {
     @Override
     public String toString() {
         return "EmployeeDtoResponse{" +
-                "id=" + id +
+                "id=" + employeeId +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
