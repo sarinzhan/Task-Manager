@@ -1,5 +1,6 @@
 package com.example.crmtaskmeneger.service.impl;
 
+import com.example.crmtaskmeneger.entities.Employee;
 import com.example.crmtaskmeneger.entities.Task;
 import com.example.crmtaskmeneger.entities.TaskStatus;
 import com.example.crmtaskmeneger.repository.TaskRepository;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -60,8 +60,15 @@ public class TaskServiceEmpl implements TaskService {
                 .stream()
                 .filter(x -> x.getCompletionDate().isAfter(LocalDate.now()))
                 .filter(x -> !x.getDescription().isEmpty())
-                .filter(x -> Objects.isNull(x.getAssignedTo()))
+                .filter(x -> Objects.isNull(x.getExecutor()))
                 .filter(x -> x.getStatus().equals(TaskStatus.NEW))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Task> getAllTaskByEmployee(Employee employee) {
+        return taskRepository.findByExecutor(employee).orElse(null);
+    }
+
+
 }

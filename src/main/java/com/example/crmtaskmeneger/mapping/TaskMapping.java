@@ -3,7 +3,6 @@ package com.example.crmtaskmeneger.mapping;
 import com.example.crmtaskmeneger.dto.TaskAuthorDto;
 import com.example.crmtaskmeneger.dto.TaskDto;
 import com.example.crmtaskmeneger.dto.TaskExecutorDto;
-import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.request.TaskDtoRequest;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
 import com.example.crmtaskmeneger.entities.Employee;
@@ -41,7 +40,7 @@ public class TaskMapping {
         taskEntity.setStatus(status);
 
         Employee author = MappingUser.mapModelDtoAuthorToEntity(taskDto.getCreatedBy());
-        taskEntity.setCreatedBy(author);
+        taskEntity.setAuthor(author);
 
         return taskEntity;
     }
@@ -51,8 +50,8 @@ public class TaskMapping {
                 .setCreationDate(LocalDateTime.now())
                 .setAssignedDate(LocalDateTime.now())
                 .setCompletionDate(LocalDate.parse(taskDto.getCompletionDate()))
-                .setAssignedTo(new Employee())
-                .setCreatedBy(new Employee())
+                .setExecutor(new Employee())
+                .setAuthor(new Employee())
                 .setStatus(TaskStatus.IN_PROGRESS);
         return task;
     }
@@ -74,7 +73,7 @@ public class TaskMapping {
     public static List<TaskDtoResponse> mapModelEntityToDtoResponseWithAuthorAndExecutorList(List<Task> entityList){
         List<TaskDtoResponse> taskDtoResponsesList = new ArrayList<>();
         for (Task el : entityList){
-            TaskDtoResponse response = mapModelEntityToDtoResponseWithAuthorAndExecutor(el,el.getAssignedTo(),el.getCreatedBy());
+            TaskDtoResponse response = mapModelEntityToDtoResponseWithAuthorAndExecutor(el,el.getExecutor(),el.getAuthor());
             taskDtoResponsesList.add(response);
         }
         return taskDtoResponsesList;
@@ -92,8 +91,8 @@ public class TaskMapping {
                 task.setCreationDate(LocalDateTime.now());
            task     .setAssignedDate(LocalDateTime.now());
            task     .setCompletionDate(parse);
-             task   .setAssignedTo(taskExecutorDto);
-             task   .setCreatedBy(taskAuthorDto);
+             task   .setExecutor(taskExecutorDto);
+             task   .setAuthor(taskAuthorDto);
                task .setStatus(TaskStatus.IN_PROGRESS);
         return task;
     }
@@ -111,7 +110,7 @@ public class TaskMapping {
          task.setCreationDate(LocalDateTime.now());
             task    .setAssignedDate(LocalDateTime.now());
         task   .setCompletionDate(parse);
-        task  .setCreatedBy(taskAuthorDto);
+        task  .setAuthor(taskAuthorDto);
         task   .setStatus(TaskStatus.IN_PROGRESS);
         return task;
     }
@@ -123,8 +122,8 @@ public class TaskMapping {
         taskDto.setCreationDate(task.getCreationDate().toString());
         taskDto.setAssignedDate(task.getAssignedDate().toString());
         taskDto.setCompletionDate(task.getCompletionDate().toString());
-        taskDto.setAssignedTo(task.getAssignedTo().getEmployeeId());
-        taskDto.setCreatedBy(task.getCreatedBy().getEmployeeId());
+        taskDto.setAssignedTo(task.getExecutor().getEmployeeId());
+        taskDto.setCreatedBy(task.getAuthor().getEmployeeId());
         taskDto.setStatus(task.getStatus().toString());
         return taskDto;
     }

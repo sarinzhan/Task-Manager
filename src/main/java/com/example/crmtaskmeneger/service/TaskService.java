@@ -1,5 +1,6 @@
 package com.example.crmtaskmeneger.service;
 
+import com.example.crmtaskmeneger.entities.Employee;
 import com.example.crmtaskmeneger.entities.Task;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface TaskService {
     Task getByStatus(String status) throws Exception;
     void createTask(Task task);
     List<Task> getAllAvailTask();
+    List<Task> getAllTaskByEmployee(Employee employee);
 }

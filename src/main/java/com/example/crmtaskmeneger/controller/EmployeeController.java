@@ -110,8 +110,8 @@ public class EmployeeController {
             TODO добавить бизнес логику для обычного сотрудника и сохранения в базе данных все изменения связанные с данным сотрудником
                 1) изменения статуса активности сотрудника на свободного или занятого
              */
-            Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
-            Employee executor = employeeService.getById(taskExecutorDto.getExecutorId());
+            Employee author = employeeService.getById(userDto.getUserId());
+            Employee executor = employeeService.getById(userDto.getUserId());
             Task task = TaskMapping.mapModelTaskDtoResponseWithAuthAndExecToEntity(taskDtoResponse,executor,author);
             taskService.createTask(task);
             model.setViewName("thirt_floor/area_employee.html");

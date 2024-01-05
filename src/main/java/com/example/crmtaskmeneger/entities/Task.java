@@ -21,10 +21,10 @@ public class Task {
     private LocalDate completionDate;
     @OneToOne
     @JoinColumn(name = "assigned_to", referencedColumnName = "employee_id")
-    private Employee assignedTo; // исполнитель
+    private Employee executor; // исполнитель
     @ManyToOne
     @JoinColumn(name = "create_by", referencedColumnName = "employee_id")
-    private Employee createdBy; // Создатель задачи
+    private Employee author; // Создатель задачи
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
@@ -79,21 +79,21 @@ public class Task {
         return this;
     }
 
-    public Employee getAssignedTo() {
-        return assignedTo;
+    public Employee getExecutor() {
+        return executor;
     }
 
-    public Task setAssignedTo(Employee assignedTo) {
-        this.assignedTo = assignedTo;
+    public Task setExecutor(Employee assignedTo) {
+        this.executor = assignedTo;
         return this;
     }
 
-    public Employee getCreatedBy() {
-        return createdBy;
+    public Employee getAuthor() {
+        return author;
     }
 
-    public Task setCreatedBy(Employee createdBy) {
-        this.createdBy = createdBy;
+    public Task setAuthor(Employee createdBy) {
+        this.author = createdBy;
         return this;
     }
 

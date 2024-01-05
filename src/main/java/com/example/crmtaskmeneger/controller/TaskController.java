@@ -1,7 +1,6 @@
 package com.example.crmtaskmeneger.controller;
 
 import com.example.crmtaskmeneger.dto.TaskAuthorDto;
-import com.example.crmtaskmeneger.dto.TaskDto;
 import com.example.crmtaskmeneger.dto.TaskExecutorDto;
 import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
@@ -24,9 +23,11 @@ import java.util.List;
 @Controller
 public class TaskController {
     private final TaskService taskService;
+    private final EmployeeService employeeService;
     @Autowired
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, EmployeeService employeeService) {
         this.taskService = taskService;
+        this.employeeService = employeeService;
     }
 
 
@@ -135,6 +136,21 @@ public class TaskController {
         model.addObject("user", userDto);
         model.setViewName("fourth_floor/all_tasks.html"); // Будем возвращать их на страничку всех заданий
         System.out.println("=======================================================================================");
+        return model;
+    }
+
+
+    @GetMapping("/all_my_task")
+    public ModelAndView getAllTaskByEmployee(
+            ModelAndView model,
+            @ModelAttribute("user") UserDto userDto
+            ){
+
+        List<Task> entityTaskList = taskService.getAllTaskByEmployee(employeeService.getById(userDto.getUserId()));
+        List<TaskDtoResponse> taskDtoResponseList = TaskMapping.mapModelEntityToDtoResponseWithAuthorAndExecutorList(entityTaskList);
+        model.addObject("task_list",taskDtoResponseList);
+        model.addObject("user",userDto);
+        model.setViewName("fourth_floor/all_tasks.html");
         return model;
     }
 }

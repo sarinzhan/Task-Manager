@@ -32,9 +32,9 @@ public class Employee {
     private Role role;
     @Column(name = "login")
     private String login;
-    @OneToOne(mappedBy = "assignedTo")
+    @OneToOne(mappedBy = "executor")
     private Task assignedTask;
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "author")
     private List<Task> createdByTask;
 
     public Employee() {
