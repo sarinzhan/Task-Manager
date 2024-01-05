@@ -1,0 +1,44 @@
+create table task(
+    task_id bigint generated always as identity primary key ,
+    description varchar,
+    creation_date timestamp not null,
+    assigned_date timestamp,
+    completion_date date,
+    assigned_to integer references employee(employee_id) on delete set null,
+    create_by integer references employee(employee_id)  on delete set null not null,
+    status varchar
+);
+
+create table employee(
+    employee_id bigint generated always as  identity primary key,
+    first_name varchar,
+    middle_name varchar,
+    last_name varchar,
+    email varchar,
+    hire_date date,
+    phone_num varchar,
+    password varchar not null,
+    userRole varchar not null,
+    login varchar unique not null
+);
+
+
+/*
+
+Сотрудник(
+    ID_номер
+    логин
+    пароль
+    имя
+    фамилия
+    отчество
+    дата найма
+    роль
+    номер телефона
+
+
+    
+);
+
+
+*/
