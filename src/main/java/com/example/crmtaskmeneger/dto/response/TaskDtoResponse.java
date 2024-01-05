@@ -1,37 +1,52 @@
 package com.example.crmtaskmeneger.dto.response;
 
-import com.example.crmtaskmeneger.entities.Employee;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import com.example.crmtaskmeneger.dto.TaskAuthorDto;
+import com.example.crmtaskmeneger.dto.TaskExecutorDto;
 
 public class TaskDtoResponse {
+
+    // TODO добавить id задачи
+    // добавил
+    private Long id;
     private String description;
-    private LocalDateTime creationDate;
-    private LocalDateTime assignedDate;
-    private LocalDate completionDate;
-    private Employee assignedTo;
-    private Employee createdBy;
+    private String creationDate;
+    private String assignedDate;
+    private String completionDate;
+    private TaskExecutorDto assignedTo;
+    private TaskAuthorDto createdBy;
+    private String activity;
     private String status;
 
     public TaskDtoResponse() {
     }
 
-    public TaskDtoResponse(String description, LocalDateTime creationDate, LocalDateTime assignedDate, LocalDate completionDate, Employee assignedTo, Employee createdBy, String status) {
+    public TaskDtoResponse(Long id,String description, String creationDate, String assignedDate, String completionDate, TaskExecutorDto assignedTo, TaskAuthorDto createdBy, String activity) {
         this.description = description;
         this.creationDate = creationDate;
         this.assignedDate = assignedDate;
         this.completionDate = completionDate;
         this.assignedTo = assignedTo;
         this.createdBy = createdBy;
-        this.status = status;
+        this.activity = activity;
+        this.id = id;
     }
 
-    public TaskDtoResponse(String description, LocalDateTime creationDate, LocalDate completionDate, Employee createdBy) {
-        this.description = description;
-        this.creationDate = creationDate;
-        this.completionDate = completionDate;
-        this.createdBy = createdBy;
+    public String getStatus() {
+        return status;
+    }
+
+    public TaskDtoResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public TaskDtoResponse setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getDescription() {
@@ -43,57 +58,65 @@ public class TaskDtoResponse {
         return this;
     }
 
-    public LocalDateTime getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public TaskDtoResponse setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
-        return this;
     }
 
-    public LocalDateTime getAssignedDate() {
+    public String getAssignedDate() {
         return assignedDate;
     }
 
-    public TaskDtoResponse setAssignedDate(LocalDateTime assignedDate) {
+    public void setAssignedDate(String assignedDate) {
         this.assignedDate = assignedDate;
-        return this;
     }
 
-    public LocalDate getCompletionDate() {
+    public String getCompletionDate() {
         return completionDate;
     }
 
-    public TaskDtoResponse setCompletionDate(LocalDate completionDate) {
+    public void setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
-        return this;
     }
 
-    public Employee getAssignedTo() {
+    public TaskExecutorDto getAssignedTo() {
         return assignedTo;
     }
 
-    public TaskDtoResponse setAssignedTo(Employee assignedTo) {
+    public void setAssignedTo(TaskExecutorDto assignedTo) {
         this.assignedTo = assignedTo;
-        return this;
     }
 
-    public Employee getCreatedBy() {
+    public TaskAuthorDto getCreatedBy() {
         return createdBy;
     }
 
-    public TaskDtoResponse setCreatedBy(Employee createdBy) {
+    public void setCreatedBy(TaskAuthorDto createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public TaskDtoResponse setActivity(String activity) {
+        this.activity = activity;
         return this;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public TaskDtoResponse setStatus(String status) {
-        this.status = status;
-        return this;
+    @Override
+    public String toString() {
+        return "TaskDtoResponse{" +
+                "description='" + description + '\'' +
+                ", creationDate='" + creationDate + '\'' +
+                ", assignedDate='" + assignedDate + '\'' +
+                ", completionDate='" + completionDate + '\'' + "\n"+
+                ", assignedTo=" + assignedTo + "\n"+
+                ", createdBy=" + createdBy + "\n"+
+                ", status='" + activity + '\'' +
+                '}';
     }
 }

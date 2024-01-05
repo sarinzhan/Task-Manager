@@ -7,30 +7,117 @@
 </head>
 <body>
 
-    <h1> Страничка личного кабинета <span th:text="${user.login}"> Логин пользователя не получен</span>  Директора</h1>
-
+    <h1> Личный кабинет Директора:  <span th:text="${user.userName}"> </span> </h1>
     <br>
+    <h5>========================= Пользователь системы ===========================================================</h5>
+    <span> ID:                   <span th:text = ${user.userId}> Нечего не получили</span>  </span><br>
+    <span> Имя:                  <span th:text = ${user.userName}> Нечего не получили</span>  </span><br>
+    <span> Отчество:             <span th:text = ${user.userPatrol}> Нечего не получили</span>  </span><br>
+    <span> Фамилия:              <span th:text = ${user.userSerName}> Нечего не получили</span>  </span><br>
+    <span> Почта:                <span th:text = ${user.userEmail}> Нечего не получили</span>  </span><br>
+    <span> Дата рождения:        <span th:text = ${user.userHireDate}> Нечего не получили</span>  </span><br>
+    <span> Номер телефона:       <span th:text = ${user.userPhone}> Нечего не получили</span>  </span><br>
+    <span> Роль:                 <span th:text = ${user.userRole}> Нечего не получили</span>  </span><br>
+    <span> Логин:                <span th:text = ${user.userLogin}> Нечего не получили</span>  </span><br>
+    <h5>======================================================================================================== </h5>
+    <br>
+    <br>
+    <form th:action =@{/new_task} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value="Создать задачу">
+    </form>
+    <form th:action =@{/all_tasks} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value="Просмотра списка всех задач">
+    </form>
+    <form th:action =@{/all_employee} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value=" Просмотра списка всех сотрудников">
+    </form>
+    <form th:action =@{/all_free_task} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value="Просмотр всех свободных задач">
+    </form>
 
-    <a th:href="@{/new_task}"> 1) Создать задачу                                   </a> <br>
-    <a th:href="@{/all_task}"> 2) посмотреть список всех задач                     </a> <br>
-    <a th:href="@{/all_employee}"> 3) Просмотр всех работников                         </a> <br>
-    <a th:href="@{/all_free_task}"> 4) Просмотр всех свободных задач                    </a> <br>
-    <a th:href="@{/assignment_to_a_worker_task}"> 5) Назначение на задачу работника                   </a> <br>
-    <a th:href="@{/all_free_employee}"> 6) Просмотр всех свободных работников               </a> <br>
-    <a th:href="@{/search_employee_by_parameter}"> 7) Поиск работника по (id, login, name, dateBerth)  </a> <br>
-    <a th:href="@{/search_task_by_parameter}"> 8) Поиск Задачи по (id, date_create, name)          </a> <br>
-
-
-<!--    <div >-->
-<!--        <p  th:text="${user.id}"> по умолчанию номер</p>-->
-<!--        <p  th:text="${user.login}"> по умолчанию логин</p>-->
-<!--        <p  th:text="${user.password}">по умолчанию пароль</p>-->
-<!--    </div>-->
-
-
-
-
-
-
+    <form th:action =@{/all_employee} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value="Назначение на задачу работника  ">
+    </form>
+    <form th:action =@{/all_free_employee} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value="Просмотр всех свободных работников  ">
+    </form>
+    <form th:action =@{/search_employee_by_parameter} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value="Поиск сотрудника ">
+    </form>
+    <form th:action =@{/search_task_by_parameter} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value="Поиск Задачи ">
+    </form>
 </body>
 </html>

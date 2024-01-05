@@ -8,9 +8,61 @@
 <body>
 
     <h1> Страница создания новой задачи </h1>
-<!--    <p th:text="${message}"> Текст не был получен </p>-->
-<!--    <br>-->
-<!--    <p th:text="${user.getLogin()}"> Должен быть пользователь</p>-->
+
+
+    <br>
+    <h5>========================= Пользователь системы ===========================================================</h5>
+    <span> ID:                   <span th:text = ${user.userId}> Нечего не получили</span>  </span><br>
+    <span> Имя:                  <span th:text = ${user.userName}> Нечего не получили</span>  </span><br>
+    <span> Отчество:             <span th:text = ${user.userPatrol}> Нечего не получили</span>  </span><br>
+    <span> Фамилия:              <span th:text = ${user.userSerName}> Нечего не получили</span>  </span><br>
+    <span> Почта:                <span th:text = ${user.userEmail}> Нечего не получили</span>  </span><br>
+    <span> Дата рождения:        <span th:text = ${user.userHireDate}> Нечего не получили</span>  </span><br>
+    <span> Номер телефона:       <span th:text = ${user.userPhone}> Нечего не получили</span>  </span><br>
+    <span> Роль:                 <span th:text = ${user.userRole}> Нечего не получили</span>  </span><br>
+    <span> Логин:                <span th:text = ${user.userLogin}> Нечего не получили</span>  </span><br>
+    <h5>======================================================================================================== </h5>
+    <br>
+    <br>
+
+        <form th:action="@{/new_task}" th:object="${task}" method="POST">
+            <h3> Новая Задача </h3>
+            <input type="hidden" th:value="${user.userId}"       name="userId">
+            <input type="hidden" th:value="${user.userName}"     name="userName">
+            <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+            <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+            <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+            <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+            <input type="hidden" th:value="${user.userPhone}"    name="userPhone">
+            <input type="hidden" th:value="${user.userRole}"     name="userRole">
+            <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+
+
+                <input type="hidden" th:value="${user.userId}"       name="authorId">
+                <input type="hidden" th:value="${user.userName}"     name="authorName">
+                <input type="hidden" th:value="${user.userPatrol}"   name="authorPatrol">
+                <input type="hidden" th:value="${user.userSerName}"  name="authorSerName">
+                <input type="hidden" th:value="${user.userEmail}"    name="authorEmail">
+                <input type="hidden" th:value="${user.userHireDate}" name="authorHireDate">
+                <input type="hidden" th:value="${user.userPhone}"    name="authorPhone">
+                <input type="hidden" th:value="${user.userRole}"     name="authorRole">
+                <input type="hidden" th:value="${user.userLogin}"    name="authorLogin">
+
+
+            <textarea type="text" th:field="*{description}" name="description"></textarea>
+            <br>
+            <input type="datetime-local" th:field="*{completionDate}"  name="completionDate">
+            <span>Дата завершения задачи</span>
+            <br>
+
+            <div th:if="${user.userRole == T(com.example.crmtaskmeneger.entities.Role).DIRECTOR}">
+            <select name="action" >
+                <option th:each="action_select_employee : ${T(com.example.crmtaskmeneger.model.SelectingAnActionWhenCreatingATask).values()}"
+                        th:value="${action_select_employee}" th:text="${action_select_employee.getDescription()}"></option>
+            </select>
+            </div>
+        <input type="submit" value="Создать задачу">
+        </form>
 
 </body>
 </html>

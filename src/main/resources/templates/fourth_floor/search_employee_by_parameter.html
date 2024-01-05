@@ -1,13 +1,46 @@
-
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Поиск работника по (id, login, name, dateBerth) </title>
+    <title>Поиск сотрудника</title>
 </head>
 <body>
 
-    <h1> Поиск работника по (id, login, name, dateBerth)  </h1>
+<h1> Страница поиска сотрудника </h1>
+<form th:action=@{/search_employee_by_parameter} method="POST">
+    <input type="hidden" th:value="${user.userId}" name="userId">
+    <input type="hidden" th:value="${user.userName}" name="userName">
+    <input type="hidden" th:value="${user.userPatrol}" name="userPatrol">
+    <input type="hidden" th:value="${user.userSerName}" name="userSerName">
+    <input type="hidden" th:value="${user.userEmail}" name="userEmail">
+    <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+    <input type="hidden" th:value="${user.userPhone}" name="userPhone">
+    <input type="hidden" th:value="${user.userRole}" name="userRole">
+    <input type="hidden" th:value="${user.userLogin}" name="userLogin">
+
+    <input type="text" placeholder="Введите имя сотрудника " name="name"> <br>
+    <input type="text" placeholder="Введите отчество сотрудника " name="patrol"> <br>
+    <input type="text" placeholder="Введите фамилию сотрудника " name="serName"> <br>
+    <input type="text" placeholder="Введите логин сотрудника " name="login"> <br>
+    <input type="text" placeholder="Введите почту сотрудника " name="email"> <br>
+    <input type="text" placeholder="Введите телефон сотрудника " name="phone"> <br>
+    <input type="date" name="phone"> <span>Выберите примерную дату найма сотрудника </span> <br>
+
+    <input type="submit" value="Поиск сотрудника">
+</form>
+
+<form th:action=@{/go_back_my_area} method="GET">
+    <input type="hidden" th:value="${user.userId}" name="userId">
+    <input type="hidden" th:value="${user.userName}" name="userName">
+    <input type="hidden" th:value="${user.userPatrol}" name="userPatrol">
+    <input type="hidden" th:value="${user.userSerName}" name="userSerName">
+    <input type="hidden" th:value="${user.userEmail}" name="userEmail">
+    <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+    <input type="hidden" th:value="${user.userPhone}" name="userPhone">
+    <input type="hidden" th:value="${user.userRole}" name="userRole">
+    <input type="hidden" th:value="${user.userLogin}" name="userLogin">
+    <input type="submit" value="Вернуться в личный кабинет">
+</form>
 
 
 </body>

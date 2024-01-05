@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 public class TaskDto {
     private Long id;
     private String description;
-    private LocalDateTime creationDate;
-    private LocalDateTime assignedDate;
-    private LocalDate completionDate;
-    private Employee assignedTo;
-    private Employee createdBy;
+    private String creationDate;
+    private String assignedDate;
+    private String completionDate;
+    private Long assignedTo;
+    private Long createdBy;
     private String status;
 
     public TaskDto() {
@@ -36,47 +36,47 @@ public class TaskDto {
         return this;
     }
 
-    public LocalDateTime getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public TaskDto setCreationDate(LocalDateTime creationDate) {
+    public TaskDto setCreationDate(String creationDate) {
         this.creationDate = creationDate;
         return this;
     }
 
-    public LocalDateTime getAssignedDate() {
+    public String getAssignedDate() {
         return assignedDate;
     }
 
-    public TaskDto setAssignedDate(LocalDateTime assignedDate) {
+    public TaskDto setAssignedDate(String assignedDate) {
         this.assignedDate = assignedDate;
         return this;
     }
 
-    public LocalDate getCompletionDate() {
+    public String getCompletionDate() {
         return completionDate;
     }
 
-    public TaskDto setCompletionDate(LocalDate completionDate) {
+    public TaskDto setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
         return this;
     }
 
-    public Employee getAssignedTo() {
+    public Long getAssignedTo() {
         return assignedTo;
     }
 
-    public TaskDto setAssignedTo(Employee assignedTo) {
+    public TaskDto setAssignedTo(Long assignedTo) {
         this.assignedTo = assignedTo;
         return this;
     }
 
-    public Employee getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public TaskDto setCreatedBy(Employee createdBy) {
+    public TaskDto setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
         return this;
     }

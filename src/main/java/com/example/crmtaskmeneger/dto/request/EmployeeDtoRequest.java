@@ -1,5 +1,6 @@
 package com.example.crmtaskmeneger.dto.request;
 
+import com.example.crmtaskmeneger.entities.Role;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -15,31 +16,13 @@ public class EmployeeDtoRequest {
         private String hireDate;
     private String phoneNum;
     private String password;
-    private String role;
+    private Role role;
     private String login;
 
     public EmployeeDtoRequest() {
     }
 
-    public EmployeeDtoRequest(String firstName, String middleName, String lastName, String role) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.role = role;
-    }
-
-    public EmployeeDtoRequest(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, String role, String login) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.email = email;
-        this.hireDate = hireDate;
-        this.phoneNum = phoneNum;
-        this.role = role;
-        this.login = login;
-    }
-
-    public EmployeeDtoRequest(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, String password, String role, String login) {
+    public EmployeeDtoRequest(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, String password, Role role, String login) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -107,11 +90,12 @@ public class EmployeeDtoRequest {
         this.password = password;
     }
 
-    public String getRole() {
+
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

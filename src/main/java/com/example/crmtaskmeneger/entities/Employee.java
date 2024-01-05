@@ -3,6 +3,7 @@ package com.example.crmtaskmeneger.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Table(name = "employee")
 @Entity
@@ -25,27 +26,37 @@ public class Employee {
     private String phoneNum;
     @Column(name = "password")
     private String password;
+
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
     @Column(name = "login")
     private String login;
-//    @OneToMany(mappedBy = "assignedTo")
-//    private List<Task> tasks;
-//    @OneToMany(mappedBy = "createBy")
-//    private List<Task> tasks2;
+    @OneToOne(mappedBy = "assignedTo")
+    private Task assignedTask;
+    @OneToMany(mappedBy = "createdBy")
+    private List<Task> createdByTask;
 
     public Employee() {
     }
 
+    public Task getAssignedTask() {
+        return assignedTask;
+    }
 
-//    public List<Task> getTasks() {
-//        return tasks;
-//    }
-//
-//    public Employee setTasks(List<Task> tasks) {
-//        this.tasks = tasks;
-//        return this;
-//    }
+    public Employee setAssignedTask(Task assignedTasks) {
+        this.assignedTask = assignedTasks;
+        return this;
+    }
+
+    public List<Task> getCreatedByTask() {
+        return createdByTask;
+    }
+
+    public Employee setCreatedByTask(List<Task> createdByTask) {
+        this.createdByTask = createdByTask;
+        return this;
+    }
 
     public Long getEmployeeId() {
         return employeeId;
@@ -119,11 +130,11 @@ public class Employee {
         return this;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public Employee setRole(String role) {
+    public Employee setRole(Role role) {
         this.role = role;
         return this;
     }

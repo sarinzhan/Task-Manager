@@ -1,35 +1,33 @@
 package com.example.crmtaskmeneger.dto.response;
 
+import com.example.crmtaskmeneger.entities.Role;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 
 @Component
 @Scope("session")
 public class EmployeeDtoResponse {
-    private Long id;
+    private Long employeeId;
     private String firstName;
     private String middleName;
     private String lastName;
     private String email;
-    private LocalDate hireDate;
+    private String hireDate;
     private String phoneNum;
-    private String password; // Зачем тут нужен пароль Мы же эту ДТО отдаем?
-    private String role;
+    private Role role;
     private String login;
 
     public EmployeeDtoResponse() {
     }
 
-    public EmployeeDtoResponse(String firstName, String middleName, String lastName, String role) {
+    public EmployeeDtoResponse(String firstName, String middleName, String lastName, Role role) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.role = role;
     }
 
-    public EmployeeDtoResponse(String firstName, String middleName, String lastName, String email, LocalDate hireDate, String phoneNum, String role, String login) {
+    public EmployeeDtoResponse(String firstName, String middleName, String lastName, String email, String hireDate, String phoneNum, Role role, String login) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -40,12 +38,12 @@ public class EmployeeDtoResponse {
         this.login = login;
     }
 
-    public Long getId() {
-        return id;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getFirstName() {
@@ -84,11 +82,11 @@ public class EmployeeDtoResponse {
         return this;
     }
 
-    public LocalDate getHireDate() {
+    public String getHireDate() {
         return hireDate;
     }
 
-    public EmployeeDtoResponse setHireDate(LocalDate hireDate) {
+    public EmployeeDtoResponse setHireDate(String hireDate) {
         this.hireDate = hireDate;
         return this;
     }
@@ -102,22 +100,12 @@ public class EmployeeDtoResponse {
         return this;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public EmployeeDtoResponse setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public EmployeeDtoResponse setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
-        return this;
     }
 
     public String getLogin() {
@@ -132,14 +120,14 @@ public class EmployeeDtoResponse {
     @Override
     public String toString() {
         return "EmployeeDtoResponse{" +
-                "id=" + id +
+                "id=" + employeeId +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", hireDate=" + hireDate +
                 ", phoneNum='" + phoneNum + '\'' +
-                ", password='" + password + '\'' +
+//                ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 ", login='" + login + '\'' +
                 '}';

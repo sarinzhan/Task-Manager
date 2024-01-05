@@ -1,9 +1,11 @@
 package com.example.crmtaskmeneger.controller;
 
+import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.request.EmployeeDtoRequest;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.entities.Employee;
-import com.example.crmtaskmeneger.mapping.EmployeeMapping;
+import com.example.crmtaskmeneger.entities.Role;
+import com.example.crmtaskmeneger.mapping.MappingUser;
 import com.example.crmtaskmeneger.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,30 +22,23 @@ import java.util.Objects;
 public class AuthController {
 
     private final EmployeeService employeeService;
-    private EmployeeDtoResponse response;
-    private EmployeeDtoRequest request;
 
     @Autowired
     public AuthController(
-            EmployeeService employeeService,
-            EmployeeDtoResponse response,
-            EmployeeDtoRequest request
+            EmployeeService employeeService
     ) {
         this.employeeService = employeeService;
-        this.response = response;
-        this.request = request;
     }
 
     @PostMapping("/register")
     public ModelAndView login(ModelAndView model, @ModelAttribute(name = "user") EmployeeDtoRequest dtoRequest ) {
-        Employee entity = EmployeeMapping.mapModelDtoToEntity(dtoRequest);
+        Employee entity = MappingUser.mapModelDtoToEntity(dtoRequest);
         entity = employeeService.save(entity);
-        EmployeeDtoResponse response = EmployeeMapping.mapEntityToDtoEmployeeResponse(entity);
-
-
-        model.addObject("user",EmployeeMapping.mapEntityToDtoEmployeeResponse(entity));
-
-        if(response.getRole().equalsIgnoreCase("DIRECTOR")){
+        //EmployeeDtoResponse response = MappingUser.mapEntityToDtoEmployeeResponse(entity);
+        UserDto userDto = MappingUser.mapEntityToUserDTO(entity);
+        System.out.println(entity);
+        model.addObject("user",userDto);
+        if(entity.getRole().equals(Role.DIRECTOR)){
             model.setViewName("thirt_floor/area_director");
         }else {
             model.setViewName("thirt_floor/area_employee");
@@ -71,10 +66,10 @@ public class AuthController {
             return model;
         }
 
-        EmployeeDtoResponse response = EmployeeMapping.mapEntityToDtoEmployeeResponse(entity);
-        model.addObject("user", response);
+        UserDto userDto = MappingUser.mapEntityToUserDTO(entity);
+        model.addObject("user", userDto);
 
-        if(response.getRole().equalsIgnoreCase("DIRECTOR")){
+        if(userDto.getUserRole().equals(Role.DIRECTOR)){
             model.setViewName("thirt_floor/area_director");
         }else {
             model.setViewName("thirt_floor/area_employee");
