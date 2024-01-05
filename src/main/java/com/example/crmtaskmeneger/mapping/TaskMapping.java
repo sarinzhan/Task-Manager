@@ -13,8 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TaskMapping {
@@ -43,15 +41,22 @@ public class TaskMapping {
         taskDtoResponse.setStatus(task.getStatus().toString());
         return taskDtoResponse;
     }
-    public static Task mapModelTaskDtoResponseWithAuthExecToEntity(TaskDtoResponse taskDtoResponse,Employee taskExecutorDto,Employee taskAuthorDto){
+    public static Task mapModelTaskDtoResponseWithAuthAndExecToEntity(TaskDtoResponse taskDtoResponse, Employee taskExecutorDto, Employee taskAuthorDto) throws Exception {
         Task task = new Task();
-        task.setDescription(taskDtoResponse.getDescription())
-                .setCreationDate(LocalDateTime.now())
-                .setAssignedDate(LocalDateTime.now())
-                .setCompletionDate(LocalDate.parse(taskDtoResponse.getCompletionDate()))
-                .setAssignedTo(taskExecutorDto)
-                .setCreatedBy(taskAuthorDto)
-                .setStatus(TaskStatus.IN_PROGRESS);
+        System.out.println(taskDtoResponse.getCompletionDate().substring(0,10));
+        if(taskDtoResponse.getCompletionDate().isEmpty()){
+            throw new Exception("No date");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate parse = LocalDate.parse(taskDtoResponse.getCompletionDate().substring(0,10),formatter);
+        task.setDescription(taskDtoResponse.getDescription());
+                task.setCreationDate(LocalDateTime.now());
+           task     .setAssignedDate(LocalDateTime.now());
+           task     .setCompletionDate(parse);
+             task   .setAssignedTo(taskExecutorDto);
+             task   .setCreatedBy(taskAuthorDto);
+               task .setStatus(TaskStatus.IN_PROGRESS);
         return task;
     }
     public static Task mapModelTaskDtoResponseWithAuthToEntity(TaskDtoResponse taskDtoResponse,Employee taskAuthorDto) throws Exception {

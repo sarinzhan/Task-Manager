@@ -3,21 +3,18 @@ package com.example.crmtaskmeneger.controller;
 import com.example.crmtaskmeneger.dto.TaskAuthorDto;
 import com.example.crmtaskmeneger.dto.TaskExecutorDto;
 import com.example.crmtaskmeneger.dto.UserDto;
-import com.example.crmtaskmeneger.dto.request.EmployeeDtoRequest;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
 import com.example.crmtaskmeneger.entities.Employee;
 import com.example.crmtaskmeneger.entities.Role;
 import com.example.crmtaskmeneger.entities.Task;
 import com.example.crmtaskmeneger.entities.TaskStatus;
-import com.example.crmtaskmeneger.mapping.MappingUser;
 import com.example.crmtaskmeneger.mapping.TaskMapping;
 import com.example.crmtaskmeneger.model.SelectingAnActionWhenCreatingATask;
 import com.example.crmtaskmeneger.service.EmployeeService;
 import com.example.crmtaskmeneger.service.TaskService;
 import com.example.crmtaskmeneger.utils.DataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.proxy.Mixin;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -84,10 +80,9 @@ public class EmployeeController {
         }
         Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
         System.out.println(author);
-        Task task = TaskMapping.mapModelTaskDtoResponseWithAuthToEntity(taskDtoResponse,author);
-        System.out.println("Task: " + task);
 
-        if(userDto.getUserRole().equals(Role.DIRECTOR)){
+
+        if(userDto.getUserRole().equals(Role.DIRECTOR) && taskExecutorDto.getExecutorName() == null){
             if( Objects.nonNull(selectEmployee) && selectEmployee.equals(SelectingAnActionWhenCreatingATask.SELECT_EMPLOYEE)) {
             /*
             Сюда добавить бизнес логику котора будет отдавать список свободных сотрудников
@@ -95,22 +90,24 @@ public class EmployeeController {
                 отображения на странице свободных сотрудников ему нужно их отобразить
                 TODO выполнено
              */
-                if(taskDtoResponse.getStatus() == TaskStatus.NEW.toString()){}
 
                 List<Employee> freeEmployees = employeeService.getFreeEmployee();
                 model.addObject("employee_list", freeEmployees);
                 model.setViewName("fourth_floor/all_free_employee.html");
 //                System.out.println("=======================================================================================");
-            }else  model.setViewName("thirt_floor/area_director.html");
+            }else  {
+                Task task = TaskMapping.mapModelTaskDtoResponseWithAuthToEntity(taskDtoResponse,author);
+                task.setStatus(TaskStatus.NEW);
+                taskService.createTask(task);
+                model.setViewName("thirt_floor/area_director.html");}
 //            System.out.println("=======================================================================================");
         }else {
             /*
             TODO добавить бизнес логику для обычного сотрудника и сохранения в базе данных все изменения связанные с данным сотрудником
                 1) изменения статуса активности сотрудника на свободного или занятого
              */
-
+            Task task = TaskMapping.mapModelTaskDtoResponseWithAuthAndExecToEntity(taskDtoResponse,executor,author);
             taskService.createTask(task);
-
             model.setViewName("thirt_floor/area_employee.html");
         }
 //        System.out.println("=======================================================================================");
