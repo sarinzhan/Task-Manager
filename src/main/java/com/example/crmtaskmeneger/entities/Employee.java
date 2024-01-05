@@ -134,8 +134,9 @@ public class Employee {
         return role;
     }
 
-    public void setRole(Role role) {
+    public Employee setRole(Role role) {
         this.role = role;
+        return this;
     }
 
     public String getLogin() {

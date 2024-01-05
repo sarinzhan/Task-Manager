@@ -15,11 +15,14 @@ import com.example.crmtaskmeneger.service.EmployeeService;
 import com.example.crmtaskmeneger.service.TaskService;
 import com.example.crmtaskmeneger.utils.DataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -61,43 +64,44 @@ public class EmployeeController {
             @ModelAttribute("taskStatus") String status
     ) throws Exception {
         // ============================    присвоение данных из фронта ===============================================
-        taskDtoResponse.setCreatedBy(taskAuthorDto); // Ничего умнее не придумал как отправлять автора отдельно и присваивать тут
+        taskDtoResponse.setCreatedBy(taskAuthorDto);
         taskDtoResponse.setAssignedTo(taskExecutorDto);
         // ============================================================================================================================
 
-        System.out.println("=======================================================================================");
-        System.out.println("Зашли в контролер созданной задачи POST:  com.example.crmtaskmeneger.controller.EmployeeController.newTaskCreate()");
-        System.out.println("Пришел пользователь Активный: " + userDto );
-        System.out.println("Пришел Автор задания : " + taskAuthorDto );
-        System.out.println("Пришла задача : " + taskDtoResponse );
-
-        System.out.println("Вносим задание");
-        System.out.println("Executor: " + taskExecutorDto);
-        System.out.println("Author: " + taskAuthorDto);
-        Employee executor = null;
-        if(taskExecutorDto.getExecutorName() != null){
-            executor = employeeService.getById(taskExecutorDto.getExecutorId());
-        }
-        Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
-        System.out.println(author);
+//
+//        Employee executor = null;
+//        if(taskExecutorDto.getExecutorName() != null){
+//            executor = employeeService.getById(taskExecutorDto.getExecutorId());
+//        }
+//        Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
+//        System.out.println(author);
 
 
-        if(userDto.getUserRole().equals(Role.DIRECTOR) && taskExecutorDto.getExecutorName() == null){
+        if(userDto.getUserRole().equals(Role.DIRECTOR)){
             if( Objects.nonNull(selectEmployee) && selectEmployee.equals(SelectingAnActionWhenCreatingATask.SELECT_EMPLOYEE)) {
-            /*
-            Сюда добавить бизнес логику котора будет отдавать список свободных сотрудников
-                Если директор решит выбрать сотрудника при создании задачи то для
-                отображения на странице свободных сотрудников ему нужно их отобразить
-                TODO выполнено
-             */
 
                 List<Employee> freeEmployees = employeeService.getFreeEmployee();
                 model.addObject("employee_list", freeEmployees);
+                model.addObject("task", taskDtoResponse);
                 model.setViewName("fourth_floor/all_free_employee.html");
 //                System.out.println("=======================================================================================");
-            }else  {
+            }else if( Objects.nonNull(selectEmployee) && selectEmployee.equals(SelectingAnActionWhenCreatingATask.SELECT_FREE_TASK)) {
+                Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
                 Task task = TaskMapping.mapModelTaskDtoResponseWithAuthToEntity(taskDtoResponse,author);
                 task.setStatus(TaskStatus.NEW);
+                taskService.createTask(task);
+                model.setViewName("thirt_floor/area_director.html");
+//                System.out.println("=======================================================================================");
+            }else  {
+                taskDtoResponse.setCreationDate(LocalDate.now().toString());
+                taskDtoResponse.setAssignedDate(LocalDate.now().toString());
+
+                taskDtoResponse.setStatus(TaskStatus.IN_PROGRESS.name());
+
+                Task taskEntity = TaskMapping.mapModelResponseDtoToEntity(taskDtoResponse);
+                Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
+                Employee executor = employeeService.getById(taskExecutorDto.getExecutorId());
+                Task task = TaskMapping.mapModelTaskDtoResponseWithAuthAndExecToEntity(taskDtoResponse,executor,author);
                 taskService.createTask(task);
                 model.setViewName("thirt_floor/area_director.html");}
 //            System.out.println("=======================================================================================");
@@ -106,15 +110,15 @@ public class EmployeeController {
             TODO добавить бизнес логику для обычного сотрудника и сохранения в базе данных все изменения связанные с данным сотрудником
                 1) изменения статуса активности сотрудника на свободного или занятого
              */
+            Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
+            Employee executor = employeeService.getById(taskExecutorDto.getExecutorId());
             Task task = TaskMapping.mapModelTaskDtoResponseWithAuthAndExecToEntity(taskDtoResponse,executor,author);
             taskService.createTask(task);
             model.setViewName("thirt_floor/area_employee.html");
         }
 //        System.out.println("=======================================================================================");
-        model.addObject("task", taskDtoResponse);
+
         model.addObject("user", userDto);
-        model.addObject("taskAuthorDto", taskAuthorDto);
-        model.addObject("taskExecutorDto", taskExecutorDto);
         return model;
     }
 

@@ -3,6 +3,7 @@ package com.example.crmtaskmeneger.mapping;
 import com.example.crmtaskmeneger.dto.TaskAuthorDto;
 import com.example.crmtaskmeneger.dto.TaskDto;
 import com.example.crmtaskmeneger.dto.TaskExecutorDto;
+import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.request.TaskDtoRequest;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
 import com.example.crmtaskmeneger.entities.Employee;
@@ -13,9 +14,36 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TaskMapping {
+
+    public static Task mapModelResponseDtoToEntity(TaskDtoResponse taskDto)  {
+
+        System.out.println("Mapper task to entity " + taskDto);
+        Task taskEntity = new Task();
+        taskEntity.setId(taskDto.getId())
+                .setDescription(taskDto.getDescription())
+                .setCompletionDate(LocalDate.from(LocalDate.parse(taskDto.getCompletionDate().substring(0,10), DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+
+        taskEntity.setCreationDate(LocalDate.parse(taskDto.getCreationDate()).atStartOfDay());
+        taskEntity.setAssignedDate(LocalDate.parse(taskDto.getCreationDate()).atStartOfDay());
+
+        TaskStatus status = null;
+        TaskStatus[] statuses = TaskStatus.values();
+        for (int i = 0; i < statuses.length; i++) {
+            if(taskDto.getStatus().equalsIgnoreCase(statuses[i].name())){
+                status = statuses[i];
+            }
+        }
+        taskEntity.setStatus(status);
+
+        Employee author = MappingUser.mapModelDtoAuthorToEntity(taskDto.getCreatedBy());
+        taskEntity.setCreatedBy(author);
+
+        return taskEntity;
+    }
     public static Task mapModelDtoToEntityRequest(TaskDtoRequest taskDto){
         Task task = new Task();
         task.setDescription(taskDto.getDescription())

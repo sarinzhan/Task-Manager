@@ -8,9 +8,11 @@ import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.entities.Employee;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 public class MappingUser {
 
@@ -140,6 +142,36 @@ public class MappingUser {
                 .setAuthorLogin(entity.getLogin());
 
         return userDto;
+    }
+    public static Employee mapModelDtoAuthorToEntity( TaskAuthorDto dto){
+        Employee entity = new Employee();
+        entity
+                .setEmployeeId(dto.getAuthorId())
+                .setFirstName(dto.getAuthorName())
+                .setMiddleName(dto.getAuthorPatrol())
+                .setLastName(dto.getAuthorSerName())
+                .setEmail(dto.getAuthorEmail())
+                .setHireDate(LocalDate.parse(dto.getAuthorHireDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .setPhoneNum(dto.getAuthorPhone())
+                .setRole(dto.getAuthorRole())
+                .setLogin(dto.getAuthorLogin());
+
+        return entity;
+    }
+    public static Employee mapModelDtoExecuteToEntity(TaskExecutorDto dto){
+        Employee entity = new Employee();
+        entity
+                .setEmployeeId(dto.getExecutorId())
+                .setFirstName(dto.getExecutorName())
+                .setMiddleName(dto.getExecutorPatrol())
+                .setLastName(dto.getExecutorSerName())
+                .setEmail(dto.getExecutorEmail())
+                .setHireDate(LocalDate.parse(dto.getExecutorHireDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .setPhoneNum(dto.getExecutorPhone())
+                .setRole(dto.getExecutorRole())
+                .setLogin(dto.getExecutorLogin());
+
+        return entity;
     }
     public static TaskAuthorDto mapUserDtoToTaskAuthorDTO(UserDto userDto){
         TaskAuthorDto taskAuthorDto = new TaskAuthorDto();
