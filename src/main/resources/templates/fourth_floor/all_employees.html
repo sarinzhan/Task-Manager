@@ -1,0 +1,107 @@
+
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все сотрудники системы</title>
+</head>
+<body>
+
+    <h1> Все сотрудники системы </h1>
+    <form th:action =@{/} method="GET">
+        <input type="hidden" th:value="${user.userId}"       name="userId">
+        <input type="hidden" th:value="${user.userName}"     name="userName">
+        <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+        <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+        <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+        <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+        <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+        <input type="hidden" th:value="${user.userRole}"    name="userRole">
+        <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+        <input type="submit" value="Вернуться в личный кабинет">
+    </form>
+
+   <div th:each="employee : ${employees_list} ">
+       <br>
+       <span> ID:             <span th:text=${employee.employeeId}> Нечего не получили</span>  </span><br>
+       <span> Имя:            <span th:text=${employee.firstName}> Нечего не получили</span>  </span><br>
+       <span> Отчество:       <span th:text=${employee.middleName}> Нечего не получили</span>  </span><br>
+       <span> Фамилия:        <span th:text=${employee.lastName}> Нечего не получили</span>  </span><br>
+       <span> Почта:          <span th:text=${employee.email}> Нечего не получили</span>  </span><br>
+       <span> Дата рождения:  <span th:text=${employee.hireDate}> Нечего не получили</span>  </span><br>
+       <span> Номер телефона: <span th:text=${employee.phoneNum}> Нечего не получили</span>  </span><br>
+       <span> Роль:           <span th:text=${employee.role}> Нечего не получили</span>  </span><br>
+       <span> Логин:          <span th:text=${employee.login}> Нечего не получили</span>  </span><br>
+       <br>
+
+       <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Изменить данные работника">
+       </form>
+
+       <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Назначить работнику задачу">
+       </form>
+
+       <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Уволить сотрудника">
+       </form>
+
+       <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Посмотреть список заданий сотрудника">
+       </form>
+
+
+       <form th:action =@{/} method="GET">
+           <input type="hidden" th:value="${user.userId}"       name="userId">
+           <input type="hidden" th:value="${user.userName}"     name="userName">
+           <input type="hidden" th:value="${user.userPatrol}"   name="userPatrol">
+           <input type="hidden" th:value="${user.userSerName}"  name="userSerName">
+           <input type="hidden" th:value="${user.userEmail}"    name="userEmail">
+           <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+           <input type="hidden" th:value="${user.userPhone}"     name="userPhone">
+           <input type="hidden" th:value="${user.userRole}"    name="userRole">
+           <input type="hidden" th:value="${user.userLogin}"    name="userLogin">
+           <input type="submit" value="Посмотреть активное задание сотрудника">
+       </form>
+
+   </div>
+
+
+</body>
+</html>

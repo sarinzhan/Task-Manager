@@ -1,0 +1,55 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск задач</title>
+</head>
+<body>
+
+<h1> Страница поиска задач </h1>
+<form th:action=@{/search_employee_by_parameter} method="POST">
+    <input type="hidden" th:value="${user.userId}" name="userId">
+    <input type="hidden" th:value="${user.userName}" name="userName">
+    <input type="hidden" th:value="${user.userPatrol}" name="userPatrol">
+    <input type="hidden" th:value="${user.userSerName}" name="userSerName">
+    <input type="hidden" th:value="${user.userEmail}" name="userEmail">
+    <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+    <input type="hidden" th:value="${user.userPhone}" name="userPhone">
+    <input type="hidden" th:value="${user.userRole}" name="userRole">
+    <input type="hidden" th:value="${user.userLogin}" name="userLogin">
+
+    <input type="text" placeholder="Введите id задачи " name="name"> <br>
+    <input type="date"  name="creationDate"> <span>Выберите примерную дату создания задачи </span> <br>
+    <input type="date"  name="assignedDate"> <span>Выберите примерную дату принятия задачи </span> <br>
+    <input type="date" name="completionDate"> <span>Выберите примерную дату завершения задачи </span> <br>
+    <p> Исполнитель </p>
+    <input type="text" placeholder="Введите имя исполнителя " name="executorName">
+    <input type="text" placeholder="Введите фамилия исполнителя " name="executorSerName">
+    <input type="text" placeholder="Введите отчество исполнителя " name="executorPatrol">
+    <input type="text" placeholder="Введите почта исполнителя " name="executorEmail">
+    <input type="date"  name="executorHireDate"> <span>Дата найма исполнителя</span> <br>
+    <input type="text" placeholder="Введите телефон исполнителя " name="executorPhone">
+    <input type="text" placeholder="Введите логин исполнителя " name="executorLogin">
+
+        <h1> Доделать поиск по автору</h1>
+
+
+    <input type="submit" value="Поиск Задачи">
+</form>
+
+<form th:action=@{/go_back_my_area} method="GET">
+    <input type="hidden" th:value="${user.userId}" name="userId">
+    <input type="hidden" th:value="${user.userName}" name="userName">
+    <input type="hidden" th:value="${user.userPatrol}" name="userPatrol">
+    <input type="hidden" th:value="${user.userSerName}" name="userSerName">
+    <input type="hidden" th:value="${user.userEmail}" name="userEmail">
+    <input type="hidden" th:value="${user.userHireDate}" name="userHireDate">
+    <input type="hidden" th:value="${user.userPhone}" name="userPhone">
+    <input type="hidden" th:value="${user.userRole}" name="userRole">
+    <input type="hidden" th:value="${user.userLogin}" name="userLogin">
+    <input type="submit" value="Вернуться в личный кабинет">
+</form>
+
+
+</body>
+</html>
