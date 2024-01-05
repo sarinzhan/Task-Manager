@@ -22,7 +22,7 @@ public class Task {
     @OneToOne
     @JoinColumn(name = "assigned_to", referencedColumnName = "employee_id")
     private Employee assignedTo; // исполнитель
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "create_by", referencedColumnName = "employee_id")
     private Employee createdBy; // Создатель задачи
 

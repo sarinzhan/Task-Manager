@@ -56,7 +56,7 @@
             <br>
 
             <div th:if="${user.userRole == T(com.example.crmtaskmeneger.entities.Role).DIRECTOR}">
-            <select name="action">
+            <select name="action" >
                 <option th:each="action_select_employee : ${T(com.example.crmtaskmeneger.model.SelectingAnActionWhenCreatingATask).values()}"
                         th:value="${action_select_employee}" th:text="${action_select_employee.getDescription()}"></option>
             </select>

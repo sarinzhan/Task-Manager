@@ -9,6 +9,7 @@ import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
 import com.example.crmtaskmeneger.entities.Employee;
 import com.example.crmtaskmeneger.entities.Role;
 import com.example.crmtaskmeneger.entities.Task;
+import com.example.crmtaskmeneger.entities.TaskStatus;
 import com.example.crmtaskmeneger.mapping.MappingUser;
 import com.example.crmtaskmeneger.mapping.TaskMapping;
 import com.example.crmtaskmeneger.model.SelectingAnActionWhenCreatingATask;
@@ -60,8 +61,9 @@ public class EmployeeController {
             @ModelAttribute(name = "employee") EmployeeDtoResponse employeeDto,
             @ModelAttribute(name = "taskAuthorDto") TaskAuthorDto taskAuthorDto,
             @ModelAttribute(name = "taskExecutorDto") TaskExecutorDto taskExecutorDto,
-            @ModelAttribute("task") TaskDtoResponse taskDtoResponse
-            ) throws Exception {
+            @ModelAttribute("task") TaskDtoResponse taskDtoResponse,
+            @ModelAttribute("taskStatus") String status
+    ) throws Exception {
         // ============================    присвоение данных из фронта ===============================================
         taskDtoResponse.setCreatedBy(taskAuthorDto); // Ничего умнее не придумал как отправлять автора отдельно и присваивать тут
         taskDtoResponse.setAssignedTo(taskExecutorDto);
@@ -71,9 +73,9 @@ public class EmployeeController {
         System.out.println("Зашли в контролер созданной задачи POST:  com.example.crmtaskmeneger.controller.EmployeeController.newTaskCreate()");
         System.out.println("Пришел пользователь Активный: " + userDto );
         System.out.println("Пришел Автор задания : " + taskAuthorDto );
-        System.out.println("Пришел задача : " + taskDtoResponse );
+        System.out.println("Пришла задача : " + taskDtoResponse );
 
-        System.out.println("Начинается процесс внесения");
+        System.out.println("Вносим задание");
         System.out.println("Executor: " + taskExecutorDto);
         System.out.println("Author: " + taskAuthorDto);
         Employee executor = null;
@@ -83,8 +85,7 @@ public class EmployeeController {
         Employee author = employeeService.getById(taskAuthorDto.getAuthorId());
         System.out.println(author);
         Task task = TaskMapping.mapModelTaskDtoResponseWithAuthToEntity(taskDtoResponse,author);
-        taskService.createTask(task);
-        System.out.println("\n\n" + task);
+        System.out.println("Task: " + task);
 
         if(userDto.getUserRole().equals(Role.DIRECTOR)){
             if( Objects.nonNull(selectEmployee) && selectEmployee.equals(SelectingAnActionWhenCreatingATask.SELECT_EMPLOYEE)) {
@@ -94,6 +95,7 @@ public class EmployeeController {
                 отображения на странице свободных сотрудников ему нужно их отобразить
                 TODO выполнено
              */
+                if(taskDtoResponse.getStatus() == TaskStatus.NEW.toString()){}
 
                 List<Employee> freeEmployees = employeeService.getFreeEmployee();
                 model.addObject("employee_list", freeEmployees);
@@ -106,6 +108,9 @@ public class EmployeeController {
             TODO добавить бизнес логику для обычного сотрудника и сохранения в базе данных все изменения связанные с данным сотрудником
                 1) изменения статуса активности сотрудника на свободного или занятого
              */
+
+            taskService.createTask(task);
+
             model.setViewName("thirt_floor/area_employee.html");
         }
 //        System.out.println("=======================================================================================");

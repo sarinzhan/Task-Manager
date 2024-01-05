@@ -6,6 +6,7 @@ import com.example.crmtaskmeneger.dto.TaskExecutorDto;
 import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.response.EmployeeDtoResponse;
 import com.example.crmtaskmeneger.dto.response.TaskDtoResponse;
+import com.example.crmtaskmeneger.entities.Task;
 import com.example.crmtaskmeneger.mapping.TaskMapping;
 import com.example.crmtaskmeneger.service.EmployeeService;
 import com.example.crmtaskmeneger.service.TaskService;
@@ -74,12 +75,15 @@ public class TaskController {
 
 
         //List<TaskDtoResponse> tasksList = DataGenerator.generatorListToTaskResponse();
-        List<TaskDto> ListTaskDto = TaskMapping.mapModelListEntityToDto( taskService.getAllAvailTask());
+        List<Task> allAvailTask = taskService.getAllAvailTask();
+        List<TaskDto> ListTaskDto = TaskMapping.mapModelListEntityToDto(allAvailTask );
         // вывод все доступных задач выполнена
         //TODO передалать объект taskDtoResponse в TaskDto в thymeleaf
 
         model.addObject("task_list", ListTaskDto);
-
+        for(TaskDto list : ListTaskDto){
+            System.out.println(list.getId());
+        }
         System.out.println("=======================================================================================");
 
         model.addObject("user", userDto);

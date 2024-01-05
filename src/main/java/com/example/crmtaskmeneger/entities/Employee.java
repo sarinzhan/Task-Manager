@@ -3,6 +3,7 @@ package com.example.crmtaskmeneger.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Table(name = "employee")
 @Entity
@@ -33,8 +34,8 @@ public class Employee {
     private String login;
     @OneToOne(mappedBy = "assignedTo")
     private Task assignedTask;
-    @OneToOne(mappedBy = "createdBy")
-    private Task createdByTask;
+    @OneToMany(mappedBy = "createdBy")
+    private List<Task> createdByTask;
 
     public Employee() {
     }
@@ -48,12 +49,12 @@ public class Employee {
         return this;
     }
 
-    public Task getCreatedByTask() {
+    public List<Task> getCreatedByTask() {
         return createdByTask;
     }
 
-    public Employee setCreatedByTask(Task createdByTasks) {
-        this.createdByTask = createdByTasks;
+    public Employee setCreatedByTask(List<Task> createdByTask) {
+        this.createdByTask = createdByTask;
         return this;
     }
 
