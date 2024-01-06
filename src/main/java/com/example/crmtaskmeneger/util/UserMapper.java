@@ -53,7 +53,7 @@ public  class UserMapper {
                 userDto.getUserRole()
                 );
     }
-    public static  UserEntity mapDtoToEntity(EmployeeDto employeeDto) throws Exception {
+    public static  UserEntity mapDtoToEntity(EmployeeDto employeeDto) {
         return mapDtoToEntity(
                 employeeDto.getEmployeeId(),
                 employeeDto.getEmployeeLogin(),
@@ -65,7 +65,7 @@ public  class UserMapper {
                 employeeDto.getEmployeeRole()
         );
     }
-    public static  UserEntity mapDtoToEntity(AuthorDto authorDto) throws Exception {
+    public static  UserEntity mapDtoToEntity(AuthorDto authorDto)  {
         return mapDtoToEntity(
                 authorDto.getAuthorId(),
                 authorDto.getAuthorLogin(),
@@ -78,7 +78,7 @@ public  class UserMapper {
 
         );
     }
-    public static  UserEntity mapDtoToEntity(ExecutorDto executorDto) throws Exception {
+    public static  UserEntity mapDtoToEntity(ExecutorDto executorDto)  {
         return mapDtoToEntity(
                 executorDto.getExecutorId(),
                 executorDto.getExecutorLogin(),
@@ -102,6 +102,18 @@ public  class UserMapper {
                 .setUserDateOfEmployment(entity.getDateOfEmployment().toString())
                 .setUserRole(entity.getRole());
         return userDto;
+    }
+
+    public static EmployeeDto mapEntityToEmployeeDto(UserEntity entity){
+        EmployeeDto employeeDto = new EmployeeDto()
+                .setEmployeeId(entity.getId())
+                .setEmployeeLogin(entity.getLogin())
+                .setEmployeeName(entity.getName())
+                .setEmployeeSerName(entity.getSerName())
+                .setEmployeePatronymic(entity.getPatronymic())
+                .setEmployeeDateOfEmployment(entity.getDateOfEmployment().toString())
+                .setEmployeeRole(entity.getRole());
+        return employeeDto;
     }
 
     public static AuthorDto mapEntityToAuthorDto(UserEntity entity){
@@ -171,5 +183,9 @@ public  class UserMapper {
     }
     public static List<ExecutorDto> mapEntityListToExecutorDtoList(List<UserEntity> entityList){
         return entityList.stream().map(UserMapper::mapEntityToExecutorDto).collect(Collectors.toList());
+    }
+
+    public static List<EmployeeDto> mapEntityListToEmployeeDtoList(List<UserEntity> entityList){
+        return entityList.stream().map(UserMapper::mapEntityToEmployeeDto).collect(Collectors.toList());
     }
 }

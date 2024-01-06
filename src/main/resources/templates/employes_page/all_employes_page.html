@@ -1,0 +1,117 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все задачи системы</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<h1> Все Сотрудники системы </h1>
+
+<tbody>
+<tr th:if="${employee_list.empty}">
+    <td colspan="2"> В системе нет задач</td>
+</tr>
+<tr th:each="employeeDto : ${employee_list}">
+    <br>
+    <br>
+    <span>Id сотрудника:  <span th:text="${employeeDto.getEmployeeId()}"></span></span> <br>
+    <span>Имя сотрудника:  <span th:text="${employeeDto.employeeName}"></span></span> <br>
+    <span>Фамилия сотрудника: <span th:text="${employeeDto.employeeSerName}"></span></span> <br>
+    <span>Дата трудоустройства:  <span th:text="${employeeDto.employeeDateOfEmployment}"></span></span> <br>
+    <span>Текущая задача: <span
+            th:text="${employeeDto.taskPerformsEmployee != null }? 'Выполняет поставленную задачу': 'Свободен'"></span></span>
+    <br>
+    <br>
+    <br>
+
+    <div>
+
+        <form th:action="@{/}" method="GET">
+            <input type="submit" value="Посмотреть информацию сотрудника подробнее">
+        </form>
+
+        <!--        <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"-->
+        <!--              th:act="@{/}" method="GET">-->
+        <!--            <input type="submit" value="Изменить данные сотрудника">-->
+        <!--        </form>-->
+
+        <!--        <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"-->
+        <!--              th:action="@{/}" method="GET">-->
+        <!--            <input type="submit" value="Уволить сотрудника">-->
+        <!--        </form>-->
+
+        <!--        <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).EMPLOYEE}"-->
+        <!--              th:action="@{/}" method="GET">-->
+        <!--            <input type="submit" value="Принять задачу на выполнение">-->
+        <!--        </form>-->
+
+        <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}">
+            <div th:if="${taskDto != null}">
+                <form th:action="@{/new_task}" method="POST">
+                    <input type="hidden" th:value="${userDto.userId}" name="userId">
+                    <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+                    <input type="hidden" th:value="${userDto.userName}" name="userName">
+                    <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+                    <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+                    <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+                    <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+
+                    <input type="hidden" th:value="${taskDto.taskId}" name="taskId">
+                    <input type="hidden" th:value="${taskDto.taskThem}" name="taskThem">
+                    <input type="hidden" th:value="${taskDto.taskDescription}" name="taskDescription">
+                    <input type="hidden" th:value="${taskDto.taskDataCreate}" name="taskDataCreate">
+                    <input type="hidden" th:value="${taskDto.taskDataCompletion}" name="taskDataCompletion">
+                    <input type="hidden" th:value="${taskDto.taskStartTime}" name="taskStartTime">
+                    <input type="hidden" th:value="${taskDto.taskStatus}" name="taskStatus">
+
+                    <input type="hidden" th:value="${taskDto.taskAuthor.authorId}" name="authorId">
+                    <input type="hidden" th:value="${taskDto.taskAuthor.authorLogin}" name="authorLogin">
+                    <input type="hidden" th:value="${taskDto.taskAuthor.authorName}" name="authorName">
+                    <input type="hidden" th:value="${taskDto.taskAuthor.authorSerName}" name="authorSerName">
+                    <input type="hidden" th:value="${taskDto.taskAuthor.authorPatronymic}" name="authorPatronymic">
+                    <input type="hidden" th:value="${taskDto.taskAuthor.authorDateOfEmployment}" name="authorDateOfEmployment">
+                    <input type="hidden" th:value="${taskDto.taskAuthor.authorRole}" name="authorRole">
+
+
+                    <input type="hidden" th:value="${employeeDto.employeeId}" name="executorId">
+                    <input type="hidden" th:value="${employeeDto.employeeLogin}" name="executorLogin">
+                    <input type="hidden" th:value="${employeeDto.employeeName}" name="executorName">
+                    <input type="hidden" th:value="${employeeDto.employeeSerName}" name="executorSerName">
+                    <input type="hidden" th:value="${employeeDto.employeePatronymic}" name="executorPatronymic">
+                    <input type="hidden" th:value="${employeeDto.employeeDateOfEmployment}" name="executorDateOfEmployment">
+                    <input type="hidden" th:value="${employeeDto.employeeRole}" name="executorRole">
+
+                    <input type="submit" value="Выбрать сотрудника для задачи">
+                </form>
+            </div>
+
+            <div th:if="${taskDto == null}">
+                <form th:action="@{/}" method="GET">
+                    <input type="submit" value="Выбрать для сотрудника задачу">
+                </form>
+            </div>
+        </div>
+
+        <form th:action="@{/personal_area}" method="GET">
+            <input type="hidden" th:value="${userDto.userId}" name="userId">
+            <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+            <input type="hidden" th:value="${userDto.userName}" name="userName">
+            <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+            <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+            <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+            <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+            <input type="submit" value="Вернуться в личный кабинет">
+        </form>
+
+    </div>
+
+</tr>
+</body>
+</html>

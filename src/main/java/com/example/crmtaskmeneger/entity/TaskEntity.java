@@ -31,15 +31,6 @@ public class TaskEntity  extends BaseEntities{
     @JoinColumn(name = "executor_id")
     private UserEntity executor;
 
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public BaseEntities setId(Long id) {
-        return this.setId(id);
-    }
 
     public String getTaskThem() {
         return taskThem;

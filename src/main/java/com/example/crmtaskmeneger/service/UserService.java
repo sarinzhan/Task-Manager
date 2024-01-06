@@ -14,6 +14,8 @@ public interface UserService {
 
     List<UserEntity> getAll();
 
+    List<UserEntity> getAlFreeEmployee();
+
     UserEntity getUserById(Long id) throws Exception;
     UserEntity getUserByExecuteTask(TaskEntity task) throws Exception;
     UserEntity getUserByLogin(String login) throws Exception;

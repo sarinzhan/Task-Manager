@@ -74,4 +74,17 @@ public class ExecutorDto {
         this.executorRole = executorRole;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "ExecutorDto{" +
+                "executorId=" + executorId +
+                ", executorLogin='" + executorLogin + '\'' +
+                ", executorName='" + executorName + '\'' +
+                ", executorSerName='" + executorSerName + '\'' +
+                ", executorPatronymic='" + executorPatronymic + '\'' +
+                ", executorDateOfEmployment='" + executorDateOfEmployment + '\'' +
+                ", executorRole=" + executorRole +
+                '}';
+    }
 }

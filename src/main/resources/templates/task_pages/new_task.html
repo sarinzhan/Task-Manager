@@ -1,0 +1,80 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все задачи системы</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<h1> Страница создания задачи </h1>
+
+
+   <form th:action="@{/new_task}" method="POST">
+       <input type="hidden" th:value="${userDto.userId}" name="userId">
+       <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+       <input type="hidden" th:value="${userDto.userName}" name="userName">
+       <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+       <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+       <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+       <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+
+
+
+
+       <input type="hidden" th:value="${userDto.userId}" name="authorId">
+       <input type="hidden" th:value="${userDto.userLogin}" name="authorLogin">
+       <input type="hidden" th:value="${userDto.userName}" name="authorName">
+       <input type="hidden" th:value="${userDto.userSerName}" name="authorSerName">
+       <input type="hidden" th:value="${userDto.userPatronymic}" name="authorPatronymic">
+       <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="authorDateOfEmployment">
+       <input type="hidden" th:value="${userDto.userRole}" name="authorRole">
+
+
+       <input type="text" placeholder="Коротко назовите суть задания" name="taskThem"> <br>
+       <textarea placeholder="Дайте подробное описание задачи и суть ее выполнения" name="taskDescription"></textarea><br>
+       <input type="hidden" th:value="${T(java.time.LocalDateTime).now()}" name="taskDataCreate">
+       <input type="date" name="taskDataCompletion"> <span>Введите дату до которой нужно выполнить задачу</span><br>
+
+       <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}">
+           <input type="hidden" th:value="${T(com.example.crmtaskmeneger.entity.enumeric.TaskStatus).AWAITING_CONTRACTOR}" name="taskStatus">
+           <select name="action" >
+               <option th:each="action_select_employee : ${T(com.example.crmtaskmeneger.entity.enumeric.SelectingAnActionWhenCreatingATask).values()}"
+                       th:value="${action_select_employee}" th:text="${action_select_employee.getDescription()}"></option>
+           </select>
+       </div>
+
+       <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).EMPLOYEE}">
+           <input type="hidden" th:value="${T(java.time.LocalDate).now()}" name="taskStartTime">
+           <input type="hidden" th:value="${T(com.example.crmtaskmeneger.entity.enumeric.TaskStatus).IN_PROGRESS}" name="taskStatus">
+               <input type="hidden" th:value="${userDto.userId}" name="executorId">
+               <input type="hidden" th:value="${userDto.userLogin}" name="executorLogin">
+               <input type="hidden" th:value="${userDto.userName}" name="executorName">
+               <input type="hidden" th:value="${userDto.userSerName}" name="executorSerName">
+               <input type="hidden" th:value="${userDto.userPatronymic}" name="executorPatronymic">
+               <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="executorDateOfEmployment">
+               <input type="hidden" th:value="${userDto.userRole}" name="executorRole">
+       </div>
+
+        <input type="submit" value="Создать задачу">
+   </form>
+
+<form th:action="@{/new_task}" method="POST">
+    <input type="hidden" th:value="${userDto.userId}" name="userId">
+    <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+    <input type="hidden" th:value="${userDto.userName}" name="userName">
+    <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+    <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+    <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+    <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+    <input type="submit" value="Вернуться в личный кабинет">
+</form>
+
+</tr>
+</body>
+</html>

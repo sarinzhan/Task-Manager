@@ -94,5 +94,18 @@ public class TaskDto {
         return this;
     }
 
-
+    @Override
+    public String toString() {
+        return "TaskDto{" +
+                "taskId=" + taskId +
+                ", taskThem='" + taskThem + '\'' +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", taskDataCreate='" + taskDataCreate + '\'' +
+                ", taskDataCompletion='" + taskDataCompletion + '\'' +
+                ", taskStartTime='" + taskStartTime + '\'' +
+                ", taskStatus=" + taskStatus +
+                ", taskAuthor=" + taskAuthor +
+                ", taskExecutor=" + taskExecutor +
+                '}';
+    }
 }

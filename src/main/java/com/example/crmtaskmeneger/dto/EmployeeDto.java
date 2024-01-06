@@ -83,4 +83,18 @@ public class EmployeeDto {
         this.taskPerformsEmployee = taskPerformsEmployee;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeDto{" +
+                "employeeId=" + employeeId +
+                ", employeeLogin='" + employeeLogin + '\'' +
+                ", employeeName='" + employeeName + '\'' +
+                ", employeeSerName='" + employeeSerName + '\'' +
+                ", employeePatronymic='" + employeePatronymic + '\'' +
+                ", employeeDateOfEmployment='" + employeeDateOfEmployment + '\'' +
+                ", employeeRole=" + employeeRole +
+                ", taskPerformsEmployee=" + taskPerformsEmployee +
+                '}';
+    }
 }

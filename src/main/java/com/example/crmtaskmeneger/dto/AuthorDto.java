@@ -73,4 +73,18 @@ public class AuthorDto {
         this.authorRole = authorRole;
         return this;
     }
+
+
+    @Override
+    public String toString() {
+        return "AuthorDto{" +
+                "authorId=" + authorId +
+                ", authorLogin='" + authorLogin + '\'' +
+                ", authorName='" + authorName + '\'' +
+                ", authorSerName='" + authorSerName + '\'' +
+                ", authorPatronymic='" + authorPatronymic + '\'' +
+                ", authorDateOfEmployment='" + authorDateOfEmployment + '\'' +
+                ", authorRole=" + authorRole +
+                '}';
+    }
 }

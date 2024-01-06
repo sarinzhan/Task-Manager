@@ -41,7 +41,7 @@
         <input type="submit" value="Посмотреть список всех сотрудников">
     </form>
 
-    <form  th:action = @{/} method="GET">
+    <form  th:action = @{/new_task} method="GET">
         <input type="hidden" th:value="${userDto.userId}" name="userId">
         <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
         <input type="hidden" th:value="${userDto.userName}" name="userName">

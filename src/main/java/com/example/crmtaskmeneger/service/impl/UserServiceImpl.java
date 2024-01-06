@@ -35,6 +35,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserEntity> getAlFreeEmployee() {
+        List<UserEntity> entityList = userRepository.findAll();
+        for (int i = 0; i < entityList.size(); i++) {
+            if(entityList.get(i).getExecutedTask() != null || entityList.get(i).getRole().equals(UserRole.DIRECTOR)){
+                entityList.remove(i);
+            }
+        }
+
+        return entityList;
+    }
+
+    @Override
     public UserEntity getUserById(Long id) throws Exception {
         UserEntity entity = userRepository.findById(id).orElse(null);
         if(Objects.isNull(entity)){

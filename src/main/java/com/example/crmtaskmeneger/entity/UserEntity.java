@@ -31,15 +31,6 @@ public class UserEntity extends BaseEntities {
     private TaskEntity executedTask;
 
 
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public BaseEntities setId(Long id) {
-        return this.setId(id);
-    }
 
     public String getLogin() {
         return login;
