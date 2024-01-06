@@ -1,0 +1,19 @@
+
+     @GetMapping(value = )
+    @PostMapping(value = )
+    public ModelAndView (
+            ModelAndView model
+    ){
+        try {
+
+          // your code
+
+
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        model.setViewName();
+        return model;
+    }

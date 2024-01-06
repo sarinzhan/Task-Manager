@@ -1,57 +1,12 @@
-create table if not exists user_app(
-    id bigserial primary key ,
-    login varchar unique not null ,
-    password varchar not null ,
-    name varchar,
-    ser_name varchar,
-    patronymic varchar,
-    date_of_employment date,
-    userRole varchar
-);
 
-create table if not exists task_app(
-    id bigserial primary key ,
-    task_them varchar,
-    description varchar not null ,
-    date_create timestamp with time zone default now(),
-    date_completion date,
-    task_start_tame date,
-    status varchar,
-    author BIGINT references user_app(id),
-    executor BIGINT references user_app(id)
-);
-
-alter table user_app
-add column if not exists executed_task bigint references task_app(id);
-
-insert into user_app(login, password, name, ser_name, patronymic, date_of_employment, userRole)
-values
-    ('director', 'qwerty', 'Директор', 'Директровский', 'Директоровичь', now(), 'DIRECTOR'),
-    ('employee1', 'qwerty', 'Сотрудник_1', 'Сотрудцкий_1', 'Сотрудниковичь_1', now(), 'EMPLOYEE'),
-    ('employee2', 'qwerty', 'Сотрудник_2', 'Сотрудцкий_2', 'Сотрудниковичь_2', now(), 'EMPLOYEE'),
-    ('employee3', 'qwerty', 'Сотрудник_3', 'Сотрудцкий_3', 'Сотрудниковичь_3', now(), 'EMPLOYEE'),
-    ('employee4', 'qwerty', 'Сотрудник_4', 'Сотрудцкий_4', 'Сотрудниковичь_4', now(), 'EMPLOYEE'),
-    ('employee5', 'qwerty', 'Сотрудник_5', 'Сотрудцкий_5', 'Сотрудниковичь_5', now(), 'EMPLOYEE'),
-    ('employee6', 'qwerty', 'Сотрудник_6', 'Сотрудцкий_6', 'Сотрудниковичь_6', now(), 'EMPLOYEE');
-
-insert into task_app(task_them, description, date_completion, status, author)
-values
-        ('Задача № 1 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 1 ', '2024-01-15', 'NEW', 1),
-        ('Задача № 2 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 2 ', '2024-01-15', 'NEW', 2),
-        ('Задача № 3 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 3 ', '2024-01-15', 'NEW', 3),
-        ('Задача № 4 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 4 ', '2024-01-15', 'NEW', 4),
-        ('Задача № 5 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 5 ', '2024-01-15', 'NEW', 5),
-        ('Задача № 6 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 6 ', '2024-01-15', 'NEW', 6),
-        ('Задача № 7 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 7 ', '2024-01-15', 'NEW', 1),
-        ('Задача № 8 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 8 ', '2024-01-15', 'NEW', 2),
-        ('Задача № 9 ', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 9 ', '2024-01-15', 'NEW', 3),
-        ('Задача № 10', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 10', '2024-01-15', 'NEW', 4),
-        ('Задача № 11', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 11', '2024-01-15', 'NEW', 5),
-        ('Задача № 12', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 12', '2024-01-15', 'NEW', 6),
-        ('Задача № 13', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 13', '2024-01-15', 'NEW', 1),
-        ('Задача № 14', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 14', '2024-01-15', 'NEW', 2),
-        ('Задача № 15', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 15', '2024-01-15', 'NEW', 3),
-        ('Задача № 16', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 16', '2024-01-15', 'NEW', 4),
-        ('Задача № 17', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 17', '2024-01-15', 'NEW', 5),
-        ('Задача № 18', 'Нужно выполнить задачу и что то сделать заместо полного описания номер 18', '2024-01-15', 'NEW', 6);
-
+ =========================  Формирование кнопки для тазита данных авторезированного пользователя ==============
+ <form th:action = @{/all_tasks} method="GET">
+        <input type="hidden" th:value="${userDto.userId}" name="userId">
+        <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+        <input type="hidden" th:value="${userDto.userName}" name="userName">
+        <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+        <input type="submit" value="Посмотреть список всех задач">
+    </form>

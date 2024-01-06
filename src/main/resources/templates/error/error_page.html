@@ -1,0 +1,36 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное страничка</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+    <h3 th:text="${message}"></h3>
+
+
+                <form th:action="@{/}" method="Get">
+                    <input type="submit" value="Перезайти в систему">
+                </form>
+
+        <form th:if="${userDto != null && userDto.userId != null }" th:action="@{/personal_space}" method="Get">
+            <input type="hidden" th:value="${userDto.userId}" name="userId">
+            <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+            <input type="hidden" th:value="${userDto.userName}" name="userName">
+            <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+            <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+            <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+            <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+            <input type="submit" value="Вернуться в личный кабинет">
+        </form>
+
+
+</center>
+</body>
+</html>

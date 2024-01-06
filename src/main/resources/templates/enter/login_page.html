@@ -1,0 +1,28 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное страничка</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+
+        <h1> Вход в систему </h1>
+
+    <form th:action="@{/login}" method="POST">
+        <input type="text" placeholder="Введите свой логин" name="login"> <br>
+        <input type="text" placeholder="Введите свой пароль" name="password"><br>
+        <input type="submit" value="Вход в систему">
+    </form>
+
+</center>
+
+</body>
+</html>

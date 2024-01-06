@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserEntity> getAllUsersByRole(UserRole role) throws Exception {
-        List<UserEntity> entityList = userRepository.findByUserRole(role).orElse(null);
+        List<UserEntity> entityList = userRepository.findByRole(role).orElse(null);
         if(Objects.isNull(entityList)){
             throw new Exception("Пользователи с такой ролью не найдены в системе: Проверьте правильность указания роли");
         }

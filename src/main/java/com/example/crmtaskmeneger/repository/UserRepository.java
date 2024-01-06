@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<List<UserEntity>> findBySerName(String serName);
     Optional<List<UserEntity>> findByPatronymic(String patron);
     Optional<List<UserEntity>> findByDateOfEmployment(LocalDate dateEmployment);
-    Optional<List<UserEntity>> findByUserRole(UserRole role);
+    Optional<List<UserEntity>> findByRole(UserRole role);
 
 
 }

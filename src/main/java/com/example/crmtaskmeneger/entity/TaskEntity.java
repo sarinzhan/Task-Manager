@@ -31,29 +31,6 @@ public class TaskEntity  extends BaseEntities{
     @JoinColumn(name = "executor_id")
     private UserEntity executor;
 
-    public TaskEntity() {
-    }
-
-    public TaskEntity(
-            String taskThem,
-            String description,
-            LocalDateTime dateCreate,
-            LocalDate dateCompletion,
-            LocalDate taskStartTime,
-            TaskStatus status,
-            UserEntity author,
-            UserEntity executor
-    ) {
-        this.taskThem = taskThem;
-        this.description = description;
-        this.dateCreate = dateCreate;
-        this.dateCompletion = dateCompletion;
-        this.taskStartTime = taskStartTime;
-        this.status = status;
-        this.author = author;
-        this.executor = executor;
-    }
-
     @Override
     public Long getId() {
         return super.getId();

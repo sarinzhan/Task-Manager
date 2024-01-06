@@ -1,0 +1,24 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все задачи системы</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+    <h1> Страница показывающая все задачи в системе в зависимости от уровня доступа </h1>
+    <div th:if="${taskDto_list == null || taskDto_list.isEmpty()}? 'В системе нет задач'">
+        <div th:each ="task : ${taskDto_list}">
+
+        </div>
+    </div>
+
+
+</body>
+</html>

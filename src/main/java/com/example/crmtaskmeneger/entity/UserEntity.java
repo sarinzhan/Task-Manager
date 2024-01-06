@@ -24,33 +24,12 @@ public class UserEntity extends BaseEntities {
     private LocalDate dateOfEmployment;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
-    private UserRole userRole;
+    private UserRole role;
 
     @OneToOne
     @JoinColumn(name = "executed_task")
     private TaskEntity executedTask;
 
-
-    public UserEntity() {
-    }
-
-    public UserEntity(
-            String login,
-            String password,
-            String name,
-            String serName,
-            String patronymic,
-            LocalDate dateOfEmployment,
-            UserRole userRole
-    ) {
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.serName = serName;
-        this.patronymic = patronymic;
-        this.dateOfEmployment = dateOfEmployment;
-        this.userRole = userRole;
-    }
 
     @Override
     public Long getId() {
@@ -116,17 +95,12 @@ public class UserEntity extends BaseEntities {
         return this;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
     public UserEntity setRole(UserRole userRole) {
-        this.userRole = userRole;
-        return this;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public UserEntity setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+        this.role = userRole;
         return this;
     }
 
@@ -137,5 +111,20 @@ public class UserEntity extends BaseEntities {
     public UserEntity setExecutedTask(TaskEntity executedTask) {
         this.executedTask = executedTask;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", serName='" + serName + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", dateOfEmployment=" + dateOfEmployment +
+                ", role=" + role +
+                ", executedTask=" + executedTask +
+                ", id=" + id +
+                '}';
     }
 }
