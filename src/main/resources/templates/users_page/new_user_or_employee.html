@@ -1,0 +1,58 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное страничка</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+    <h1> Стартовая страничка </h1>
+
+        <div th:if="${userDto == null}">
+            <form th:action="@{/new_user}" method="POST">
+                <input type="text"     placeholder="Введите логин" name="requestLogin"><br>
+                <input type="password" placeholder="Введите пароль" name="requestPassword"><br>
+                <input type="password" placeholder="Подтвердите пароль" name="equalsPassword"><br>
+                <input type="text"     placeholder="Введите имя пользователя " name="requestName"><br>
+                <input type="text"     placeholder="Введите Фамилию пользователя " name="requestSerName"><br>
+                <input type="text"     placeholder="Введите Отчество пользователя" name="requestPatronymic"><br>
+
+                <input type="submit" value="Зарегистрироваться">
+            </form>
+        </div>
+
+    <div th:if="${userDto != null}">
+        <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}">
+        <form th:action="@{/new_employee}" method="POST">
+            <input type="hidden" th:value="${userDto.userId}" name="userId">
+            <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+            <input type="hidden" th:value="${userDto.userName}" name="userName">
+            <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+            <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+            <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+            <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+
+            <input type="text" placeholder="Введите логин" name="requestLogin"><br>
+            <input type="password" placeholder="Введите пароль" name="requestPassword"><br>
+            <input type="password" placeholder="Подтвердите пароль" name="equalsPassword"><br>
+            <input type="text" placeholder="Введите имя пользователя " name="requestName"><br>
+            <input type="text" placeholder="Введите Фамилию пользователя " name="requestSerName"><br>
+            <input type="text" placeholder="Введите Отчество пользователя" name="requestPatronymic"><br>
+            <select name="requestRole" >
+                <option th:each="userRole : ${T(com.example.crmtaskmeneger.entity.enumeric.UserRole).values()}"
+                        th:value="${userRole}" th:text="${userRole.getDescription()}"></option>
+            </select>
+
+            <input type="submit" value="Зарегистрировать нового сотрудника">
+        </form>
+        </div>
+    </div>
+</center>
+</body>
+</html>

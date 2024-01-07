@@ -17,8 +17,8 @@ create table if not exists task_app(
     date_completion date,
     task_start_tame date,
     status varchar,
-    author BIGINT references user_app(id),
-    executor BIGINT references user_app(id)
+    author BIGINT references user_app(id), // ManyToOne
+    executor BIGINT references user_app(id) // ManyToOne
 );
 
 alter table user_app

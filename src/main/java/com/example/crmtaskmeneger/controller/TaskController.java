@@ -101,11 +101,9 @@ public class TaskController {
         TaskEntity taskEntity = TaskMapper.mapTaskDtoToEntity(taskDto);
         UserEntity authorEntity = null;
         UserEntity executorEntity = null;
-//        try {
+        try {
            authorEntity  = userService.getUserById(taskDto.getTaskAuthor().getAuthorId());
            taskEntity.setAuthor(authorEntity);
-
-
                if (Objects.nonNull(taskDto.getTaskExecutor()) && taskDto.getTaskExecutor().getExecutorId() != null) {
                    executorEntity = userService.getUserById(taskDto.getTaskExecutor().getExecutorId());
                    if(taskEntity.getId() != null){
@@ -115,14 +113,12 @@ public class TaskController {
                    taskEntity.setStatus(TaskStatus.IN_PROGRESS);
                    taskEntity.setTaskStartTime(LocalDate.now());
                }
-
-
-//        } catch (Exception e) {
-//            model.addObject("userDto", userDto);
-//            model.addObject("message", e.getMessage());
-//            model.setViewName("error/error_page.html");
-//            return model;
-//        }
+        } catch (Exception e) {
+            model.addObject("userDto", userDto);
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
         model.addObject("userDto", userDto);
 
         if(Objects.nonNull(action)) {

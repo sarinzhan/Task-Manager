@@ -1,9 +1,6 @@
 package com.example.crmtaskmeneger.util;
 
-import com.example.crmtaskmeneger.dto.AuthorDto;
-import com.example.crmtaskmeneger.dto.EmployeeDto;
-import com.example.crmtaskmeneger.dto.ExecutorDto;
-import com.example.crmtaskmeneger.dto.UserDto;
+import com.example.crmtaskmeneger.dto.*;
 import com.example.crmtaskmeneger.entity.TaskEntity;
 import com.example.crmtaskmeneger.entity.UserEntity;
 import com.example.crmtaskmeneger.entity.enumeric.UserRole;
@@ -11,6 +8,7 @@ import com.example.crmtaskmeneger.entity.enumeric.UserRole;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -35,11 +33,24 @@ public  class UserMapper {
                 .setName(name)
                 .setSerName(serName)
                 .setPatronymic(patronymic)
-                .setDateOfEmployment(LocalDate.parse(dateOfEmployment))
+                .setDateOfEmployment(Objects.nonNull(dateOfEmployment)? LocalDate.parse(dateOfEmployment): null)
                 .setRole(userRole);
 
         entity.setId(id);
         return entity;
+    }
+
+    public static  UserEntity mapDtoToEntity(UserDtoRequest userDtoRequest) {
+        return mapDtoToEntity(
+                null,
+                userDtoRequest.getRequestLogin(),
+                userDtoRequest.getRequestPassword(),
+                userDtoRequest.getRequestName(),
+                userDtoRequest.getRequestSerName(),
+                userDtoRequest.getRequestPatronymic(),
+                Objects.nonNull(userDtoRequest.getRequestDateEmployment())?userDtoRequest.getRequestDateEmployment().toString() : null,
+                userDtoRequest.getRequestRole()
+                );
     }
     public static  UserEntity mapDtoToEntity(UserDto userDto) {
         return mapDtoToEntity(
