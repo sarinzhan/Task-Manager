@@ -19,7 +19,9 @@
                     <input type="submit" value="Перезайти в систему">
                 </form>
 
-        <form th:if="${userDto != null && userDto.userId != null }" th:action="@{/personal_space}" method="Get">
+
+        <div th:if="${userDto != null && userDto.userId != null }">
+        <form  th:action="@{/personal_space}" method="Get">
             <input type="hidden" th:value="${userDto.userId}" name="userId">
             <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
             <input type="hidden" th:value="${userDto.userName}" name="userName">
@@ -29,6 +31,7 @@
             <input type="hidden" th:value="${userDto.userRole}" name="userRole">
             <input type="submit" value="Вернуться в личный кабинет">
         </form>
+        </div>
 
 
 </center>

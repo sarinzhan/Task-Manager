@@ -2,6 +2,7 @@ package com.example.crmtaskmeneger.controller;
 
 import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.entity.UserEntity;
+import com.example.crmtaskmeneger.entity.enumeric.UserRole;
 import com.example.crmtaskmeneger.service.AuthService;
 import com.example.crmtaskmeneger.util.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,13 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
+
+    @GetMapping(value = "/")
+    public ModelAndView getMain(ModelAndView model){
+        model.setViewName("main_page.html");
+        return model;
+    }
+
 
     @GetMapping(value = "/login")
     public ModelAndView login(ModelAndView model){
@@ -44,6 +52,30 @@ public class AuthController {
         model.addObject("userDto", userDto);
             model.setViewName("personal_space/personal_space.html");
 
+        return model;
+    }
+
+    @GetMapping(value = "/personal_space")
+    public ModelAndView transitionToPersonalSpace(
+            ModelAndView model,
+            @ModelAttribute(name = "userDto")UserDto userDto
+    ){
+        try {
+
+
+
+
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        model.addObject("userDto", userDto);
+        if(userDto.getUserRole().equals(UserRole.DIRECTOR)){
+            model.setViewName("personal_space/personal_space.html");
+        }else {
+            model.setViewName("personal_space/personal_space.html");
+        }
         return model;
     }
 }

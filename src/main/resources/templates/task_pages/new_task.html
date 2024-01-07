@@ -24,9 +24,6 @@
        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
 
-
-
-
        <input type="hidden" th:value="${userDto.userId}" name="authorId">
        <input type="hidden" th:value="${userDto.userLogin}" name="authorLogin">
        <input type="hidden" th:value="${userDto.userName}" name="authorName">
@@ -64,7 +61,7 @@
         <input type="submit" value="Создать задачу">
    </form>
 
-<form th:action="@{/new_task}" method="POST">
+<form th:action="@{/personal_space}" method="GET">
     <input type="hidden" th:value="${userDto.userId}" name="userId">
     <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
     <input type="hidden" th:value="${userDto.userName}" name="userName">

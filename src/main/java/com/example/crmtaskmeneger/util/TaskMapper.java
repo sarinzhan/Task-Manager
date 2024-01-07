@@ -18,7 +18,7 @@ public class TaskMapper {
         entity.setTaskThem(taskDto.getTaskThem())
                 .setDescription(taskDto.getTaskDescription())
                 .setDateCreate(Objects.nonNull(taskDto.getTaskDataCreate()) && !taskDto.getTaskDataCreate().isEmpty()?
-                        LocalDateTime.parse(taskDto.getTaskDataCreate()) :null)
+                        LocalDateTime.parse(taskDto.getTaskDataCreate()) : null)
                 .setDateCompletion(Objects.nonNull(taskDto.getTaskDataCompletion()) && !taskDto.getTaskDataCompletion().isEmpty()?
                         LocalDate.parse(taskDto.getTaskDataCompletion()) : null)
                 .setTaskStartTime(Objects.nonNull(taskDto.getTaskStartTime()) && !taskDto.getTaskStartTime().isEmpty()?
