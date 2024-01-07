@@ -47,7 +47,7 @@
             <select name="requestRole" >
                 <option th:each="userRole : ${T(com.example.crmtaskmeneger.entity.enumeric.UserRole).values()}"
                         th:value="${userRole}" th:text="${userRole.getDescription()}"></option>
-            </select>
+            </select><br>
 
             <input type="submit" value="Зарегистрировать нового сотрудника">
         </form>
