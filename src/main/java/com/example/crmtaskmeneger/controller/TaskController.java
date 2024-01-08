@@ -157,22 +157,24 @@ public class TaskController {
     @PostMapping("/search_task")
     public ModelAndView searchTaskPost(
             ModelAndView model,
-            @ModelAttribute("userDto") UserDto userDto,
-            @ModelAttribute("taskId") Long taskId,
-            @ModelAttribute("taskThem") String taskThem,
-            @ModelAttribute("executorId") Long executorId,
-            @ModelAttribute("executorName") String executorName,
-            @ModelAttribute("authorId") Long authorId,
-            @ModelAttribute("authorName") String authorName,
-            @ModelAttribute("taskDataCreate") String taskDataCreate,
-            @ModelAttribute("taskStartTime") String taskStartTime,
-            @ModelAttribute("taskDataCompletion") String taskDataCompletion
+            @ModelAttribute(value = "userDto") UserDto userDto,
+            @RequestParam(name = "taskId", required = false) Long taskId,
+            @RequestParam(name = "taskThem", required = false) String taskThem,
+            @RequestParam(name = "executorId", required = false) Long executorId,
+            @RequestParam(name = "executorName", required = false) String executorName,
+            @RequestParam(name = "authorId", required = false) Long authorId,
+            @RequestParam(name = "authorName", required = false) String authorName,
+            @RequestParam(name = "taskDataCreate", required = false) String taskDataCreate,
+            @RequestParam(name = "taskStartTime", required = false) String taskStartTime,
+            @RequestParam(name = "taskDataCompletion", required = false) String taskDataCompletion
     ) {
         model.addObject("userDto", userDto);
 
+        System.out.println(taskId);
+
         boolean error = true;
         if(
-                taskId != null ||
+                        taskId != null ||
                         (taskThem != null && !taskThem.isEmpty() ) ||
                         executorId != null ||
                         (executorName != null && !executorName.isEmpty()) ||
@@ -182,7 +184,7 @@ public class TaskController {
                         (taskStartTime !=null && !taskStartTime.isEmpty()) ||
                         (taskDataCompletion !=null && !taskDataCompletion.isEmpty())
         ){
-            error = true;
+            error = false;
         }
 
         if(error) try {
@@ -265,7 +267,7 @@ public class TaskController {
         }
 
         Set<TaskEntity> removingDuplicates = new HashSet<>(result);
-        result = (List<TaskEntity>) removingDuplicates;
+        result = removingDuplicates.stream().toList();
         List<TaskDto> resultTaskDto = TaskMapper.mapEntityListToTaskDtoList(result);
 
         model.addObject("task_list", resultTaskDto);

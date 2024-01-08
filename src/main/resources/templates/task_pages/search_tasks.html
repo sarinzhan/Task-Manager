@@ -15,7 +15,7 @@
     <h1> Поиск сотрудника </h1>
 
     <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}">
-    <form th:action = "@{/search_employee}" method="POST">
+    <form th:action = "@{/search_task}" method="POST">
         <input type="hidden" th:value="${userDto.userId}" name="userId">
         <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
         <input type="hidden" th:value="${userDto.userName}" name="userName">

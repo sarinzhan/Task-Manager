@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CrmTaskMenegerApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(CrmTaskMenegerApplication.class, args);
     }
-// Commit Alex
 }
