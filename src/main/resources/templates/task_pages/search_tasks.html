@@ -1,0 +1,52 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное страничка</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+    <h1> Поиск сотрудника </h1>
+
+    <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}">
+    <form th:action = "@{/search_employee}" method="POST">
+        <input type="hidden" th:value="${userDto.userId}" name="userId">
+        <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+        <input type="hidden" th:value="${userDto.userName}" name="userName">
+        <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+        <p> Введите данные по которым можно будет найти сотрудника системы</p>
+
+        <input type="text" placeholder="ID задачи" name="taskId"><br>
+        <input type="text" placeholder="Тема задачи" name="taskThem"><br>
+        <input type="text" placeholder="ID исполнителя задачи" name="executorId"><br>
+        <input type="text" placeholder="Имя сотрудника исполняющего задачу" name="executorName"><br>
+        <input type="text" placeholder="ID автора задачи" name="authorId"><br>
+        <input type="text" placeholder="Имя сотрудника автора задачи" name="authorName"><br>
+        <span>Введите дату когда была создана задача</span><br>
+        <input type="date"  name="taskDataCreate"> <br>
+        <span>Введите дату когда была принята задача</span><br>
+        <input type="date"  name="taskStartTime"> <br>
+        <span>Введите дату завершения задачи</span><br>
+        <input type="date"  name="taskDataCompletion"> <br>
+
+        <input type="submit" value="поиск">
+
+    </form>
+    </div>
+    <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).EMPLOYEE}">
+            <h3>Функции данной страницы доступны только директору</h3>
+    </div>
+
+
+</center>
+</body>
+</html>

@@ -5,6 +5,7 @@ import com.example.crmtaskmeneger.entity.UserEntity;
 import com.example.crmtaskmeneger.entity.enumeric.TaskStatus;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TaskService {
@@ -15,9 +16,10 @@ public interface TaskService {
 
     TaskEntity getTaskById(Long id) throws Exception;
 
-    TaskEntity getTaskByTaskThem(String them) throws Exception;
+    List<TaskEntity> getTaskByTaskThem(String them) throws Exception;
     List<TaskEntity> getTaskListByDateCompletion(LocalDate dateCompletion) throws Exception;
     List<TaskEntity> getTaskListByStartedTime(LocalDate dateStartExecutedTask) throws Exception;
+    List<TaskEntity> getTaskListByDataCreate(LocalDateTime dateCreate) throws Exception;
     List<TaskEntity> getTaskListByStatus(TaskStatus taskStatus) throws Exception;
     List<TaskEntity> getTaskListByAuthor(UserEntity entity) throws Exception;
     List<TaskEntity> getTaskListByExecutedUser(UserEntity executor) throws Exception;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,8 +43,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskEntity getTaskByTaskThem(String them) throws Exception {
-        TaskEntity entity = taskRepository.findByTaskThem(them).orElse(null);
+    public List<TaskEntity> getTaskByTaskThem(String them) throws Exception {
+        List<TaskEntity> entity = taskRepository.findByTaskThem(them).orElse(null);
         if(Objects.isNull(entity)){
             throw new Exception("Задача с такой темой не найдена в системе");
         }
@@ -64,6 +65,15 @@ public class TaskServiceImpl implements TaskService {
         List<TaskEntity> entityList = taskRepository.findByTaskStartTime(dateStartExecutedTask).orElse(null);
         if(Objects.isNull(entityList)){
             throw new Exception("По данной дате нет принятых задач");
+        }
+        return entityList;
+    }
+
+    @Override
+    public List<TaskEntity> getTaskListByDataCreate(LocalDateTime dateCreate) throws Exception {
+        List<TaskEntity> entityList = taskRepository.findByDateCreate(dateCreate).orElse(null);
+        if(Objects.isNull(entityList)){
+            throw new Exception("По данной дате нет созданных задач");
         }
         return entityList;
     }

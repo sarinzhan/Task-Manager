@@ -79,7 +79,7 @@
     </form>
 
     <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"
-            th:action = @{/} method="GET">
+            th:action = @{/search_task} method="GET">
         <input type="hidden" th:value="${userDto.userId}" name="userId">
         <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
         <input type="hidden" th:value="${userDto.userName}" name="userName">
