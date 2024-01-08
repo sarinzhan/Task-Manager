@@ -1,0 +1,47 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное страничка</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+    <h1> Поиск сотрудника </h1>
+
+    <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}">
+    <form th:action = "@{/search_employee}" method="POST">
+        <input type="hidden" th:value="${userDto.userId}" name="userId">
+        <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+        <input type="hidden" th:value="${userDto.userName}" name="userName">
+        <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+        <p> Введите данные по которым можно будет найти сотрудника системы</p>
+
+        <input type="text" placeholder="ID сотрудника" name="employeeId"><br>
+        <input type="text" placeholder="Login сотрудника" name="employeeLogin"><br>
+        <input type="text" placeholder="Имя сотрудника" name="employeeName"><br>
+        <input type="text" placeholder="Фамилия сотрудника" name="employeeSerName"><br>
+        <input type="text" placeholder="Отчество сотрудника" name="employeePatronymic"><br>
+        <span>Введите дату когда сотрудник был принят на работу</span><br>
+        <input type="date"  name="employeeDateOfEmployment"> <br>
+
+        <input type="submit" value="поиск">
+
+    </form>
+    </div>
+    <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).EMPLOYEE}">
+            <h3>Функции данной страницы доступны только директору</h3>
+    </div>
+
+
+</center>
+</body>
+</html>

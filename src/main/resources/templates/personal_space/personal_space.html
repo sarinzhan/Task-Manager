@@ -66,7 +66,8 @@
         <input type="submit" value="Зарегистрировать сотрудника">
     </form>
 
-    <form th:action = @{/} method="GET">
+    <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"
+            th:action = @{/search_employee} method="GET">
         <input type="hidden" th:value="${userDto.userId}" name="userId">
         <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
         <input type="hidden" th:value="${userDto.userName}" name="userName">
