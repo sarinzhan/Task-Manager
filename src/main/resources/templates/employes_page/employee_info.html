@@ -1,0 +1,52 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное страничка</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+    <h1> Информация о <span th:text="${employeeDto.employeeRole.getDescription()} + 'е'"></span>  </h1>
+
+    <span> ID номер: <span th:text="${employeeDto.employeeId}"></span></span><br>
+    <span> Login : <span th:text="${employeeDto.employeeLogin}"></span></span><br>
+    <span> Имя Сотрудника: <span th:text="${employeeDto.employeeName}"></span></span><br>
+    <span> Фамилия Сотрудника: <span th:text="${employeeDto.employeeSerName}"></span></span><br>
+    <span> Отчество Сотрудника: <span th:text="${employeeDto.employeePatronymic}"></span></span><br>
+    <span> Дата трудо-устройства: <span th:text="${employeeDto.employeeDateOfEmployment}"></span></span><br>
+
+<!--    <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).EMPLOYEE}">-->
+        <span> Текущая задача: </span><br>
+        <div th:if="${employeeDto.taskPerformsEmployee == null}">
+            <span> На данный момент нет активной задачи </span>
+        </div>
+        <div th:if="${employeeDto.taskPerformsEmployee != null}">
+            <span>ID задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskId}"></span>  </span><br>
+            <span>Тема задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskThem}"></span>  </span><br>
+            <span>Описание задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskDescription}"></span>  </span><br>
+            <span>Дата создания задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskDataCreate}"></span>  </span><br>
+            <span>Дата завершения задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskDataCompletion}"></span>  </span><br>
+            <span>Дата начала выполнения задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskStartTime}"></span>  </span><br>
+            <div > Автор задачи: <br><br>
+            <span>ID Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorId}"></span>  </span><br>
+            <span>Имя Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorName}"></span>  </span><br>
+            <span>Фамилия Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorSerName}"></span>  </span><br>
+            <span>Отчество Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorPatronymic}"></span>  </span><br>
+            <span>Роль Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorRole.getDescription()}"></span>  </span><br>
+            </div>
+        </div>
+<!--    </div>-->
+
+
+
+
+
+</center>
+</body>
+</html>

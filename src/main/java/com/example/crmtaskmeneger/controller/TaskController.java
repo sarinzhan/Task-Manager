@@ -42,16 +42,25 @@ public class TaskController {
     @GetMapping(value = "/all_tasks")
     public ModelAndView getAllTask(
             ModelAndView model,
-            @ModelAttribute(name = "userDto") UserDto userDto
+            @ModelAttribute(name = "userDto") UserDto userDto,
+            @RequestParam(name = "action", required = false) SelectingAnActionWhenCreatingATask action
     ) throws Exception {
 
         List<TaskEntity> taskEntityList = null;
 
-        if (userDto.getUserRole().equals(UserRole.EMPLOYEE)) {
-            taskEntityList = taskService.getTaskListByStatus(TaskStatus.AWAITING_CONTRACTOR);
-        } else if (userDto.getUserRole().equals(UserRole.DIRECTOR)) {
-            taskEntityList = taskService.getAll();
+        if(Objects.nonNull(action)) {
+            if(action.equals(SelectingAnActionWhenCreatingATask.SELECT_FREE_TASK)){
+                taskEntityList = taskService.getAllFreeTasks();
+            }
+        }else {
+
+            if (userDto.getUserRole().equals(UserRole.EMPLOYEE)) {
+                taskEntityList = taskService.getTaskListByStatus(TaskStatus.AWAITING_CONTRACTOR);
+            } else if (userDto.getUserRole().equals(UserRole.DIRECTOR)) {
+                taskEntityList = taskService.getAll();
+            }
         }
+
 
         List<TaskDto> taskDtoList = TaskMapper.mapEntityListToTaskDtoList(taskEntityList);
         model.addObject("userDto", userDto);

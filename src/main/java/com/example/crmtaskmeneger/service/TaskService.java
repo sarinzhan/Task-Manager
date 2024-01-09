@@ -13,6 +13,7 @@ public interface TaskService {
     TaskEntity saveNewTask(TaskEntity task);
 
     List<TaskEntity> getAll();
+    List<TaskEntity> getAllFreeTasks() throws Exception;
 
     TaskEntity getTaskById(Long id) throws Exception;
 

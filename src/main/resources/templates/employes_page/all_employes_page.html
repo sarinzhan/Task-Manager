@@ -33,7 +33,22 @@
 
     <div>
 
-        <form th:action="@{/}" method="GET">
+        <form th:action="@{/epmloyee_info}" method="GET">
+            <input type="hidden" th:value="${userDto.userId}" name="userId">
+            <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+            <input type="hidden" th:value="${userDto.userName}" name="userName">
+            <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+            <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+            <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+            <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+
+            <input type="hidden" th:value="${employeeDto.employeeId}" name="employeeId">
+            <input type="hidden" th:value="${employeeDto.employeeLogin}" name="employeeLogin">
+            <input type="hidden" th:value="${employeeDto.employeeName}" name="employeeName">
+            <input type="hidden" th:value="${employeeDto.employeeSerName}" name="employeeSerName">
+            <input type="hidden" th:value="${employeeDto.employeePatronymic}" name="employeePatronymic">
+            <input type="hidden" th:value="${employeeDto.employeeDateOfEmployment}" name="employeeDateOfEmployment">
+            <input type="hidden" th:value="${employeeDto.employeeRole}" name="employeeRole">
             <input type="submit" value="Посмотреть информацию сотрудника подробнее">
         </form>
 
@@ -93,7 +108,25 @@
             </div>
 
             <div th:if="${taskDto == null}">
-                <form th:action="@{/}" method="GET">
+                <form th:action="@{/all_tasks}" method="GET">
+
+                    <input type="hidden" th:value="${userDto.userId}" name="userId">
+                    <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+                    <input type="hidden" th:value="${userDto.userName}" name="userName">
+                    <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+                    <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+                    <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+                    <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+
+                    <input type="hidden" th:value="${employeeDto.employeeId}" name="employeeId">
+                    <input type="hidden" th:value="${employeeDto.employeeLogin}" name="employeeLogin">
+                    <input type="hidden" th:value="${employeeDto.employeeName}" name="employeeName">
+                    <input type="hidden" th:value="${employeeDto.employeeSerName}" name="employeeSerName">
+                    <input type="hidden" th:value="${employeeDto.employeePatronymic}" name="employeePatronymic">
+                    <input type="hidden" th:value="${employeeDto.employeeDateOfEmployment}" name="employeeDateOfEmployment">
+                    <input type="hidden" th:value="${employeeDto.employeeRole}" name="employeeRole">
+
+                    <input type="hidden" th:value="${T(com.example.crmtaskmeneger.entity.enumeric.SelectingAnActionWhenCreatingATask).SELECT_FREE_TASK}" name="action">
                     <input type="submit" value="Выбрать для сотрудника задачу">
                 </form>
             </div>

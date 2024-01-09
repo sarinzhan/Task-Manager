@@ -34,6 +34,23 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<TaskEntity> getAllFreeTasks() throws Exception {
+        List<TaskEntity> freeTasks = getAll();
+        for (int i = 0; i < freeTasks.size(); i++) {
+            if(Objects.nonNull(freeTasks.get(i).getExecutor()) && !freeTasks.get(i).getStatus().equals(TaskStatus.AWAITING_CONTRACTOR)){
+                freeTasks.remove(i);
+                i--;
+            }
+        }
+
+        if(freeTasks.isEmpty()){
+            throw new Exception("Свободных задач нет в системе");
+        }
+
+        return freeTasks;
+    }
+
+    @Override
     public TaskEntity getTaskById(Long id) throws Exception {
         TaskEntity entity = taskRepository.findById(id).orElse(null);
         if(Objects.isNull(entity)){

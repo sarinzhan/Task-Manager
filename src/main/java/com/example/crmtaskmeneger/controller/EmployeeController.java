@@ -4,8 +4,10 @@ import com.example.crmtaskmeneger.dto.EmployeeDto;
 import com.example.crmtaskmeneger.dto.TaskDto;
 import com.example.crmtaskmeneger.dto.UserDto;
 import com.example.crmtaskmeneger.dto.UserDtoRequest;
+import com.example.crmtaskmeneger.entity.TaskEntity;
 import com.example.crmtaskmeneger.entity.UserEntity;
 import com.example.crmtaskmeneger.entity.enumeric.UserRole;
+import com.example.crmtaskmeneger.service.TaskService;
 import com.example.crmtaskmeneger.service.UserService;
 import com.example.crmtaskmeneger.util.TaskMapper;
 import com.example.crmtaskmeneger.util.UserMapper;
@@ -26,10 +28,12 @@ import java.util.Objects;
 public class EmployeeController {
 
     private final UserService userService;
+    private final TaskService taskService;
 
     @Autowired
-    public EmployeeController(UserService userService) {
+    public EmployeeController(UserService userService, TaskService taskService) {
         this.userService = userService;
+        this.taskService = taskService;
     }
 
     @GetMapping("/all_employees")
@@ -217,6 +221,117 @@ public class EmployeeController {
         model.setViewName("employes_page/all_employes_page.html");
 
 
+        return model;
+    }
+
+    @GetMapping(value = "/view_active_task")
+    public ModelAndView getActivTAsk(
+            ModelAndView model,
+            @ModelAttribute(name = "userDto") UserDto userDto
+    ){
+        UserEntity user = null;
+
+        try {
+            user = userService.getUserById(userDto.getUserId());
+        } catch (Exception e) {
+            model.addObject("userDto", userDto);
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        TaskEntity taskEntity = user.getExecutedTask();
+
+        if(Objects.isNull(taskEntity)){
+            try {
+                throw new Exception("У вас нет активной задачи");
+            } catch (Exception e) {
+                model.addObject("userDto", userDto);
+                model.addObject("message", e.getMessage());
+                model.setViewName("error/error_page.html");
+                return model;
+            }
+        }
+        TaskDto taskDto = TaskMapper.mapEntityToDto(taskEntity);
+        List<TaskDto> taskDtoList = new ArrayList<>();
+        taskDtoList.add(taskDto);
+
+        model.addObject("userDto", userDto);
+        model.addObject("task_list", taskDtoList);
+        model.setViewName("task_pages/all_tasks.html");
+
+        return model;
+    }
+
+
+    @GetMapping(value = "/all_tasks_employee")
+    public ModelAndView getTaskEmployee(
+            ModelAndView model,
+            @ModelAttribute(name = "userDto") UserDto userDto
+    ){
+        UserEntity user = null;
+
+        try {
+            user = userService.getUserById(userDto.getUserId());
+        } catch (Exception e) {
+            model.addObject("userDto", userDto);
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
+        List<TaskEntity> taskExecuted = null;
+        try {
+             taskExecuted = taskService.getTaskListByExecutedUser(user);
+
+            if(Objects.isNull(taskExecuted)){
+                throw new Exception("Вы еще нет задач которые вы выполняли");
+            }
+        } catch (Exception e) {
+            model.addObject("userDto", userDto);
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
+        if(Objects.isNull(taskExecuted)){
+            try {
+                throw new Exception("У вас нет активной задачи");
+            } catch (Exception e) {
+                model.addObject("userDto", userDto);
+                model.addObject("message", e.getMessage());
+                model.setViewName("error/error_page.html");
+                return model;
+            }
+        }
+
+        List<TaskDto> taskDtoList = TaskMapper.mapEntityListToTaskDtoList(taskExecuted);
+
+
+        model.addObject("userDto", userDto);
+        model.addObject("task_list", taskDtoList);
+        model.setViewName("task_pages/all_tasks.html");
+        return model;
+    }
+
+    @GetMapping("/epmloyee_info")
+    public ModelAndView getInfoEmployee(
+            ModelAndView model,
+            @ModelAttribute("userDto") UserDto userDto,
+            @ModelAttribute("employeeDto") EmployeeDto employeeDto
+    ){
+        try {
+            UserEntity entity = userService.getUserById(employeeDto.getEmployeeId());
+            employeeDto = UserMapper.mapEntityToEmployeeDto(entity);
+            employeeDto.setTaskPerformsEmployee(TaskMapper.mapEntityToDto(entity.getExecutedTask()));
+        } catch (Exception e) {
+            model.addObject("userDto", userDto);
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+        }
+        System.out.println(employeeDto);
+        model.addObject("employeeDto", employeeDto);
+        model.addObject("userDto", userDto);
+        model.setViewName("employes_page/employee_info.html");
         return model;
     }
 
