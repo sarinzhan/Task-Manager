@@ -3,6 +3,7 @@ package com.example.crmtaskmeneger.service;
 import com.example.crmtaskmeneger.entity.TaskEntity;
 import com.example.crmtaskmeneger.entity.UserEntity;
 import com.example.crmtaskmeneger.entity.enumeric.TaskStatus;
+import com.sun.istack.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,6 +28,7 @@ public interface TaskService {
     TaskEntity updateTask(TaskEntity taskEntity, UserEntity executor) throws Exception;
     TaskEntity updateTask(TaskEntity taskEntity, TaskStatus status) throws Exception;
     TaskEntity updateTask(TaskEntity taskEntity, LocalDate startTaskExecuted) throws Exception;
+    TaskEntity updateTask(@NotNull Long taskId, String taskThem, String taskDescription, LocalDate taskTimeCompletion, LocalDate taskStartTime, TaskStatus taskStatus, UserEntity taskExecutor) throws Exception;
 
     void deleteTask(Long id) throws Exception;
 

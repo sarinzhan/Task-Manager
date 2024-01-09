@@ -168,6 +168,20 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public TaskEntity updateTask(Long taskId, String taskThem, String taskDescription, LocalDate taskTimeCompletion, LocalDate taskStartTime, TaskStatus taskStatus, UserEntity taskExecutor) throws Exception {
+        TaskEntity taskEntity = taskRepository.findById(taskId).orElse(null);
+        if(Objects.isNull(taskEntity)) throw new Exception("Ошибка при изменении данных задачи");
+        taskEntity.setTaskThem(taskThem);
+        taskEntity.setDescription(taskDescription);
+        taskEntity.setDateCompletion(taskTimeCompletion);
+        taskEntity.setTaskStartTime(taskStartTime);
+        taskEntity.setStatus(taskStatus);
+        taskEntity.setExecutor(taskExecutor);
+        return null;
+    }
+
+
+    @Override
     public void deleteTask(Long id) throws Exception {
         TaskEntity entity = null;
         try {

@@ -393,6 +393,8 @@ public class EmployeeController extends BaseClassController {
         model.addObject("employeeDto", employeeDto);
         model.addObject("userDto", userDto);
         model.setViewName("employes_page/employee_info.html");
+        checkingTheOperationOfTheMethodAndThePassedParameters(
+                "getInfoEmployee", "Проверка транзита информации автора через информацию о сотруднике", userDto, employeeDto );
         return model;
     }
 

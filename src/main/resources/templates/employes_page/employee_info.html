@@ -12,7 +12,7 @@
 <br>
 
 <center>
-    <h1> Информация о <span th:text="${employeeDto.employeeRole.getDescription()} + 'е'"></span>  </h1>
+    <h1> Информация о <span th:text="${employeeDto.employeeRole.getDescription()} + 'е'"></span></h1>
 
     <span> ID номер: <span th:text="${employeeDto.employeeId}"></span></span><br>
     <span> Login : <span th:text="${employeeDto.employeeLogin}"></span></span><br>
@@ -20,73 +20,89 @@
     <span> Фамилия Сотрудника: <span th:text="${employeeDto.employeeSerName}"></span></span><br>
     <span> Отчество Сотрудника: <span th:text="${employeeDto.employeePatronymic}"></span></span><br>
     <span> Дата трудо-устройства: <span th:text="${employeeDto.employeeDateOfEmployment}"></span></span><br>
-
-        <span> Текущая задача: </span><br>
-        <div th:if="${employeeDto.taskPerformsEmployee == null}">
-            <span> На данный момент нет активной задачи </span>
-        </div>
-        <div th:if="${employeeDto.taskPerformsEmployee != null}">
-            <span>ID задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskId}"></span>  </span><br>
-            <span>Тема задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskThem}"></span>  </span><br>
-            <span>Описание задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskDescription}"></span>  </span><br>
-            <span>Дата создания задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskDataCreate}"></span>  </span><br>
-            <span>Дата завершения задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskDataCompletion}"></span>  </span><br>
-            <span>Дата начала выполнения задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskStartTime}"></span>  </span><br>
-            <div > Автор задачи: <br><br>
-            <span>ID Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorId}"></span>  </span><br>
-            <span>Имя Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorName}"></span>  </span><br>
-            <span>Фамилия Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorSerName}"></span>  </span><br>
-            <span>Отчество Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorPatronymic}"></span>  </span><br>
-            <span>Роль Автора: <span th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorRole.getDescription()}"></span>  </span><br>
+    <br>
+    <br>
+    <span> Текущая задача: <span th:if="${employeeDto.taskPerformsEmployee == null}"> На данный момент нет активных задач </span> </span><br>
+    <div th:if="${employeeDto.taskPerformsEmployee == null}">
+        <span> На данный момент нет активной задачи </span>
+    </div>
+    <div th:if="${employeeDto.taskPerformsEmployee != null}">
+        <span>ID задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskId}"></span>  </span><br>
+        <span>Тема задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskThem}"></span>  </span><br>
+        <span>Описание задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskDescription}"></span>  </span><br>
+        <span>Дата создания задачи: <span
+                th:text="${employeeDto.taskPerformsEmployee.taskDataCreate}"></span>  </span><br>
+        <span>Дата завершения задачи: <span
+                th:text="${employeeDto.taskPerformsEmployee.taskDataCompletion}"></span>  </span><br>
+        <span>Дата начала выполнения задачи: <span th:text="${employeeDto.taskPerformsEmployee.taskStartTime}"></span>  </span><br>
+        <br>
+        <div> Автор задачи: <span
+                th:if="${employeeDto.taskPerformsEmployee.taskAuthor == null}"> Автор задачи не найден </span> <br><br>
+            <div th:if="${employeeDto.taskPerformsEmployee.taskAuthor != null}">
+                <span>ID Автора: <span
+                        th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorId}"></span>  </span><br>
+                <span>Имя Автора: <span
+                        th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorName}"></span>  </span><br>
+                <span>Фамилия Автора: <span
+                        th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorSerName}"></span>  </span><br>
+                <span>Отчество Автора: <span
+                        th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorPatronymic}"></span>  </span><br>
+                <span>Роль Автора: <span
+                        th:text="${employeeDto.taskPerformsEmployee.taskAuthor.authorRole.getDescription()}"></span>  </span><br>
             </div>
         </div>
+        <br>
+        <br>
+    </div>
+    <br>
+    <br>
 
-            <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"
-                  th:act="@{/update_employee}" method="GET">
-                <input type="hidden" th:value="${userDto.userId}" name="userId">
-                <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
-                <input type="hidden" th:value="${userDto.userName}" name="userName">
-                <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
-                <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
-                <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
-                <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+    <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"
+          th:act="@{/update_employee}" method="GET">
+        <input type="hidden" th:value="${userDto.userId}" name="userId">
+        <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+        <input type="hidden" th:value="${userDto.userName}" name="userName">
+        <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
 
-                <input type="hidden" th:value="${employeeDto.employeeId}" name="employeeId">
-                <input type="hidden" th:value="${employeeDto.employeeLogin}" name="employeeLogin">
-                <input type="hidden" th:value="${employeeDto.employeeName}" name="employeeName">
-                <input type="hidden" th:value="${employeeDto.employeeSerName}" name="employeeSerName">
-                <input type="hidden" th:value="${employeeDto.employeePatronymic}" name="employeePatronymic">
-                <input type="hidden" th:value="${employeeDto.employeeDateOfEmployment}" name="employeeDateOfEmployment">
-                <input type="hidden" th:value="${employeeDto.employeeRole}" name="employeeRole">
-                <input type="submit" value="Изменить данные сотрудника">
-            </form>
+        <input type="hidden" th:value="${employeeDto.employeeId}" name="employeeId">
+        <input type="hidden" th:value="${employeeDto.employeeLogin}" name="employeeLogin">
+        <input type="hidden" th:value="${employeeDto.employeeName}" name="employeeName">
+        <input type="hidden" th:value="${employeeDto.employeeSerName}" name="employeeSerName">
+        <input type="hidden" th:value="${employeeDto.employeePatronymic}" name="employeePatronymic">
+        <input type="hidden" th:value="${employeeDto.employeeDateOfEmployment}" name="employeeDateOfEmployment">
+        <input type="hidden" th:value="${employeeDto.employeeRole}" name="employeeRole">
+        <input type="submit" value="Изменить данные сотрудника">
+    </form>
 
-            <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"
-                  th:action="@{/fire_an_employee}" method="GET">
-                <input type="hidden" th:value="${userDto.userId}" name="userId">
-                <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
-                <input type="hidden" th:value="${userDto.userName}" name="userName">
-                <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
-                <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
-                <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
-                <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+    <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"
+          th:action="@{/fire_an_employee}" method="GET">
+        <input type="hidden" th:value="${userDto.userId}" name="userId">
+        <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+        <input type="hidden" th:value="${userDto.userName}" name="userName">
+        <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
 
-                <input type="hidden" th:value="${employeeDto.employeeId}" name="employeeId">
-                <input type="hidden" th:value="${employeeDto.employeeLogin}" name="employeeLogin">
-                <input type="hidden" th:value="${employeeDto.employeeName}" name="employeeName">
-                <input type="hidden" th:value="${employeeDto.employeeSerName}" name="employeeSerName">
-                <input type="hidden" th:value="${employeeDto.employeePatronymic}" name="employeePatronymic">
-                <input type="hidden" th:value="${employeeDto.employeeDateOfEmployment}" name="employeeDateOfEmployment">
-                <input type="hidden" th:value="${employeeDto.employeeRole}" name="employeeRole">
-                <input type="submit" value="Уволить сотрудника">
-            </form>
+        <input type="hidden" th:value="${employeeDto.employeeId}" name="employeeId">
+        <input type="hidden" th:value="${employeeDto.employeeLogin}" name="employeeLogin">
+        <input type="hidden" th:value="${employeeDto.employeeName}" name="employeeName">
+        <input type="hidden" th:value="${employeeDto.employeeSerName}" name="employeeSerName">
+        <input type="hidden" th:value="${employeeDto.employeePatronymic}" name="employeePatronymic">
+        <input type="hidden" th:value="${employeeDto.employeeDateOfEmployment}" name="employeeDateOfEmployment">
+        <input type="hidden" th:value="${employeeDto.employeeRole}" name="employeeRole">
+        <input type="submit" value="Уволить сотрудника">
+    </form>
 
-<!--            <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).EMPLOYEE}"-->
-<!--                  th:action="@{/}" method="GET">-->
-<!--                <input type="submit" value="Принять задачу на выполнение">-->
-<!--            </form>-->
+    <!--            <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).EMPLOYEE}"-->
+    <!--                  th:action="@{/}" method="GET">-->
+    <!--                <input type="submit" value="Принять задачу на выполнение">-->
+    <!--            </form>-->
 
-    <form  th:action="@{/personal_space}" method="Get">
+    <form th:action="@{/personal_space}" method="Get">
         <input type="hidden" th:value="${userDto.userId}" name="userId">
         <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
         <input type="hidden" th:value="${userDto.userName}" name="userName">
@@ -96,9 +112,6 @@
         <input type="hidden" th:value="${userDto.userRole}" name="userRole">
         <input type="submit" value="Вернуться в личный кабинет">
     </form>
-
-
-
 
 
 </center>

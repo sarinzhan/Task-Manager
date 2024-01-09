@@ -1,0 +1,64 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменение данных задачи</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+    <h1> Страница изменения данных задачи </h1>
+
+
+    <form th:action="@{/task_update}" method="POST">
+        <input type="hidden" th:value="${userDto.userId}" name="userId">
+        <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+        <input type="hidden" th:value="${userDto.userName}" name="userName">
+        <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+        <input type="hidden" th:value="${taskDto.taskId}" name="taskId">
+
+        <input type="text" placeholder="Введите новую тему" name="taskThem"><br>
+        <input type="text" placeholder="Введите новое Описание" name="taskDescription"><br>
+        <input type="date" name="taskDataCompletion"> <span> Изменение даты завершения задачи </span> <br>
+        <input type="date" name="taskStartTime"> <span> Изменение даты начала выполнения задачи </span><br>
+        <input type="radio" th:value="${T(com.example.crmtaskmeneger.entity.enumeric.TaskStatus).AWAITING_CONTRACTOR}" name="taskStatus">
+        <span> Задать задаче статус "ожидания исполнителя" </span><br>
+        <input type="radio" th:value="${T(com.example.crmtaskmeneger.entity.enumeric.TaskStatus).IN_PROGRESS}" name="taskStatus">
+        <span> Задать задаче статус "В процессе выполнения" </span><br>
+        <input type="radio" th:value="${T(com.example.crmtaskmeneger.entity.enumeric.TaskStatus).COMPLETED}" name="taskStatus">
+        <span>Задать задаче статус "Выполненной"</span><br>
+        <div th:if="${taskDto.taskExecutor != null}">
+        <select name="executor_action" >
+            <option th:each="action_select_employee : ${T(com.example.crmtaskmeneger.entity.enumeric.TaskStatusExecutorUpdate).values()}"
+                    th:value="${action_select_employee}" th:text="${action_select_employee.getDescription()}"></option>
+        </select><br>
+        </div>
+
+        <input type="submit" value="Изменить задачу">
+
+
+    </form>
+
+    <form th:action="@{/personal_space}" method="Get">
+        <input type="hidden" th:value="${userDto.userId}" name="userId">
+        <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+        <input type="hidden" th:value="${userDto.userName}" name="userName">
+        <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+        <input type="submit" value="Вернуться в личный кабинет">
+    </form>
+
+
+</center>
+</body>
+</html>

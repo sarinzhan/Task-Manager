@@ -6,6 +6,7 @@ import com.example.crmtaskmeneger.entity.TaskEntity;
 import com.example.crmtaskmeneger.entity.UserEntity;
 import com.example.crmtaskmeneger.entity.enumeric.SelectingAnActionWhenCreatingATask;
 import com.example.crmtaskmeneger.entity.enumeric.TaskStatus;
+import com.example.crmtaskmeneger.entity.enumeric.TaskStatusExecutorUpdate;
 import com.example.crmtaskmeneger.entity.enumeric.UserRole;
 import com.example.crmtaskmeneger.service.AuthService;
 import com.example.crmtaskmeneger.service.TaskService;
@@ -49,7 +50,7 @@ public class TaskController extends BaseClassController {
 
 
         List<TaskEntity> taskEntityList = null;
-        System.out.println("Зашел во все задачи " + action);
+
 
         if (Objects.nonNull(action)) {
             if (action.equals(SelectingAnActionWhenCreatingATask.SELECT_FREE_TASK)) {
@@ -80,6 +81,7 @@ public class TaskController extends BaseClassController {
         model.addObject("userDto", userDto);
         model.addObject("task_list", taskDtoList);
         model.setViewName("task_pages/all_tasks.html");
+        checkingTheOperationOfTheMethodAndThePassedParameters("getAllTask", "завшел в контроллер и смотрю почему не проходит", userDto, action, taskDtoList);
         return model;
     }
 
@@ -119,7 +121,7 @@ public class TaskController extends BaseClassController {
     public ModelAndView setNewTask(
             ModelAndView model,
             @ModelAttribute(name = "userDto") UserDto userDto,
-            @ModelAttribute(name = "task") TaskDto taskDto,
+            @ModelAttribute(name = "taskDto") TaskDto taskDto,
             @ModelAttribute(name = "authorDto") AuthorDto authorDto,
             @ModelAttribute(name = "executorDto") ExecutorDto executorDto,
             @RequestParam(name = "action", required = false) SelectingAnActionWhenCreatingATask action
@@ -140,8 +142,8 @@ public class TaskController extends BaseClassController {
         UserEntity authorEntity = null;
         UserEntity executorEntity = null;
         try {
-            if(taskDto.getTaskAuthor() != null && taskDto.getTaskAuthor().getAuthorId() != null)
-            authorEntity = userService.getUserById(taskDto.getTaskAuthor().getAuthorId());
+            if (taskDto.getTaskAuthor() != null && taskDto.getTaskAuthor().getAuthorId() != null)
+                authorEntity = userService.getUserById(taskDto.getTaskAuthor().getAuthorId());
             taskEntity.setAuthor(authorEntity);
             if (Objects.nonNull(taskDto.getTaskExecutor()) && taskDto.getTaskExecutor().getExecutorId() != null) {
                 executorEntity = userService.getUserById(taskDto.getTaskExecutor().getExecutorId());
@@ -402,4 +404,169 @@ public class TaskController extends BaseClassController {
         model.setViewName("task_pages/all_tasks.html");
         return model;
     }
+
+    @GetMapping("/task_info")
+    public ModelAndView getTaskInfoPGet(
+            ModelAndView model,
+            @ModelAttribute("userDto") UserDto userDto,
+            @ModelAttribute("taskDto") TaskDto taskDto,
+            @ModelAttribute("authorDto") AuthorDto authorDto,
+            @ModelAttribute("executorDto") ExecutorDto executorDto
+    ) {
+        try {
+            userDto = refreshUser(userDto);
+            taskDto = TaskMapper.mapEntityToDto(taskService.getTaskById(taskDto.getTaskId()));
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
+        checkingTheOperationOfTheMethodAndThePassedParameters("getTaskInfoPGet", "Проверка транзита данных", userDto, taskDto, authorDto, executorDto);
+        model.addObject("userDto", userDto);
+        model.addObject("taskDto", taskDto);
+        model.setViewName("task_pages/task_info.html");
+        return model;
+    }
+
+    @GetMapping(value = "/update_task_status_completed")
+    public ModelAndView updateTaskStatus(
+            ModelAndView model,
+            @ModelAttribute(name = "userDto") UserDto userDto,
+            @ModelAttribute(name = "taskStatus") TaskStatus taskStatus
+    ) {
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        UserEntity userEntity = null;
+        try {
+            userEntity = userService.getUserById(userDto.getUserId());
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
+        TaskEntity taskEntity = userEntity.getExecutedTask();
+        if (Objects.isNull(taskEntity)) {
+            try {
+                throw new Exception("У вас нет активной задачи для ее завершения");
+            } catch (Exception e) {
+                model.addObject("message", e.getMessage());
+                model.setViewName("error/error_page.html");
+                return model;
+            }
+        }
+        userEntity.setExecutedTask(null);
+        userEntity = userService.saveNewUser(userEntity);
+        try {
+            taskEntity = taskService.updateTask(taskEntity, taskStatus);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        userDto = UserMapper.mapEntityToUserDto(userEntity);
+        model.addObject("userDto", userDto);
+        model.setViewName("personal_space/personal_space.html");
+        return model;
+    }
+
+    @GetMapping(value = "/task_update")
+    public ModelAndView getUpdateTask(
+            ModelAndView model,
+            @ModelAttribute(name = "userDto") UserDto userDto,
+            @ModelAttribute(name = "taskDto") TaskDto taskDto
+    ) {
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
+        try {
+            taskDto = TaskMapper.mapEntityToDto(taskService.getTaskById(taskDto.getTaskId()));
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        model.addObject("userDto", userDto);
+        model.addObject("taskDto", taskDto);
+        model.setViewName("task_pages/task_update.html");
+        return model;
+    }
+
+    @PostMapping(value = "/task_update")
+    public ModelAndView postUpdateTask(
+            ModelAndView model,
+            @ModelAttribute(name = "userDto") UserDto userDto,
+            @RequestParam(name = "taskId") Long taskId,
+            @RequestParam(name = "taskThem", required = false) String taskThem,
+            @RequestParam(name = "taskDescription", required = false) String taskDescription,
+            @RequestParam(name = "taskDataCompletion", required = false) String taskDataCompletion,
+            @RequestParam(name = "taskStartTime", required = false) String taskStartTime,
+            @RequestParam(name = "taskStatus", required = false) TaskStatus taskStatus,
+            @RequestParam(name = "executor_action", required = false) TaskStatusExecutorUpdate executorAction
+    ){
+
+        checkingTheOperationOfTheMethodAndThePassedParameters("postUpdateTask", "Проверка входных параметров изменения данных задачи",
+                model, userDto, taskId, taskThem, taskDescription, taskDataCompletion, taskStartTime, taskStatus, executorAction);
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        TaskEntity taskEntity = null;
+        try {
+             taskEntity = taskService.getTaskById(taskId);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        if(Objects.nonNull(taskThem) && !taskThem.isEmpty()){
+            taskEntity.setTaskThem(taskThem);
+        }
+        if(Objects.nonNull(taskDescription) && !taskDescription.isEmpty()){
+            taskEntity.setDescription(taskDescription);
+        }
+        if(Objects.nonNull(taskDataCompletion) && !taskDataCompletion.isEmpty()){
+            taskEntity.setDateCompletion(LocalDate.parse(taskDataCompletion));
+        }
+        if(Objects.nonNull(taskStartTime) && !taskStartTime.isEmpty()){
+            taskEntity.setTaskStartTime(LocalDate.parse(taskStartTime));
+        }
+        if(Objects.nonNull(taskStatus)){
+            taskEntity.setStatus(taskStatus);
+        }
+        if(Objects.nonNull(executorAction) && TaskStatusExecutorUpdate.DELETE_THE_EXECUTOR.equals(executorAction)){
+            if(Objects.nonNull(taskEntity.getExecutor())){
+                UserEntity userExecutorEntity = taskEntity.getExecutor();
+                if(userExecutorEntity.getExecutedTask().equals(taskEntity)){
+                    userExecutorEntity.setExecutedTask(null);
+                    userService.saveNewUser(userExecutorEntity);
+                }
+                taskEntity.setExecutor(null);
+            }
+        }
+
+        taskEntity = taskService.saveNewTask(taskEntity);
+
+            model.addObject("userDto", userDto);
+        model.addObject("message", "Данные задачи №:("+ taskId +" )были изменены");
+        model.setViewName("error/error_page.html");
+        return model;
+    }
+
+
+
 }
