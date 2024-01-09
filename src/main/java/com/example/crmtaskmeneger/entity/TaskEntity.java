@@ -103,10 +103,9 @@ public class TaskEntity  extends BaseEntities{
         this.executor = executor;
         return this;
     }
-
-
     @PrePersist
     public void createDateNow(){
         this.dateCreate = LocalDateTime.now();
     }
+
 }

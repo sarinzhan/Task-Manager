@@ -10,6 +10,7 @@ public class UserDto {
     private String userPatronymic;
     private String userDateOfEmployment;
     private UserRole userRole;
+    private TaskDto userExecutedTask;
     public Long getUserId() {
         return userId;
     }
@@ -73,5 +74,26 @@ public class UserDto {
         return this;
     }
 
+    public TaskDto getUserExecutedTask() {
+        return userExecutedTask;
+    }
 
+    public UserDto setUserExecutedTask(TaskDto userExecutedTask) {
+        this.userExecutedTask = userExecutedTask;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userId=" + userId +
+                ", userLogin='" + userLogin + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userSerName='" + userSerName + '\'' +
+                ", userPatronymic='" + userPatronymic + '\'' +
+                ", userDateOfEmployment='" + userDateOfEmployment + '\'' +
+                ", userRole=" + userRole +
+                ", userExecutedTask=" + userExecutedTask +
+                '}';
+    }
 }

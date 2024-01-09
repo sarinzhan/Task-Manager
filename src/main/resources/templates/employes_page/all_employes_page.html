@@ -52,21 +52,9 @@
             <input type="submit" value="Посмотреть информацию сотрудника подробнее">
         </form>
 
-        <!--        <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"-->
-        <!--              th:act="@{/}" method="GET">-->
-        <!--            <input type="submit" value="Изменить данные сотрудника">-->
-        <!--        </form>-->
 
-        <!--        <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}"-->
-        <!--              th:action="@{/}" method="GET">-->
-        <!--            <input type="submit" value="Уволить сотрудника">-->
-        <!--        </form>-->
 
-        <!--        <form th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).EMPLOYEE}"-->
-        <!--              th:action="@{/}" method="GET">-->
-        <!--            <input type="submit" value="Принять задачу на выполнение">-->
-        <!--        </form>-->
-
+        <div th:if="${taskDto != null}">
         <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}">
             <div th:if="${taskDto != null}">
                 <form th:action="@{/new_task}" method="POST">
@@ -106,6 +94,7 @@
                     <input type="submit" value="Выбрать сотрудника для задачи">
                 </form>
             </div>
+        </div>
 
             <div th:if="${taskDto == null}">
                 <form th:action="@{/all_tasks}" method="GET">

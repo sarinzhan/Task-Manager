@@ -1,0 +1,69 @@
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное страничка</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+    <h1> Страница изменения данных сотрудника чей ID: <span th:text=" ${employeeDto.employeeId}"></span> </h1>
+
+
+
+        <div th:if="${userDto.userRole == T(com.example.crmtaskmeneger.entity.enumeric.UserRole).DIRECTOR}">
+        <form th:action="@{/new_employee}" method="POST">
+            <input type="hidden" th:value="${userDto.userId}" name="userId">
+            <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+            <input type="hidden" th:value="${userDto.userName}" name="userName">
+            <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+            <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+            <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+            <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+
+            <input type="hidden" th:value="${employeeDto.employeeId}" name="employeeId">
+            <input type="hidden" th:value="${employeeDto.employeeLogin}" name="employeeLogin">
+            <input type="hidden" th:value="${employeeDto.employeeName}" name="employeeName">
+            <input type="hidden" th:value="${employeeDto.employeeSerName}" name="employeeSerName">
+            <input type="hidden" th:value="${employeeDto.employeePatronymic}" name="employeePatronymic">
+            <input type="hidden" th:value="${employeeDto.employeeDateOfEmployment}" name="employeeDateOfEmployment">
+            <input type="hidden" th:value="${employeeDto.employeeRole}" name="employeeRole">
+
+            <span> Изменить логин сотрудника <span th:text="${employeeDto.employeeLogin}"></span>  на </span> </span>
+            <input type="text"  name="requestLogin"><br>
+            <span> Изменить пароль сотрудника </span> </span>
+            <input type="password"  name="requestPassword"><br>
+            <span> Изменить Имя сотрудника <span th:text="${employeeDto.employeeName}"></span>  на </span> </span>
+            <input type="text"  name="requestName"><br>
+            <span> Изменить Фамилию сотрудника <span th:text="${employeeDto.employeeSerName}"></span>  на </span> </span>
+            <input type="text"  name="requestSerName"><br>
+            <span> Изменить Отчество сотрудника <span th:text="${employeeDto.employeePatronymic}"></span>  на </span> </span>
+            <input type="text" name="requestPatronymic"><br>
+            <span> Изменить роль сотрудника <span th:text="${employeeDto.employeePatronymic}"></span>  на </span> </span>
+            <select name="requestRole" >
+                <option th:each="userRole : ${T(com.example.crmtaskmeneger.entity.enumeric.UserRole).values()}"
+                        th:value="${userRole}" th:text="${userRole.getDescription()}"></option>
+            </select><br>
+
+            <input type="submit" value="Изменить данные сотрудника">
+        </form>
+        </div>
+
+    <form  th:action="@{/personal_space}" method="GET">
+        <input type="hidden" th:value="${userDto.userId}" name="userId">
+        <input type="hidden" th:value="${userDto.userLogin}" name="userLogin">
+        <input type="hidden" th:value="${userDto.userName}" name="userName">
+        <input type="hidden" th:value="${userDto.userSerName}" name="userSerName">
+        <input type="hidden" th:value="${userDto.userPatronymic}" name="userPatronymic">
+        <input type="hidden" th:value="${userDto.userDateOfEmployment}" name="userDateOfEmployment">
+        <input type="hidden" th:value="${userDto.userRole}" name="userRole">
+        <input type="submit" value="Вернуться в личный кабинет">
+    </form>
+</center>
+</body>
+</html>

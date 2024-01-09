@@ -7,16 +7,14 @@ import com.example.crmtaskmeneger.dto.UserDtoRequest;
 import com.example.crmtaskmeneger.entity.TaskEntity;
 import com.example.crmtaskmeneger.entity.UserEntity;
 import com.example.crmtaskmeneger.entity.enumeric.UserRole;
+import com.example.crmtaskmeneger.service.AuthService;
 import com.example.crmtaskmeneger.service.TaskService;
 import com.example.crmtaskmeneger.service.UserService;
 import com.example.crmtaskmeneger.util.TaskMapper;
 import com.example.crmtaskmeneger.util.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
@@ -25,15 +23,16 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-public class EmployeeController {
+public class EmployeeController extends BaseClassController {
 
-    private final UserService userService;
-    private final TaskService taskService;
 
     @Autowired
-    public EmployeeController(UserService userService, TaskService taskService) {
-        this.userService = userService;
-        this.taskService = taskService;
+    public EmployeeController(
+            UserService userService,
+            TaskService taskService,
+            AuthService authService
+            ) {
+        super(userService,taskService, authService);
     }
 
     @GetMapping("/all_employees")
@@ -41,6 +40,14 @@ public class EmployeeController {
             ModelAndView model,
             @ModelAttribute(name = "userDto") UserDto userDto
     ) {
+
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
 
         List<UserEntity> entityList = userService.getAll();
         List<EmployeeDto> employeeList = UserMapper.mapEntityListToEmployeeDtoList(entityList);
@@ -76,6 +83,13 @@ public class EmployeeController {
             ModelAndView model,
             @ModelAttribute(name = "UserDto") UserDto userDto
     ) {
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
         model.addObject("userDto", userDto);
         model.setViewName("users_page/new_user_or_employee.html");
         return model;
@@ -88,6 +102,13 @@ public class EmployeeController {
             @ModelAttribute(name = "equalsPassword") String equalsPassword,
             @ModelAttribute(name = "UserDto") UserDto userDto
     ) {
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
 
         if (!userDtoRequest.getRequestPassword().equals(equalsPassword)) {
             try {
@@ -112,7 +133,13 @@ public class EmployeeController {
             ModelAndView model,
             @ModelAttribute("userDto") UserDto userDto
     ) {
-
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
 
         model.addObject("userDto", userDto);
         model.setViewName("employes_page/search_employee.html");
@@ -132,6 +159,13 @@ public class EmployeeController {
             @RequestParam(name = "employeeDateOfEmployment", required = false) String employeeDateOfEmployment
 
     ) {
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
 
         boolean error = true;
         if (employeeId != null) error = false;
@@ -229,6 +263,14 @@ public class EmployeeController {
             ModelAndView model,
             @ModelAttribute(name = "userDto") UserDto userDto
     ){
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
         UserEntity user = null;
 
         try {
@@ -268,6 +310,15 @@ public class EmployeeController {
             ModelAndView model,
             @ModelAttribute(name = "userDto") UserDto userDto
     ){
+
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
         UserEntity user = null;
 
         try {
@@ -318,20 +369,79 @@ public class EmployeeController {
             ModelAndView model,
             @ModelAttribute("userDto") UserDto userDto,
             @ModelAttribute("employeeDto") EmployeeDto employeeDto
-    ){
+    )  {
+
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
+
         try {
             UserEntity entity = userService.getUserById(employeeDto.getEmployeeId());
             employeeDto = UserMapper.mapEntityToEmployeeDto(entity);
-            employeeDto.setTaskPerformsEmployee(TaskMapper.mapEntityToDto(entity.getExecutedTask()));
+            employeeDto.setTaskPerformsEmployee(Objects.nonNull(entity.getExecutedTask())?TaskMapper.mapEntityToDto(entity.getExecutedTask()): null);
         } catch (Exception e) {
             model.addObject("userDto", userDto);
             model.addObject("message", e.getMessage());
             model.setViewName("error/error_page.html");
+            return model;
         }
-        System.out.println(employeeDto);
         model.addObject("employeeDto", employeeDto);
         model.addObject("userDto", userDto);
         model.setViewName("employes_page/employee_info.html");
+        return model;
+    }
+
+    @GetMapping("/fire_an_employee")
+    public ModelAndView deleteEmployee(
+            ModelAndView model,
+            @ModelAttribute("userDto") UserDto userDto,
+            @ModelAttribute("employeeDto") EmployeeDto employeeDto
+    )  {
+
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
+
+        model.addObject("userDto", userDto);
+        try {
+            userService.deleteUser(employeeDto.getEmployeeId());
+        } catch (Exception e) {
+
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+        model.setViewName("personal_space/personal_space.html");
+        return model;
+    }
+
+    @GetMapping("/update_employee")
+    public ModelAndView updateEmployeeGet(
+            ModelAndView model,
+            @ModelAttribute("userDto") UserDto userDto,
+            @ModelAttribute("employeeDto") EmployeeDto employeeDto
+    ){
+        try {
+            userDto = refreshUser(userDto);
+        } catch (Exception e) {
+            model.addObject("message", e.getMessage());
+            model.setViewName("error/error_page.html");
+            return model;
+        }
+
+        model.addObject("userDto", userDto);
+        model.addObject("employeeDto", employeeDto);
+        model.setViewName("employes_page/uodate_employee.html");
         return model;
     }
 

@@ -36,7 +36,7 @@ public class TaskMapper {
                 .setTaskDataCompletion(Objects.nonNull(entity.getDateCompletion())?entity.getDateCompletion().toString():null)
                 .setTaskStartTime(Objects.nonNull(entity.getTaskStartTime())?entity.getTaskStartTime().toString(): null)
                 .setTaskStatus(entity.getStatus())
-                .setTaskAuthor(UserMapper.mapEntityToAuthorDto(entity.getAuthor()))
+                .setTaskAuthor(Objects.nonNull(entity.getAuthor())?UserMapper.mapEntityToAuthorDto(entity.getAuthor()): null)
                 .setTaskExecutor(Objects.nonNull(entity.getExecutor())? UserMapper.mapEntityToExecutorDto(entity.getExecutor()):null);
         return taskDto;
     }

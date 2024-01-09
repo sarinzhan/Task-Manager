@@ -3,6 +3,7 @@ package com.example.crmtaskmeneger.service.impl;
 import com.example.crmtaskmeneger.entity.TaskEntity;
 import com.example.crmtaskmeneger.entity.UserEntity;
 import com.example.crmtaskmeneger.entity.enumeric.UserRole;
+import com.example.crmtaskmeneger.repository.TaskRepository;
 import com.example.crmtaskmeneger.repository.UserRepository;
 import com.example.crmtaskmeneger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,14 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final TaskRepository taskRepository;
 
     @Autowired
     public UserServiceImpl(
-            UserRepository userRepository
-    ) {
+            UserRepository userRepository,
+            TaskRepository taskRepository) {
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
     }
 
     @Override
@@ -220,8 +223,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(UserEntity entity) throws Exception {
-
-        userRepository.delete(entity);
-        throw  new Exception("Пользователь удален из системы");
+        List<TaskEntity> taskEntityList = taskRepository.findByAuthor(entity).orElse(null);
+        if(Objects.nonNull(taskEntityList) && !taskEntityList.isEmpty()){
+            for (TaskEntity el : taskEntityList){
+                el.setAuthor(null);
+                taskRepository.save(el);
+            }
+            taskEntityList = null;
+        }
+        taskEntityList = taskRepository.findByExecutor(entity).orElse(null);
+        if(Objects.nonNull(taskEntityList) && !taskEntityList.isEmpty()){
+            for (TaskEntity el : taskEntityList){
+                el.setExecutor(null);
+                taskRepository.save(el);
+            }
+            taskEntityList = null;
+        }
+        entity.setExecutedTask(null);
+        entity = userRepository.save(entity);
+            userRepository.delete(entity);
+        throw  new Exception("Пользователь "+ entity.getName() +" удален из системы");
     }
 }

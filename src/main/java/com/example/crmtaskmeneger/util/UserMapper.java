@@ -111,7 +111,9 @@ public  class UserMapper {
                 .setUserSerName(entity.getSerName())
                 .setUserPatronymic(entity.getPatronymic())
                 .setUserDateOfEmployment(entity.getDateOfEmployment().toString())
-                .setUserRole(entity.getRole());
+                .setUserRole(entity.getRole())
+                .setUserExecutedTask(Objects.nonNull(entity.getExecutedTask())?
+                        TaskMapper.mapEntityToDto(entity.getExecutedTask()): null);
         return userDto;
     }
 
@@ -128,14 +130,17 @@ public  class UserMapper {
     }
 
     public static AuthorDto mapEntityToAuthorDto(UserEntity entity){
-        AuthorDto authorDto = new AuthorDto()
-                .setAuthorId(entity.getId())
-                .setAuthorLogin(entity.getLogin())
-                .setAuthorName(entity.getName())
-                .setAuthorSerName(entity.getSerName())
-                .setAuthorPatronymic(entity.getPatronymic())
-                .setAuthorDateOfEmployment(entity.getDateOfEmployment().toString())
-                .setAuthorRole(entity.getRole());
+        AuthorDto authorDto = null;
+        if(Objects.nonNull(entity)) {
+            authorDto = new AuthorDto()
+                    .setAuthorId(entity.getId())
+                    .setAuthorLogin(entity.getLogin())
+                    .setAuthorName(entity.getName())
+                    .setAuthorSerName(entity.getSerName())
+                    .setAuthorPatronymic(entity.getPatronymic())
+                    .setAuthorDateOfEmployment(entity.getDateOfEmployment().toString())
+                    .setAuthorRole(entity.getRole());
+        }
         return authorDto;
     }
     public static ExecutorDto mapEntityToExecutorDto(UserEntity entity){
